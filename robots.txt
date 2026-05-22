@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /node_modules/
+Disallow: /package-lock.json
+Disallow: /package.json
+Disallow: /readme.md
+Disallow: /translations.json
+
+Sitemap: https://www.piaggiogroup.com.ar/sitemap.xml
