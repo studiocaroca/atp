@@ -449,7 +449,10 @@ h6,
 }
 
 #logo-joaquin2 {
-  width: 50%;
+  width: 55%;
+  display: block;
+  animation: logoPulse 14s ease-in-out infinite;
+  opacity: 1;
 }
 
 .navbar-brand {
@@ -3406,6 +3409,30 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   margin-bottom: 70px;
 }
 
+/* Logo pulse animation */
+@keyframes logoPulse {
+  0% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0.05;
+  }
+  11% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  67% {
+    opacity: 0.05;
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 body,
 html {
   height: 100%;
