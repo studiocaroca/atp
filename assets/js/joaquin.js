@@ -80,7 +80,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 const section = element.getAttribute('data-section');
                 const key = element.getAttribute('data-translate');
                 if (translation[section] && translation[section][key]) {
-                    element.textContent = translation[section][key];
+                    const value = translation[section][key];
+                    if (element.hasAttribute('data-translate-placeholder')) {
+                        element.setAttribute('placeholder', value);
+                    } else if (element.hasAttribute('data-translate-value')) {
+                        element.setAttribute('value', value);
+                    } else {
+                        element.textContent = value;
+                    }
                 }
             });
         }

@@ -79,6 +79,7 @@
     <!-- Page Header -->
     <header id="home" class="header">
         <div class="overlay"></div>
+        <div class="overlay-blob3"></div>
         <div class="header-content text-left">
             <img src="assets/imgs/logo-horizontal-blanco.png" alt="Logo Joaquin" class="logo" id="logo-joaquin2">
             <p data-section="header" data-translate="security"></p>
@@ -376,13 +377,14 @@
         <!-- container -->
         <div class="container flex-column align-items-center justify-content-center">
             <h1 data-section="contact" data-translate="title">CONTACTANOS</h1>
-            <p class="mb-5">Si ten&eacute;s alguna pregunta, o necesitas ayuda, por favor contactanos! <br></p>
+            <p class="mb-5" data-section="contact" data-translate="subtitle">Si ten&eacute;s alguna pregunta, o necesitas ayuda, por favor contactanos!</p>
 
             <!-- Contact form -->
             <form action="send_email.php" method="post" class="contact-form">
                 <div class="form-row">
                     <div class="col form-group">
-                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
+                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required
+                            data-section="contact" data-translate="name" data-translate-placeholder>
                     </div>
                     <div class="col form-group">
                         <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
@@ -390,10 +392,11 @@
                 </div>
                 <div class="form-group">
                     <textarea id="message" name="message" cols="30" rows="5" class="form-control" placeholder="Mensaje"
-                        required></textarea>
+                        required data-section="contact" data-translate="message" data-translate-placeholder></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="submit" name="submit" class="btn btn-primary btn-block" value="Enviar">
+                    <input type="submit" name="submit" class="btn btn-primary btn-block" value="Enviar"
+                        data-section="contact" data-translate="button" data-translate-value>
                 </div>
             </form><!-- End of Contact form -->
 
