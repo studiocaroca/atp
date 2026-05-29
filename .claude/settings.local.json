@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node_modules\\\\.bin\\\\sass assets/scss/styles.scss assets/css/styles.css --no-source-map)",
+      "PowerShell(cd \"c:\\\\Users\\\\karla\\\\Desktop\\\\joaquinmbaamonde\"; \\(Get-Item assets/css/styles.css\\).LastWriteTime)"
+    ]
+  }
+}

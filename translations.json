@@ -4,20 +4,17 @@
             "home": "Home",
             "about": "About",
             "services": "Services",
-            "security": "Security and Hygiene",
-            "contact": "Contact us"
+            "portfolio": "Projects",
+            "contact": "Contact"
         },
         "header": {
-            "security": "Security and Hygiene",
-            "environment": "Environment",
-            "legal": "Legal Advice",
-            "iso": "ISO Standards",
-            "secure": "Insurance",
-            "art": "ART"
+            "security": "Dubbing Director",
+            "environment": "Audio Engineer",
+            "legal": "Music Producer"
         },
         "about": {
-            "title": "About us",
-            "name": "Hello, I'm Nicolás Piaggio",
+            "title": "About",
+            "name": "Hello, I'm Joaquín Baamonde",
             "welcome": "I welcome you and introduce myself.",
             "paragraph1": "With years of experience in Security and Hygiene, I have the capacity and knowledge necessary to advance your business. I combine my expertise to transform your processes and strategies, ensuring compliance with regulatory bodies. I take pride in helping my clients shape and improve their business structure and management, focusing on continuous training and care for their personnel in safety, hygiene, and environment.",
             "paragraph2": "As a Comprehensive Consulting Service, I have formed a team with the best professionals in each area, not only in knowledge and experience, but also in VALUES. Setting ourselves apart, we centralize all fronts of your industry into a single consultancy. This team promptly offers practical solutions tailored to your problems, concerns, or needs. Since 2015, we have supported numerous clients and have the confidence to be the best choice for you."
@@ -34,7 +31,7 @@
             "subtitle": "some of the best organizations"
         },
         "our-services": {
-            "title": "Our services",
+            "title": "Services",
             "paragraph1": "We schedule a free visit to your organization.",
             "paragraph2": "We quickly examine it, identifying potential issues or failures in production, workstations, machinery, or operators. We list activities that could be improved and seek consensus among the three parties (Employer, Employee, and Security and Hygiene).",
             "paragraph3": "Then, together we design strategies using intelligent tools and minimal resources to not impact the organization's economy, ensuring a better quality of life for workers and employers alike. Seeking immediate results.",
@@ -119,7 +116,7 @@
             "button": "Submit my CV"
         },
         "banner": {
-            "title": "What are you waiting for? Join us!"
+            "title": "What are you waiting for?"
         },
         "contact": {
             "title": "Contact us",
@@ -145,22 +142,19 @@
     "es": {
         "menu": {
             "home": "Home",
-            "about": "Acerca de",
+            "about": "Sobre mí",
             "services": "Servicios",
-            "security": "Seguridad e higiene",
-            "contact": "Contactanos"
+            "portfolio": "Proyectos",
+            "contact": "Contacto"
         },
         "header": {
-            "security": "Seguridad e higiene",
-            "environment": "Medioambiente",
-            "legal": "Avisos legales",
-            "iso": "Normas ISO",
-            "secure": "Seguros",
-            "art": "ART"
+            "security": "Director de Doblaje",
+            "environment": "Ingeniero de Audio",
+            "legal": "Productor Musical"
         },
         "about": {
-            "title": "Acerca de",
-            "name": "Hola, soy Nicolás Piaggio",
+            "title": "Sobre",
+            "name": "Hola, soy Joaquín Baamonde",
             "welcome": "Les doy la bienvenida y me presento.",
             "paragraph1": "Con años de experiencia en Seguridad e Higiene, tengo la capacidad y el saber necesarios para hacer avanzar su negocio. Combino mi conocimiento y habilidad para transformar sus procesos y estrategias, y con ello, a su empresa. Me llena de orgullo poder ayudar a mis clientes a dar forma y mejorar la estructura y gestión de sus empresas, logrando cumplir con todo lo exigido por entes reguladores; donde destaque el cuidado e instrucción permanente a su personal en materia de segridad, higiene y medioambiente.",
             "paragraph2": "Como Servicio de Consultoría Integral formé un equipo de trabajo con los mejores en cada área; mejores no sólo en conocimientos y experiencia, sino también en VALORES. Logre distinguirse de los demás, centralizando todos los frentes de su industria en una sola asesoría. Este equipo ofrecerá con prontitud soluciones prácticas y diseñadas a la medida de su problema, inquietud o necesidad. Desde el año 2015 hemos apoyado a numerosos clientes y tenemos la confianza de ser la mejor opción para usted."
@@ -177,7 +171,7 @@
             "subtitle": "algunas de las mejores organizaciones"
         },
         "our-services": {
-            "title": "Nuestros servicios",
+            "title": "Servicios",
             "paragraph1": "Pactamos una visita a su organización sin costo.",
             "paragraph2": "La examinamos en corto tiempo, identificando posibles problemas o fallas en la producción, puestos de trabajo, maquinaria u operarios. Listamos las actividades que se podrían hacer mejor y buscamos un consenso entre las 3 partes (Empleador, empleado y Seguridad e Higiene).",
             "paragraph3": "Después diseñamos en conjunto estrategias utilizando herramientas inteligentes y recursos mínimos para no afectar la economía de la organización, para GARANTIZAR una mejor calidad de vida al trabajador y su empleador. Buscando resultados inmediatos.",
@@ -262,7 +256,7 @@
             "button": "Enviar mi cv"
         },
         "banner": {
-            "title": "¿Qué esperás? ¡Sumate!"
+            "title": "¿Qué esperás?"
         },
         "contact": {
             "title": "Contactanos",
@@ -288,22 +282,19 @@
     "pt": {
         "menu": {
             "home": "Início",
-            "about": "Sobre",
+            "about": "Sobre mim",
             "services": "Serviços",
-            "security": "Higiene y Segurança",
+            "portfolio": "Projetos",
             "contact": "Contato"
         },
         "header": {
-            "security": "Higiene y Segurança",
-            "environment": "Meio Ambiente",
-            "legal": "Consultoria Jurídica",
-            "iso": "Normas ISO",
-            "secure": "Seguros",
-            "art": "ART"
+            "security": "Diretor de Dublagem",
+            "environment": "Engenheiro de Áudio",
+            "legal": "Produtor Musical"
         },
         "about": {
-            "title": "Sobre nos",
-            "name": "Olá, eu sou Nicolás Piaggio",
+            "title": "Sobre",
+            "name": "Olá, eu sou Joaquín Baamonde",
             "welcome": "Dou as boas-vindas e me apresento.",
             "paragraph1": "Com anos de experiência em Segurança e Higiene, tenho a capacidade e o conhecimento necessários para impulsionar o seu negócio. Combino meu conhecimento para transformar seus processos e estratégias, garantindo conformidade com os órgãos reguladores. Tenho orgulho em ajudar meus clientes a moldar e melhorar a estrutura e gestão de seus negócios, com foco na formação contínua e cuidado com seu pessoal em segurança, higiene e meio ambiente.",
             "paragraph2": "Como Serviço de Consultoria Integral, formei uma equipe com os melhores profissionais de cada área, não apenas em conhecimento e experiência, mas também em VALORES. Nos diferenciamos centralizando todos os aspectos da sua indústria em uma única consultoria. Esta equipe oferece soluções práticas e sob medida para seus problemas, preocupações ou necessidades. Desde 2015, temos apoiado numerosos clientes e temos a confiança de ser a melhor escolha para você."
@@ -320,7 +311,7 @@
             "subtitle": "algumas das melhores organizações"
         },
         "our-services": {
-            "title": "Nossos serviços",
+            "title": "Serviços",
             "paragraph1": "Agendamos uma visita gratuita à sua organização.",
             "paragraph2": "Examinamos rapidamente, identificando possíveis problemas ou falhas na produção, postos de trabalho, maquinaria ou operadores. Listamos atividades que podem ser melhoradas e buscamos consenso entre as três partes (Empregador, Empregado e Segurança e Higiene).",
             "paragraph3": "Em seguida, projetamos estratégias usando ferramentas inteligentes e recursos mínimos para não impactar a economia da organização, garantindo uma melhor qualidade de vida para os trabalhadores e empregadores. Buscando resultados imediatos.",
@@ -404,7 +395,7 @@
             "button": "Enviar meu CV"
         },
         "banner": {
-            "title": "O que está esperando? Junte-se a nós!"
+            "title": "O que está esperando?"
         },
         "contact": {
             "title": "Entre em contato",

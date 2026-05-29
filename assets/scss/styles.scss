@@ -4,7 +4,7 @@
 @import "order/mixins";
 @import "order/typography";
 
-@import url("https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;700;800&display=swap");
 
 :root {
   --breakpoint-xs: 0;
@@ -12,7 +12,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Ubuntu", sans-serif;
+  --font-family-sans-serif: "Inter", sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -374,8 +374,11 @@ h6,
 .h5,
 .h6 {
   margin-bottom: 0.5rem;
-  font-weight: 500;
+  font-weight: 100;
   line-height: 1.2;
+  font-family: 'tt-travels-next', sans-serif;
+  color: $white;
+  text-transform: uppercase;
 }
 
 h1,
@@ -409,13 +412,80 @@ h6,
 }
 
 
-#logo-piaggio,
-#logo-piaggio2 {
+#logo-joaquin {
+  height: 32px !important;
+  width: auto !important;
+  max-width: none !important;
+  flex-shrink: 0;
+}
+
+#logo-joaquin2 {
   width: 50%;
 }
 
+.navbar-brand {
+  flex-shrink: 0;
+}
 
-#logo-piaggio-blanco {
+#logo-insignia {
+  height: 32px;
+  width: auto;
+  display: none;
+  flex-shrink: 0;
+}
+
+@media (min-width: 800px) and (max-width: 899px) {
+  #logo-joaquin { display: none; }
+  #logo-insignia { display: inline-block; }
+}
+
+/* Navbar: no overflow */
+nav.page-navbar .container {
+  flex-wrap: nowrap;
+  overflow: visible;
+}
+
+nav.page-navbar .navbar-nav {
+  flex-wrap: nowrap;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+nav.page-navbar .nav-item {
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+/* Reducir espacio entre items del menú a medida que achica */
+@media (min-width: 800px) and (max-width: 879px) {
+  nav.page-navbar .nav-item .nav-link {
+    margin: 0 3px;
+    font-size: 0.62rem;
+    letter-spacing: 0.02em;
+    padding-right: 0.2rem;
+    padding-left: 0.2rem;
+  }
+  .flags { display: none; }
+}
+
+@media (min-width: 880px) and (max-width: 999px) {
+  nav.page-navbar .nav-item .nav-link {
+    margin: 0 6px;
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+  }
+  .flags { display: none; }
+}
+
+@media (min-width: 1000px) and (max-width: 1150px) {
+  nav.page-navbar .nav-item .nav-link {
+    margin: 0 10px;
+    font-size: 0.7rem;
+  }
+}
+
+
+#logo-joaquin-blanco {
   width: 60%;
 }
 
@@ -424,7 +494,7 @@ h6,
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: $secondary;
+  background-color: $primary;
   color: $white;
   border: none;
   border-radius: 50%;
@@ -536,10 +606,10 @@ a>code {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: $gray-500;
-  background-color: $white;
+  color: $white;
+  background-color: rgba(255, 255, 255, 0.07);
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid rgba(121, 72, 236, 0.3);
   border-radius: 0.2rem;
   -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -558,41 +628,41 @@ a>code {
 }
 
 .form-control:focus {
-  color: $gray-500;
-  background-color: $white;
-  border-color: $secondary-light;
+  color: $white;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: $primary;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem $primary-light;
+  box-shadow: 0 0 0 0.2rem rgba(121, 72, 236, 0.3);
 }
 
 .form-control::-webkit-input-placeholder {
-  color: $gray-500;
+  color: rgba(255, 255, 255, 0.4);
   opacity: 1;
 }
 
 .form-control::-moz-placeholder {
-  color: $gray-500;
+  color: rgba(255, 255, 255, 0.4);
   opacity: 1;
 }
 
 .form-control:-ms-input-placeholder {
-  color: $gray-500;
+  color: rgba(255, 255, 255, 0.4);
   opacity: 1;
 }
 
 .form-control::-ms-input-placeholder {
-  color: $gray-500;
+  color: rgba(255, 255, 255, 0.4);
   opacity: 1;
 }
 
 .form-control::placeholder {
-  color: $gray-500;
+  color: rgba(255, 255, 255, 0.4);
   opacity: 1;
 }
 
 .form-control:disabled,
 .form-control[readonly] {
-  background-color: $white;
+  background-color: rgba(255, 255, 255, 0.04);
   opacity: 1;
 }
 
@@ -1933,7 +2003,7 @@ input[type="button"].btn-block {
 
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link:focus {
-  color: rgba(0, 0, 0, 0.7);
+  color: $white;
 }
 
 .navbar-light .navbar-nav .nav-link.disabled {
@@ -2230,9 +2300,9 @@ a.close.disabled {
   flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: $white;
+  background-color: #0a0a0a;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(121, 72, 236, 0.3);
   border-radius: 0.15rem;
   outline: 0;
 }
@@ -2963,17 +3033,21 @@ a.text-dark:focus {
 }
 
 body {
-  font-family: "Ubuntu", sans-serif;
-  color: $gray-500;
-  background: $white;
+  font-family: 'Inter', sans-serif !important;
+  color: $white;
+  background: $black;
   box-sizing: border-box;
+}
+
+* {
+  font-family: 'Inter', sans-serif;
 }
 
 /* typography */
 p, .simil-p {
   font-size: calc(13px + (14 - 13) * ((100vw - 300px) / (1300 - 300)));
-  opacity: .8;
-  color: $gray-500
+  opacity: .85;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .title {
@@ -3019,7 +3093,7 @@ nav.page-navbar {
   padding: 10px 0px 10px 20px;
   -webkit-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
-  background-color: $primary;
+  background-color: #000000;
 }
 
 nav.page-navbar .navbar-brand {
@@ -3034,11 +3108,40 @@ nav.page-navbar .navbar-brand .text-dark {
 
 nav.page-navbar .nav-item .nav-link {
   color: $white;
-  font-weight: 400;
+  font-family: 'tt-travels-next', sans-serif !important;
+  font-weight: 200;
+  position: relative;
+  z-index: 0;
+  padding-bottom: 4px;
+  text-transform: uppercase !important;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  margin: 0 18px;
+
+  &:not(.btn)::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 38%;
+    width: 0;
+    height: 9px;
+    background-color: rgba(121, 72, 236, 0.8);
+    border-radius: 2px;
+    transition: width 0.35s ease;
+    z-index: -1;
+  }
+
+  &:not(.btn):hover::after {
+    width: 70%;
+  }
 }
 
-nav.page-navbar .nav-item .nav-link.active {
-  color: $secondary
+nav.page-navbar .nav-item .nav-link.active:not(.btn) {
+  color: $white;
+
+  &::after {
+    width: 70%;
+  }
 }
 
 nav.page-navbar .nav-item .btn {
@@ -3046,7 +3149,7 @@ nav.page-navbar .nav-item .btn {
   margin-right: 20px;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 799px) {
   nav.page-navbar .navbar-collapse {
     height: 0;
     overflow: hidden;
@@ -3064,13 +3167,14 @@ nav.page-navbar .nav-item .btn {
 nav.page-navbar.affix {
   min-height: 75px;
   padding: 10px 0px 10px 20px;
-  background: $white;
-  box-shadow: 0 2px 24px rgba(173, 181, 189, 0.4);
-  color: $gray-500;
+  background: #000000;
+  box-shadow: 0 2px 24px rgba(121, 72, 236, 0.4);
+  border-bottom: 1px solid rgba(121, 72, 236, 0.3);
+  color: $white;
 }
 
 nav.page-navbar.affix .nav-link {
-  color: $gray-500;
+  color: $white;
 }
 
 nav.page-navbar.affix .navbar-brand {
@@ -3169,14 +3273,15 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 }
 
 .header {
-  background: #efefef url(../imgs/header.jpg);
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  background:
+    radial-gradient(ellipse at 70% 30%, #7948EC 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 80%, #B9A0EF 0%, transparent 45%),
+    #000000;
   text-align: center;
   color: white;
   position: relative;
-  height: 598px;
+  height: 100vh;
+  min-height: 500px;
   position: relative;
 }
 
@@ -3204,7 +3309,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   color: white;
   opacity: 1;
   margin-bottom: 5px;
-  font-size: calc(12px + (16 - 14) * ((100vw - 300px) / (1200 - 300)));
+  font-size: calc(15px + (20 - 15) * ((100vw - 300px) / (1200 - 300)));
   margin-left: 15%;
 }
 
@@ -3241,7 +3346,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   justify-content: center;
   text-align: center;
   padding: 1rem;
-  background: $secondary-light !important;
+  background: #000000 !important;
 }
 
 .logo {
@@ -3258,14 +3363,14 @@ section {
 }
 
 section:nth-child(odd) {
-  background-color: $white;
+  background-color: $black;
 }
 
 
 
 /*Slide*/
 @mixin white-gradient {
-  background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 // Animation
@@ -3282,8 +3387,8 @@ section:nth-child(odd) {
 $animationSpeed: 40s;
 
 .slider {
-  background: white;
-  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125);
+  background: #000000;
+  box-shadow: 0 10px 20px -5px rgba(121, 72, 236, 0.2);
   height: 155px;
   margin: auto;
   overflow: hidden;
@@ -3326,7 +3431,7 @@ $animationSpeed: 40s;
 
 #seguridadehigiene,
 #ourservices {
-  background: $primary;
+  background: #000000;
 }
 
 #ourservices .services-wrapper:hover {
@@ -3490,8 +3595,9 @@ section.height-auto {
 }
 
 .about-wrapper .content {
-  background-color: $white;
-  box-shadow: 0 3px 80px rgba(173, 181, 189, 0.3), 0 0 10px rgba(173, 181, 189, 0.3) !important;
+  background-color: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 3px 80px rgba(121, 72, 236, 0.2), 0 0 10px rgba(121, 72, 236, 0.15) !important;
+  border: 1px solid rgba(121, 72, 236, 0.2);
   border-radius: 0.2rem;
   padding: 35px;
   position: relative;
@@ -3502,8 +3608,8 @@ section.height-auto {
   top: 10%;
   left: -60px;
   background: $primary;
-  box-shadow: 0 3px 80px rgba(173, 181, 189, 0.3), 0 0 10px rgba(173, 181, 189, 0.3) !important;
-  width: 200px;
+  box-shadow: 0 3px 80px rgba(121, 72, 236, 0.4), 0 0 10px rgba(121, 72, 236, 0.2) !important;
+  width: 62px;
   height: 80%;
   color: $white;
   border-radius: 0.2rem;
@@ -3540,7 +3646,7 @@ section.height-auto {
   left: -30px;
   width: 100px;
   height: 80%;
-  box-shadow: 0 3px 80px rgba(173, 181, 189, 0.3), 0 0 10px rgba(173, 181, 189, 0.3) !important;
+  box-shadow: 0 3px 80px rgba(121, 72, 236, 0.3), 0 0 10px rgba(121, 72, 236, 0.2) !important;
   border-radius: 0.2rem;
   background: $primary;
 }
@@ -3554,7 +3660,7 @@ section.height-auto {
   position: relative;
   width: 90%;
   border-radius: 0.2rem;
-  box-shadow: 0 3px 80px rgba(173, 181, 189, 0.5), 0 0 10px rgba(173, 181, 189, 0.7) !important;
+  box-shadow: 0 3px 80px rgba(121, 72, 236, 0.4), 0 0 10px rgba(121, 72, 236, 0.3) !important;
 }
 
 @media (max-width: 767.98px) {
@@ -3575,8 +3681,9 @@ section.height-auto {
 }
 
 .services-wrapper {
-  background: $white;
-  box-shadow: 0 2px 5px 0 rgba(173, 181, 189, 0.4) !important;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(121, 72, 236, 0.2);
+  box-shadow: 0 2px 5px 0 rgba(121, 72, 236, 0.3) !important;
   border-radius: 0.2rem;
   padding: 0 20px 20px;
   margin-bottom: 60px;
@@ -3593,7 +3700,7 @@ section.height-auto {
   -webkit-transform: translateY(-45px);
   -ms-transform: translateY(-45px);
   transform: translateY(-45px);
-  background: white;
+  background: #000000;
   padding: 5px;
   padding-top: 15px;
 }
@@ -3602,12 +3709,113 @@ section.height-auto {
   margin-top: -40px;
 }
 
-#workwithus {
-  padding-left: 40%;
-  padding-top: 140px;
-  background-image: url(../imgs/bg-img-5.jpg);
-  background-size: cover;
-  height: 500px;
+/* Projects Section */
+#portfolio {
+  padding: 80px 0 100px;
+  background: #000000;
+}
+
+.projects-wrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+%section-title-style {
+  font-family: 'tt-travels-next', sans-serif !important;
+  font-weight: 200 !important;
+  font-size: clamp(1.4rem, 3vw, 3.25rem) !important;
+  color: $white !important;
+  letter-spacing: 0.05em !important;
+  text-align: center;
+  text-transform: uppercase !important;
+}
+
+.projects-title,
+h1[data-section="choose"][data-translate="title"],
+h3[data-section="our-services"][data-translate="title"],
+h1[data-section="banner"][data-translate="title"],
+h1[data-section="contact"][data-translate="title"] {
+  @extend %section-title-style;
+}
+
+.projects-title {
+  font-family: 'tt-travels-next', sans-serif !important;
+  font-weight: 200 !important;
+  font-size: clamp(1.4rem, 3vw, 3.25rem);
+  color: $white;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 260px 260px;
+  gap: 8px;
+}
+
+.project-card {
+  position: relative;
+  overflow: visible;
+  cursor: pointer;
+  background: #141414;
+  z-index: 1;
+  transition: transform 0.35s ease, z-index 0s;
+
+  .project-img {
+    width: 100%;
+    height: 100%;
+    background-color: #222222;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+    transition: filter 0.4s ease;
+    overflow: hidden;
+  }
+
+  .project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 18px 20px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+
+    span {
+      color: $white;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.18);
+    z-index: 10;
+    transition: transform 0.35s ease, z-index 0s 0s;
+
+    .project-img {
+      filter: grayscale(0%);
+    }
+
+    .project-overlay {
+      opacity: 1;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 220px);
+  }
 }
 
 #contact .container {
@@ -3642,11 +3850,11 @@ section.height-auto {
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  background-color: #0a0a0a;
   margin: 15% auto;
   /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid rgba(121, 72, 236, 0.3);
   width: 80%;
   /* Could be more or less, depending on screen size */
 }
@@ -3672,7 +3880,7 @@ section.height-auto {
 }
 
 #footer {
-  background-color: $primary;
+  background-color: #000000;
 
   p,
   a,
@@ -3779,7 +3987,7 @@ section.height-auto {
   .navbar-brand {
     width: 30%;
 
-    img {
+    img:not(#logo-joaquin):not(#logo-insignia) {
       width: 50% !important;
     }
   }
@@ -3788,7 +3996,7 @@ section.height-auto {
     width: 70%;
   }
 
-  #logo-piaggio {
+  #logo-joaquin {
     width: 100%;
   }
 
@@ -3839,7 +4047,7 @@ section.height-auto {
   }
 
   #seguridadehigiene {
-    background-color: $primary;
+    background-color: #000000;
     background-image: none !important;
 
     .container {
@@ -3848,7 +4056,7 @@ section.height-auto {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 799px) {
 
   .navbar-expand-md>.container,
   .navbar-expand-md>.container-fluid {
@@ -3861,7 +4069,22 @@ section.height-auto {
   }
 }
 
-@media (min-width: 900px) {
+/* Tablet medio: menú 50% ancho, alineado a la derecha */
+@media (min-width: 500px) and (max-width: 799px) {
+  nav.page-navbar .navbar-collapse.show {
+    width: 50%;
+    margin-left: auto;
+  }
+}
+
+/* Mobile chico: menú 100% ancho */
+@media (max-width: 499px) {
+  nav.page-navbar .navbar-collapse.show {
+    width: 100%;
+  }
+}
+
+@media (min-width: 800px) {
   .navbar-expand-md {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -3952,12 +4175,12 @@ section.height-auto {
   .navbar-brand {
     padding-right: 0px;
 
-    img {
+    img:not(#logo-joaquin):not(#logo-insignia) {
       width: 100% !important;
     }
   }
 
-  #logo-piaggio {
+  #logo-joaquin {
     width: 100%;
   }
 
@@ -3995,9 +4218,6 @@ section.height-auto {
     }
   }
 
-  .header {
-    background-image: url(../imgs/header-mb.jpg);
-  }
 
   .header .header-content {
     margin-top: 0px;
@@ -4017,7 +4237,7 @@ section.height-auto {
     padding: 50px 0;
   }
 
-  #logo-piaggio {
+  #logo-joaquin {
     width: 100%;
   }
 
@@ -4046,7 +4266,7 @@ section.height-auto {
     padding-right: 0px;
   }
 
-  #logo-piaggio {
+  #logo-joaquin {
     width: 100%;
   }
 

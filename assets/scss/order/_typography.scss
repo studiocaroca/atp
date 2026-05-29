@@ -1,9 +1,9 @@
 /* typography */
 p {
 	font-size: calc(13px + (14 - 13) * ((100vw - 300px) / (1300 - 300)));
-	opacity: .8;
-	color: #444;
-} 
+	opacity: .85;
+	color: rgba(255, 255, 255, 0.85);
+}
 
 .title {
 	font-size: calc(15px + (20 - 15) * ((100vw - 300px) / (1300 - 300)));

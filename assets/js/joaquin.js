@@ -95,7 +95,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const translations = await response.json();
 
             // Set default language
-            const defaultLanguage = flagsContainer.querySelector('.flags__item').getAttribute('data-language');
+            // const defaultLanguage = flagsContainer.querySelector('.flags__item').getAttribute('data-language');
+            const defaultLanguage = 'en';
             updateTranslations(translations, defaultLanguage);
 
             // Add click event listener to flags container for delegation
