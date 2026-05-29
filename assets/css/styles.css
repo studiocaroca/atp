@@ -3363,10 +3363,22 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 
 .header .header-content p {
   color: white;
-  opacity: 1;
   margin-bottom: 5px;
   font-size: calc(15px + 5 * (100vw - 300px) / 900);
   margin-left: 15%;
+  animation: logoPulse 14s ease-in-out infinite;
+}
+
+.header .header-content p[data-translate=security] {
+  animation-delay: -3.5s;
+}
+
+.header .header-content p[data-translate=environment] {
+  animation-delay: -7s;
+}
+
+.header .header-content p[data-translate=legal] {
+  animation-delay: -10.5s;
 }
 
 .header .header-content h6 {
@@ -3651,7 +3663,7 @@ section.height-auto {
 }
 
 .about-wrapper .content {
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: rgba(0, 0, 0, 0.88);
   box-shadow: 0 3px 80px rgba(121, 72, 236, 0.2), 0 0 10px rgba(121, 72, 236, 0.15) !important;
   border: 1px solid rgba(121, 72, 236, 0.2);
   border-radius: 0.2rem;
@@ -3916,7 +3928,10 @@ h1[data-section=contact][data-translate=title] {
 }
 
 #about {
-  background-size: cover;
+  background-image: url(../imgs/trama.png);
+  background-repeat: space;
+  background-size: 180px;
+  background-color: #000000;
 }
 
 #footer {
