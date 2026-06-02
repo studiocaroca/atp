@@ -35,16 +35,30 @@ $(document).ready(function(){
 
 //modal
 document.addEventListener('DOMContentLoaded', function () {
+    function openModal(modal) {
+        modal.style.display = 'block';
+        var iframe = modal.querySelector('iframe[data-src]');
+        if (iframe) {
+            iframe.setAttribute('src', iframe.getAttribute('data-src'));
+        }
+    }
+
+    function closeModal(modal) {
+        modal.style.display = 'none';
+        var iframe = modal.querySelector('iframe[data-src]');
+        if (iframe) {
+            iframe.setAttribute('src', '');
+        }
+    }
+
     // Get all links that open modals
     var links = document.querySelectorAll('.openModalLink');
     links.forEach(function (link) {
         link.addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent the default link behavior
+            event.preventDefault();
             var modalId = this.getAttribute('data-modal');
             var modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'block';
-            }
+            if (modal) openModal(modal);
         });
     });
 
@@ -54,16 +68,14 @@ document.addEventListener('DOMContentLoaded', function () {
         span.addEventListener('click', function () {
             var modalId = this.getAttribute('data-modal');
             var modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'none';
-            }
+            if (modal) closeModal(modal);
         });
     });
 
     // Close the modal if user clicks outside of it
     window.onclick = function (event) {
         if (event.target.classList.contains('modal')) {
-            event.target.style.display = 'none';
+            closeModal(event.target);
         }
     };
 });
