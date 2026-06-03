@@ -122,8 +122,8 @@
             "title": "What are you waiting for?"
         },
         "contact": {
-            "title": "Contact us",
-            "subtitle": "If you have any questions or need help, please contact us!",
+            "title": "Contact me",
+            "subtitle": "If you have any questions or need help, feel free to reach out!",
             "name": "Name",
             "email": "Email",
             "message": "Message",
@@ -137,9 +137,9 @@
             "about": "About",
             "services": "Services",
             "security": "Security and Hygiene",
-            "contact": "Contact us",
+            "contact": "Contact me",
             "title-info": "Contact information",
-            "subtitle-info": "Contact us and we'll respond within 24 hours"
+            "subtitle-info": "Reach out and I'll respond within 24 hours"
         }
     },
     "es": {
@@ -265,8 +265,8 @@
             "title": "¿Qué estás esperando?"
         },
         "contact": {
-            "title": "Contactanos",
-            "subtitle": "Si tenés alguna pregunta, o necesitas ayuda, ¡por favor contactanos!",
+            "title": "Contáctame",
+            "subtitle": "Si tenés alguna pregunta o necesitás ayuda, ¡escribime!",
             "name": "Nombre",
             "email": "Email",
             "message": "Mensaje",
@@ -280,9 +280,9 @@
             "about": "Acerca de",
             "services": "Servicios",
             "security": "Seguridad e higiene",
-            "contact": "Contactanos",
+            "contact": "Contáctame",
             "title-info": "Información de contacto",
-            "subtitle-info": "Contactanos y te contestaremos dentro de las 24hs"
+            "subtitle-info": "Escribime y te respondo dentro de las 24hs"
         }
     },
     "pt": {
@@ -407,8 +407,8 @@
             "title": "O que está esperando?"
         },
         "contact": {
-            "title": "Entre em contato",
-            "subtitle": "Se você tiver alguma dúvida ou precisar de ajuda, entre em contato conosco!",
+            "title": "Fale comigo",
+            "subtitle": "Se você tiver alguma dúvida ou precisar de ajuda, me escreva!",
             "name": "Nome",
             "email": "E-mail",
             "message": "Mensagem",
@@ -422,7 +422,7 @@
             "about": "Sobre",
             "services": "Serviços",
             "security": "Segurança e Higiene",
-            "contact": "Entre em contato",
+            "contact": "Fale comigo",
             "title-info": "Informações de contato",
             "subtitle-info": "Entre em contato conosco e responderemos dentro de 24 horas"
         }

@@ -3352,6 +3352,8 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   .auricular-bg {
     object-position: center center;
     filter: brightness(0.6);
+    -webkit-mask-position: center 7%, center 30%, center 53%, center 76%;
+    mask-position: center 7%, center 30%, center 53%, center 76%;
   }
 }
 
@@ -3922,6 +3924,7 @@ section.height-auto {
 @media (max-width: 767px) {
   #about h5.title {
     white-space: normal;
+    font-size: 1.4rem;
   }
 }
 
@@ -4507,6 +4510,16 @@ h1[data-section=contact][data-translate=title] {
   width: 70%;
   max-width: 900px;
   margin: 8% auto;
+}
+
+@media (max-width: 767px) {
+  .modal-content--video {
+    width: 95%;
+    margin: 4% auto;
+  }
+  .modal-content--video h3 {
+    font-size: 1.1rem;
+  }
 }
 
 .video-wrapper {
