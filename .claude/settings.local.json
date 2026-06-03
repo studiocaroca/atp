@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(node_modules\\\\.bin\\\\sass assets/scss/styles.scss assets/css/styles.css --no-source-map)",
-      "PowerShell(cd \"c:\\\\Users\\\\karla\\\\Desktop\\\\joaquinmbaamonde\"; \\(Get-Item assets/css/styles.css\\).LastWriteTime)"
+      "PowerShell(cd \"c:\\\\Users\\\\karla\\\\Desktop\\\\joaquinmbaamonde\"; \\(Get-Item assets/css/styles.css\\).LastWriteTime)",
+      "Bash(ffprobe -v quiet -print_format json -show_format \"c:/Users/karla/Desktop/joaquinmbaamonde/assets/imgs/auriculares.mp4\")",
+      "Bash(ffmpeg -i \"c:/Users/karla/Desktop/joaquinmbaamonde/assets/imgs/auriculares.mp4\" -vf \"blackdetect=d=0.01:pix_th=0.15\" -an -f null -)"
     ]
   }
 }

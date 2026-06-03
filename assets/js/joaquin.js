@@ -12,6 +12,14 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */ 
 
+// Video background — half speed native playback
+document.addEventListener('DOMContentLoaded', function () {
+    var video = document.querySelector('.auricular-bg');
+    if (video) {
+        video.playbackRate = 0.5;
+    }
+});
+
 // smooth scroll
 $(document).ready(function(){
     $(".navbar .nav-link").on('click', function(event) {
@@ -83,7 +91,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //translation
 document.addEventListener('DOMContentLoaded', function () {
-    const flagsContainer = document.getElementById('flags');
+    const langCurrent = document.getElementById('lang-current');
+    const langDropdown = document.getElementById('lang-dropdown');
 
     function updateTranslations(translations, language) {
         const translation = translations[language];
@@ -113,19 +122,36 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             const translations = await response.json();
 
-            // Set default language
-            // const defaultLanguage = flagsContainer.querySelector('.flags__item').getAttribute('data-language');
-            const defaultLanguage = 'en';
-            updateTranslations(translations, defaultLanguage);
+            const allLanguages = ['en', 'es', 'pt'];
+            let currentLanguage = 'en';
 
-            // Add click event listener to flags container for delegation
-            flagsContainer.addEventListener('click', function (event) {
-                // Check if the clicked element or its parent has the 'flags__item' class
-                const flagsItem = event.target.closest('.flags__item');
-                if (flagsItem) {
-                    const selectedLanguage = flagsItem.getAttribute('data-language');
-                    updateTranslations(translations, selectedLanguage);
+            function setLanguage(lang) {
+                currentLanguage = lang;
+                updateTranslations(translations, lang);
+                langCurrent.textContent = lang.toUpperCase();
+                langDropdown.innerHTML = allLanguages
+                    .filter(l => l !== lang)
+                    .map(l => `<div class="lang-selector__option" data-language="${l}">${l.toUpperCase()}</div>`)
+                    .join('');
+            }
+
+            setLanguage('en');
+
+            langCurrent.addEventListener('click', function (e) {
+                e.stopPropagation();
+                langDropdown.classList.toggle('open');
+            });
+
+            langDropdown.addEventListener('click', function (e) {
+                const option = e.target.closest('.lang-selector__option');
+                if (option) {
+                    setLanguage(option.getAttribute('data-language'));
+                    langDropdown.classList.remove('open');
                 }
+            });
+
+            document.addEventListener('click', function () {
+                langDropdown.classList.remove('open');
             });
 
         } catch (error) {

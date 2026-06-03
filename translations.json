@@ -26,6 +26,9 @@
             "title2": "Facing issues with enabling your business?",
             "paragraph2": "Let us guide you. Any organization can move forward with small incremental changes, but building your future in today's rapidly evolving environment requires bold and well-informed decisions."
         },
+        "portfolio": {
+            "title": "Projects"
+        },
         "choose": {
             "title": "Selected Brands & Networks",
             "subtitle": "Professional Collaborations"
@@ -166,6 +169,9 @@
             "title2": "¿No le quieren habilitar su comercio?",
             "paragraph2": "Permítanos asesorarle. Cualquier organización puede avanzar con pequeños cambios progresivos, pero construir su futuro en un entorno tan cambiante como el actual exige tomar decisiones audaces y bien informadas."
         },
+        "portfolio": {
+            "title": "Proyectos"
+        },
         "choose": {
             "title": "Marcas y Redes Seleccionadas",
             "subtitle": "Colaboraciones Profesionales"
@@ -256,7 +262,7 @@
             "button": "Enviar mi cv"
         },
         "banner": {
-            "title": "¿Qué esperás?"
+            "title": "¿Qué estás esperando?"
         },
         "contact": {
             "title": "Contactanos",
@@ -305,6 +311,9 @@
             "paragraph1": "Precisa de um serviço de Segurança e Higiene para o seu negócio, mas não sabe a quem recorrer? Precisa de ajuda com planos de evacuação ou execução do seu próximo projeto de construção? Enfrentando problemas com SRT, ART e inspetores que solicitam coisas irrazoáveis?",
             "title2": "Enfrentando problemas para habilitar seu negócio?",
             "paragraph2": "Deixe-nos orientá-lo. Qualquer organização pode avançar com pequenas mudanças incrementais, mas construir seu futuro em um ambiente tão dinâmico quanto o atual exige decisões audaciosas e bem informadas."
+        },
+        "portfolio": {
+            "title": "Projetos"
         },
         "choose": {
             "title": "Marcas e Redes Selecionadas",

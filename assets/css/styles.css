@@ -451,7 +451,6 @@ h6,
 #logo-joaquin2 {
   width: 35%;
   display: block;
-  animation: logoPulse 14s ease-in-out infinite;
   opacity: 1;
 }
 
@@ -500,7 +499,7 @@ nav.page-navbar .nav-item {
     padding-right: 0.2rem;
     padding-left: 0.2rem;
   }
-  .flags {
+  .lang-selector {
     display: none;
   }
 }
@@ -510,7 +509,7 @@ nav.page-navbar .nav-item {
     font-size: 0.68rem;
     letter-spacing: 0.03em;
   }
-  .flags {
+  .lang-selector {
     display: none;
   }
 }
@@ -3308,45 +3307,44 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   overflow: hidden;
 }
 
-.header .overlay {
+.auricular-bg {
   position: absolute;
-  inset: 0;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   z-index: 0;
-}
-.header .overlay::before {
-  content: "";
-  position: absolute;
-  width: 65%;
-  height: 85%;
-  top: -25%;
-  right: -10%;
-  background: radial-gradient(circle, rgba(121, 72, 236, 0.75) 0%, transparent 70%);
-  filter: blur(50px);
-  animation: blobMove1 6s ease-in-out infinite;
-}
-.header .overlay::after {
-  content: "";
-  position: absolute;
-  width: 55%;
-  height: 70%;
-  bottom: -20%;
-  left: -8%;
-  background: radial-gradient(circle, rgba(185, 160, 239, 0.5) 0%, transparent 70%);
-  filter: blur(45px);
-  animation: blobMove2 8s ease-in-out infinite;
+  object-fit: cover;
+  object-position: left center;
+  filter: brightness(0.45);
+  -webkit-mask-image:
+    linear-gradient(black, black),
+    linear-gradient(black, black),
+    linear-gradient(black, black),
+    linear-gradient(black, black);
+  mask-image:
+    linear-gradient(black, black),
+    linear-gradient(black, black),
+    linear-gradient(black, black),
+    linear-gradient(black, black);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: right 7%, right 30%, right 53%, right 76%;
+  mask-position: right 7%, right 30%, right 53%, right 76%;
+  animation: soundBars 6s ease-in-out infinite;
 }
 
-.header .overlay-blob3 {
-  position: absolute;
-  width: 40%;
-  height: 50%;
-  top: 40%;
-  left: 40%;
-  background: radial-gradient(circle, rgba(121, 72, 236, 0.35) 0%, transparent 65%);
-  filter: blur(60px);
-  animation: blobMove3 10s ease-in-out infinite;
-  z-index: 0;
+@keyframes soundBars {
+  0%   { -webkit-mask-size: 3% 16%, 3% 16%, 3% 16%, 3% 16%; mask-size: 3% 16%, 3% 16%, 3% 16%, 3% 16%; }
+  15%  { -webkit-mask-size: 65% 16%, 3% 16%, 3% 16%, 3% 16%; mask-size: 65% 16%, 3% 16%, 3% 16%, 3% 16%; }
+  30%  { -webkit-mask-size: 65% 16%, 50% 16%, 3% 16%, 3% 16%; mask-size: 65% 16%, 50% 16%, 3% 16%, 3% 16%; }
+  45%  { -webkit-mask-size: 65% 16%, 50% 16%, 75% 16%, 3% 16%; mask-size: 65% 16%, 50% 16%, 75% 16%, 3% 16%; }
+  60%  { -webkit-mask-size: 65% 16%, 50% 16%, 75% 16%, 45% 16%; mask-size: 65% 16%, 50% 16%, 75% 16%, 45% 16%; }
+  75%  { -webkit-mask-size: 65% 16%, 50% 16%, 75% 16%, 45% 16%; mask-size: 65% 16%, 50% 16%, 75% 16%, 45% 16%; }
+  85%  { -webkit-mask-size: 3% 16%, 50% 16%, 75% 16%, 45% 16%; mask-size: 3% 16%, 50% 16%, 75% 16%, 45% 16%; }
+  92%  { -webkit-mask-size: 3% 16%, 3% 16%, 75% 16%, 45% 16%; mask-size: 3% 16%, 3% 16%, 75% 16%, 45% 16%; }
+  96%  { -webkit-mask-size: 3% 16%, 3% 16%, 3% 16%, 45% 16%; mask-size: 3% 16%, 3% 16%, 3% 16%, 45% 16%; }
+  100% { -webkit-mask-size: 3% 16%, 3% 16%, 3% 16%, 3% 16%; mask-size: 3% 16%, 3% 16%, 3% 16%, 3% 16%; }
 }
 
 .header .header-content {
@@ -3354,6 +3352,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   top: 50%;
   left: 0;
   right: 0;
+  z-index: 2;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -3366,23 +3365,15 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 }
 .header-roles {
   display: flex;
-  gap: 2rem;
+  gap: 6rem;
   font-size: 0.7rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.65em;
+  word-spacing: 0.8em;
   text-transform: uppercase;
   color: #fff;
 }
 .header-roles span {
-  animation: logoPulse 14s ease-in-out infinite;
-}
-.header-roles span:nth-child(1) {
-  animation-delay: -3.5s;
-}
-.header-roles span:nth-child(2) {
-  animation-delay: -7s;
-}
-.header-roles span:nth-child(3) {
-  animation-delay: -10.5s;
+  opacity: 1;
 }
 
 .header .header-content p {
@@ -3527,7 +3518,7 @@ section:nth-child(odd) {
   top: 0;
 }
 .slide-track--brands {
-  animation: scroll-brands 45s linear infinite;
+  animation: scroll-brands 65s linear infinite;
   display: flex;
   align-items: center;
   width: 8800px; /* 44 slides × 200px */
@@ -4289,6 +4280,10 @@ h1[data-section=contact][data-translate=title] {
   text-transform: uppercase !important;
 }
 
+h1[data-section=choose][data-translate=title] {
+  font-size: clamp(1.1rem, 2.2vw, 2.2rem) !important;
+}
+
 .projects-title {
   font-family: "tt-travels-next", sans-serif !important;
   font-weight: 200 !important;
@@ -4550,30 +4545,60 @@ h1[data-section=contact][data-translate=title] {
   color: #B9A0EF;
 }
 
-/*flags*/
-.flags {
-  width: 75px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 5px;
+/*lang selector*/
+.lang-selector {
+  position: relative;
 }
 
-.flags__item {
-  width: 30px;
-}
-
-.flags__item:hover {
-  width: 40px;
-}
-
-.flags__item.active {
-  width: 40px;
-}
-
-.flags__img {
+.lang-selector__current {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  padding: 4px 10px;
   cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+.lang-selector__current:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lang-selector__dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  background: rgba(18, 18, 18, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  overflow: hidden;
+  z-index: 9999;
+  min-width: 56px;
+}
+
+.lang-selector__dropdown.open {
   display: block;
+}
+
+.lang-selector__option {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-align: center;
+}
+
+.lang-selector__option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .logo-caroca {

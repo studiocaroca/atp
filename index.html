@@ -25,15 +25,11 @@
                 <img src="assets/imgs/insignia-violeta.png" alt="Logo" id="logo-insignia">
             </a>
 
-            <div id="flags" class="flags">
-                <div class="flags__item" data-language="es">
-                    <img class="flags__img" src="assets/imgs/flags/es.svg" alt="Español">
-                </div>
-                <div class="flags__item" data-language="pt">
-                    <img class="flags__img" src="assets/imgs/flags/br.svg" alt="Portugues">
-                </div>
-                <div class="flags__item" data-language="en">
-                    <img class="flags__img" src="assets/imgs/flags/us.svg" alt="Ingl&eacute;s">
+            <div id="lang-selector" class="lang-selector">
+                <button class="lang-selector__current" id="lang-current">EN</button>
+                <div class="lang-selector__dropdown" id="lang-dropdown">
+                    <div class="lang-selector__option" data-language="es">ES</div>
+                    <div class="lang-selector__option" data-language="pt">PT</div>
                 </div>
             </div>
 
@@ -78,14 +74,15 @@
 
     <!-- Page Header -->
     <header id="home" class="header">
-        <div class="overlay"></div>
-        <div class="overlay-blob3"></div>
+        <video class="auricular-bg" autoplay muted loop playsinline>
+            <source src="assets/imgs/auriculares.mp4" type="video/mp4">
+        </video>
         <div class="header-content text-center">
             <img src="assets/imgs/logo-horizontal-blanco.png" alt="Logo Joaquin" class="logo" id="logo-joaquin2">
             <div class="header-roles">
-                <span>Dubbing Director</span>
-                <span>Audio Engineer</span>
-                <span>Music Producer</span>
+                <span data-section="header" data-translate="security">Dubbing Director</span>
+                <span data-section="header" data-translate="environment">Audio Engineer</span>
+                <span data-section="header" data-translate="legal">Music Producer</span>
             </div>
         </div>
     </header><!-- End of Page Header -->
@@ -249,7 +246,7 @@
                 <iframe
                     id="vimeo-project1"
                     src=""
-                    data-src="https://player.vimeo.com/video/1197646166?autoplay=1&title=0&byline=0&portrait=0"
+                    data-src="https://player.vimeo.com/video/1197646166?autoplay=1&title=0&byline=0&portrait=0&share=0&like=0&watchlater=0&pip=0"
                     frameborder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowfullscreen>
@@ -264,7 +261,7 @@
             <span class="close" data-modal="modal-project2">&times;</span>
             <h3>Infinity Train</h3>
             <div class="video-wrapper">
-                <iframe src="" data-src="https://player.vimeo.com/video/1197646251?autoplay=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="" data-src="https://player.vimeo.com/video/1197646251?autoplay=1&title=0&byline=0&portrait=0&share=0&like=0&watchlater=0&pip=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -275,7 +272,7 @@
             <span class="close" data-modal="modal-project3">&times;</span>
             <h3>Schitt's Creek</h3>
             <div class="video-wrapper">
-                <iframe src="" data-src="https://player.vimeo.com/video/1197646168?autoplay=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="" data-src="https://player.vimeo.com/video/1197646168?autoplay=1&title=0&byline=0&portrait=0&share=0&like=0&watchlater=0&pip=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -286,7 +283,7 @@
             <span class="close" data-modal="modal-project4">&times;</span>
             <h3>Devil May Cry 5</h3>
             <div class="video-wrapper">
-                <iframe src="" data-src="https://player.vimeo.com/video/1197486790?autoplay=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="" data-src="https://player.vimeo.com/video/1197486790?autoplay=1&title=0&byline=0&portrait=0&share=0&like=0&watchlater=0&pip=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -297,7 +294,7 @@
             <span class="close" data-modal="modal-project5">&times;</span>
             <h3>Any Malu</h3>
             <div class="video-wrapper">
-                <iframe src="" data-src="https://player.vimeo.com/video/1197646167?autoplay=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="" data-src="https://player.vimeo.com/video/1197646167?autoplay=1&title=0&byline=0&portrait=0&share=0&like=0&watchlater=0&pip=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -308,7 +305,7 @@
             <span class="close" data-modal="modal-project6">&times;</span>
             <h3>Cocomelon</h3>
             <div class="video-wrapper">
-                <iframe src="" data-src="https://player.vimeo.com/video/1197493757?autoplay=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="" data-src="https://player.vimeo.com/video/1197493757?autoplay=1&title=0&byline=0&portrait=0&share=0&like=0&watchlater=0&pip=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -319,7 +316,7 @@
             <span class="close" data-modal="modal-project7">&times;</span>
             <h3>Dragon Ball Z</h3>
             <div class="video-wrapper">
-                <iframe src="" data-src="https://player.vimeo.com/video/1197646165?autoplay=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="" data-src="https://player.vimeo.com/video/1197646165?autoplay=1&title=0&byline=0&portrait=0&share=0&like=0&watchlater=0&pip=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -338,7 +335,7 @@
     <!-- Projects Section -->
     <section id="portfolio">
         <div class="projects-wrapper">
-            <h2 class="projects-title">Projects</h2>
+            <h2 class="projects-title" data-section="portfolio" data-translate="title">Projects</h2>
             <div class="projects-grid">
                 <div class="project-card openModalLink" data-modal="modal-project1">
                     <div class="project-img project-img--hover">
@@ -404,7 +401,7 @@
     <!-- Section -->
     <section class="has-bg-img text-center text-light height-auto"
         style="background-image: url(assets/imgs/bg-img-2.jpg)">
-        <h1 data-section="banner" data-translate="title" class="display-4 text-uppercase">¿QU&eacute; ESPER&aacute;S?
+        <h1 data-section="banner" data-translate="title" class="display-4 text-uppercase">¿QU&eacute; EST&Aacute;S ESPERANDO?
             ¡SUMATE!</h1>
     </section><!-- End of Section -->
 
