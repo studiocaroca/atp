@@ -3089,7 +3089,6 @@ nav.page-navbar {
   -webkit-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
   background-color: #000000;
-  position: relative;
 }
 
 nav.page-navbar .navbar-brand {
@@ -3555,6 +3554,65 @@ section:nth-child(odd) {
   opacity: 1;
   transform: scale(1.2);
 }
+
+/* Optical size adjustments for specific logos */
+.slider .slide img[src*="primera-llamada"],
+.slider .slide img[src*="the-kitchen"] {
+  max-height: 80px;
+  max-width: 180px;
+}
+
+.slider .slide img[src*="likan-studios"] {
+  max-height: 80px;
+  max-width: 180px;
+}
+
+.slider .slide img[src*="discovery-channel"] {
+  max-height: 90px;
+  max-width: 180px;
+}
+
+.slider .slide img[src*="warner-bros-discovery"] {
+  max-height: 110px;
+  max-width: 190px;
+}
+
+.slider .slide img[src*="deepdub"] {
+  max-height: 38px;
+  max-width: 180px;
+}
+
+.slider .slide img[src*="papercup"] {
+  max-height: 95px;
+  max-width: 180px;
+}
+
+.slider .slide img[src*="penguin-random-house"] {
+  max-height: 75px;
+  max-width: 180px;
+}
+
+.slider .slide img[src*="/e.webp"] {
+  max-height: 80px;
+  max-width: 180px;
+}
+
+.slider .slide img[src*="comedy-central"] {
+  max-height: 72px;
+  max-width: 180px;
+}
+
+.slider .slide img[src*="warner-bros."],
+.slider .slide img[src*="paramount."],
+.slider .slide img[src*="paramount+"] {
+  max-height: 48px;
+  max-width: 160px;
+}
+
+.slider .slide img[src*="lifetime"] {
+  max-height: 40px;
+  max-width: 160px;
+}
 .slider:hover .slide-track--brands,
 .slider:hover .slide-track--pro {
   animation-play-state: paused;
@@ -3562,21 +3620,65 @@ section:nth-child(odd) {
 
 .slider--pro-static {
   box-shadow: none;
+  overflow: visible;
+  height: auto;
+  padding: 20px 40px;
+}
+
+.slider--pro-static::before,
+.slider--pro-static::after {
+  display: none;
 }
 
 .slide-track--pro-static {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
   width: 100%;
-  padding: 0 20px;
+  gap: 0;
 }
 
 .slide-track--pro-static .slide {
   flex: 1 1 0;
-  min-width: 100px;
-  max-width: 200px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+@media (max-width: 900px) {
+  .slide-track--pro-static {
+    flex-wrap: wrap;
+    gap: 20px 10px;
+    justify-content: center;
+  }
+
+  .slide-track--pro-static .slide {
+    flex: 0 0 30%;
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-track--pro-static .slide {
+    flex: 0 0 45%;
+  }
+}
+
+.slide-track--pro-static .slide img {
+  max-height: 45px;
+  max-width: 110px;
+}
+
+.slide-track--pro-static img[src*="papercup"] {
+  margin: 0 20px;
+}
+
+.slide-track--pro-static img[src*="penguin-random-house"] {
+  max-height: 200px;
+  max-width: 260px;
 }
 
 .choose-subtitle {
@@ -3590,6 +3692,71 @@ section:nth-child(odd) {
 #seguridadehigiene,
 #ourservices {
   background: #000000;
+  position: relative;
+  overflow: hidden;
+}
+
+.services-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.services-blob--1 {
+  width: 60%;
+  height: 80%;
+  top: -25%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(121, 72, 236, 0.75) 0%, transparent 70%);
+  filter: blur(50px);
+  animation: blobMove1 12s ease-in-out infinite;
+}
+
+.services-blob--2 {
+  width: 55%;
+  height: 70%;
+  bottom: -20%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(185, 160, 239, 0.5) 0%, transparent 70%);
+  filter: blur(45px);
+  animation: blobMove2 8s ease-in-out infinite;
+}
+
+.services-blob--3 {
+  width: 40%;
+  height: 50%;
+  top: 40%;
+  left: 40%;
+  background: radial-gradient(circle, rgba(121, 72, 236, 0.35) 0%, transparent 65%);
+  filter: blur(60px);
+  animation: blobMove3 10s ease-in-out infinite;
+}
+
+#ourservices .container {
+  position: relative;
+  z-index: 1;
+}
+
+#ourservices::before,
+#ourservices::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#ourservices::before {
+  top: 0;
+  background: linear-gradient(to bottom, #000000 0%, transparent 100%);
+}
+
+#ourservices::after {
+  bottom: 0;
+  background: linear-gradient(to top, #000000 0%, transparent 100%);
 }
 
 #ourservices .services-wrapper:hover {
@@ -3971,7 +4138,7 @@ section.height-auto {
 }
 
 .services-wrapper {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(121, 72, 236, 0.2);
   box-shadow: 0 2px 5px 0 rgba(121, 72, 236, 0.3) !important;
   border-radius: 0.2rem;
@@ -3990,7 +4157,7 @@ section.height-auto {
   -webkit-transform: translateY(-45px);
   -ms-transform: translateY(-45px);
   transform: translateY(-45px);
-  background: #000000;
+  background: transparent;
   padding: 5px;
   padding-top: 15px;
 }
@@ -4167,6 +4334,14 @@ h1[data-section=contact][data-translate=title] {
   object-position: top center;
 }
 
+.projects-grid .project-card:nth-child(2) .project-img__default {
+  object-position: center 20%;
+}
+
+.projects-grid .project-card:nth-child(7) .project-img__default {
+  object-position: center 90%;
+}
+
 .projects-grid .project-card:nth-child(3) .project-img__default {
   object-position: center 80%;
 }
@@ -4248,27 +4423,31 @@ h1[data-section=contact][data-translate=title] {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 40px;
   margin-top: 40px;
 }
 
 .contact-info-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
   color: #ffffff;
   text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s;
+  transition: color 0.3s, transform 0.3s;
 }
 
 .contact-info-item:hover {
   color: #B9A0EF;
   text-decoration: none;
+  transform: scale(1.15);
+}
+
+.contact-info-item span {
+  display: none;
 }
 
 .contact-info-item i {
-  font-size: 1.4rem;
+  font-size: 2.5rem;
 }
 
 /* The Modal (background) */
