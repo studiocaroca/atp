@@ -3352,8 +3352,6 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   .auricular-bg {
     object-position: center center;
     filter: brightness(0.6);
-    -webkit-mask-position: center 7%, center 30%, center 53%, center 76%;
-    mask-position: center 7%, center 30%, center 53%, center 76%;
   }
 }
 
@@ -4040,6 +4038,9 @@ section.height-auto {
     align-items: center;
     gap: 1.2rem;
     font-size: 0.78rem;
+  }
+  .header-roles span:first-child {
+    margin-right: 31px;
   }
 }
 
