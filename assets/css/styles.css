@@ -3347,6 +3347,13 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   100% { -webkit-mask-size: 3% 16%, 3% 16%, 3% 16%, 3% 16%; mask-size: 3% 16%, 3% 16%, 3% 16%, 3% 16%; }
 }
 
+@media (max-width: 767px) {
+  .auricular-bg {
+    object-position: center center;
+    filter: brightness(0.6);
+  }
+}
+
 .header .header-content {
   position: absolute;
   top: 50%;
@@ -4443,6 +4450,16 @@ h1[data-section=choose][data-translate=title] {
 
 .contact-info-item i {
   font-size: 2.5rem;
+}
+
+@media (max-width: 576px) {
+  .contact-info-row {
+    gap: 14px;
+    flex-wrap: nowrap;
+  }
+  .contact-info-item i {
+    font-size: 1.7rem;
+  }
 }
 
 /* The Modal (background) */
