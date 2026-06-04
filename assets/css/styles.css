@@ -4049,7 +4049,7 @@ section.height-auto {
   border-radius: 0.2rem;
 }
 
-.about-wrapper .after h1 {
+.about-wrapper .after h2 {
   -webkit-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
