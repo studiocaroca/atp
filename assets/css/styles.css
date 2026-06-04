@@ -4060,24 +4060,10 @@ section.height-auto {
     word-spacing: normal;
   }
 
-  h1[data-section=choose][data-translate=title],
-  h3[data-section=our-services][data-translate=title],
-  h1[data-section=contact][data-translate=title] {
-    font-size: 2rem !important;
-  }
-
   h1[data-section=choose][data-translate=title] {
-    max-width: 265px;
+    max-width: 308px;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  .choose-subtitle {
-    font-size: 1.2rem;
-  }
-
-  .projects-title {
-    font-size: 2rem;
   }
 
 }
@@ -4964,5 +4950,18 @@ h1[data-section=contact][data-translate=title] {
     font-size: 2.8em;
     padding-left: 30px;
     padding-right: 30px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .projects-title,
+  h1[data-section=choose][data-translate=title],
+  h3[data-section=our-services][data-translate=title],
+  h1[data-section=contact][data-translate=title] {
+    font-size: 1.6rem !important;
+  }
+
+  .choose-subtitle {
+    font-size: 1.3rem;
   }
 }
