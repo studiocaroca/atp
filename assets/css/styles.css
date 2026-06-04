@@ -3661,6 +3661,9 @@ section:nth-child(odd) {
 }
 
 @media (max-width: 480px) {
+  .slider--pro-static {
+    padding: 20px 12px;
+  }
   .slide-track--pro-static {
     gap: 14px 6px;
   }
