@@ -4203,6 +4203,7 @@ section.height-auto {
 
 .services-wrapper .title {
   margin-top: -40px;
+  margin-bottom: 1.5rem;
 }
 
 /* Ciclo 12s: fase lenta (0-7.5s) + burst rápido (8-9.5s) + pausa (9.5-12s) */
