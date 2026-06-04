@@ -3661,8 +3661,15 @@ section:nth-child(odd) {
 }
 
 @media (max-width: 480px) {
+  .slide-track--pro-static {
+    gap: 14px 6px;
+  }
   .slide-track--pro-static .slide {
-    flex: 0 0 45%;
+    flex: 0 0 30%;
+  }
+  .slide-track--pro-static .slide img {
+    max-height: 38px;
+    max-width: 90px;
   }
 }
 
@@ -4037,11 +4044,30 @@ section.height-auto {
     flex-direction: column;
     align-items: center;
     gap: 1.2rem;
-    font-size: 0.78rem;
+    font-size: 0.88rem;
+    word-spacing: normal;
   }
-  .header-roles span:first-child {
-    margin-right: 31px;
+
+  h1[data-section=choose][data-translate=title],
+  h3[data-section=our-services][data-translate=title],
+  h1[data-section=contact][data-translate=title] {
+    font-size: 1.7rem !important;
   }
+
+  h1[data-section=choose][data-translate=title] {
+    max-width: 265px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .choose-subtitle {
+    font-size: 1rem;
+  }
+
+  .projects-title {
+    font-size: 1.7rem;
+  }
+
 }
 
 @media (max-width: 767.98px) {
