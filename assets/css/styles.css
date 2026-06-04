@@ -3671,6 +3671,15 @@ section:nth-child(odd) {
     max-height: 38px;
     max-width: 90px;
   }
+  .slide-track--pro-static img[src*="deepdub"] {
+    max-height: 22px;
+    max-width: 70px;
+  }
+  .slide-track--pro-static img[src*="papercup"] {
+    max-height: 22px;
+    max-width: 70px;
+    margin: 0;
+  }
 }
 
 .slide-track--pro-static .slide img {
@@ -4051,7 +4060,7 @@ section.height-auto {
   h1[data-section=choose][data-translate=title],
   h3[data-section=our-services][data-translate=title],
   h1[data-section=contact][data-translate=title] {
-    font-size: 1.7rem !important;
+    font-size: 2rem !important;
   }
 
   h1[data-section=choose][data-translate=title] {
@@ -4061,11 +4070,11 @@ section.height-auto {
   }
 
   .choose-subtitle {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .projects-title {
-    font-size: 1.7rem;
+    font-size: 2rem;
   }
 
 }
