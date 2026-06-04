@@ -4978,3 +4978,15 @@ h2[data-section=contact][data-translate=title] {
     font-size: 1.3rem;
   }
 }
+
+.form-success-msg {
+  margin-top: 1.2rem;
+  padding: 14px 24px;
+  border: 1px solid rgba(121, 72, 236, 0.5);
+  border-radius: 0.2rem;
+  background: rgba(121, 72, 236, 0.12);
+  color: #fff;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+}

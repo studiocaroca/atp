@@ -161,3 +161,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
     fetchTranslations();
 });
+
+// Contact form — AJAX submit via Formspree
+(function () {
+    const successMessages = {
+        en: 'Your message has been sent',
+        es: 'Su mensaje ha sido enviado',
+        pt: 'Sua mensagem foi enviada'
+    };
+
+    const form = document.querySelector('.contact-form');
+    const successEl = document.getElementById('form-success');
+
+    if (!form || !successEl) return;
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const data = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                const lang = (document.getElementById('lang-current')?.textContent || 'en').toLowerCase();
+                successEl.textContent = successMessages[lang] || successMessages.en;
+                successEl.style.display = 'block';
+                form.reset();
+            }
+        } catch (err) {
+            console.error('Form submission error:', err);
+        }
+    });
+})();
