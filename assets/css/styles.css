@@ -3686,13 +3686,16 @@ section:nth-child(odd) {
     max-height: 38px;
     max-width: 90px;
   }
+  .slide-track--pro-static .slide:has(img[src*="deepdub"]) {
+    flex: 0 0 36%;
+  }
   .slide-track--pro-static img[src*="deepdub"] {
-    max-height: 22px;
-    max-width: 70px;
+    max-height: 26px;
+    max-width: 100%;
   }
   .slide-track--pro-static img[src*="papercup"] {
-    max-height: 22px;
-    max-width: 70px;
+    max-height: 16px;
+    max-width: 55px;
     margin: 0;
   }
 }
@@ -3714,7 +3717,7 @@ section:nth-child(odd) {
 .choose-subtitle {
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-size: clamp(0.75rem, 1.4vw, 1.1rem);
+  font-size: clamp(1.1rem, 2.2vw, 2.2rem);
   margin-top: 60px;
   font-weight: 200;
   color: rgba(255, 255, 255, 0.85);
@@ -4339,6 +4342,10 @@ h2[data-section=contact][data-translate=title] {
   letter-spacing: 0.05em !important;
   text-align: center;
   text-transform: uppercase !important;
+}
+
+h2[data-section=choose][data-translate=title] {
+  font-size: clamp(0.9rem, 1.8vw, 1.4rem) !important;
 }
 
 .projects-title {
@@ -4975,7 +4982,13 @@ h2[data-section=contact][data-translate=title] {
   }
 
   .choose-subtitle {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    padding: 0 16px;
+  }
+
+  h2[data-section=choose][data-translate=title] {
+    font-size: 1rem !important;
+    max-width: none;
   }
 }
 
