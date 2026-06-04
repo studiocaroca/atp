@@ -27,6 +27,18 @@
   color: #46298e;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* typography */
 p {
   font-size: calc(13px + 1 * (100vw - 300px) / 1000);
@@ -4060,7 +4072,7 @@ section.height-auto {
     word-spacing: normal;
   }
 
-  h1[data-section=choose][data-translate=title] {
+  h2[data-section=choose][data-translate=title] {
     max-width: 308px;
     margin-left: auto;
     margin-right: auto;
@@ -4316,10 +4328,10 @@ section.height-auto {
 }
 
 .projects-title,
-h1[data-section=choose][data-translate=title],
+h2[data-section=choose][data-translate=title],
 h3[data-section=our-services][data-translate=title],
-h1[data-section=banner][data-translate=title],
-h1[data-section=contact][data-translate=title] {
+h2[data-section=banner][data-translate=title],
+h2[data-section=contact][data-translate=title] {
   font-family: "tt-travels-next", sans-serif !important;
   font-weight: 200 !important;
   font-size: clamp(1.1rem, 2.2vw, 2.2rem) !important;
@@ -4956,9 +4968,9 @@ h1[data-section=contact][data-translate=title] {
 
 @media (max-width: 767.98px) {
   .projects-title,
-  h1[data-section=choose][data-translate=title],
+  h2[data-section=choose][data-translate=title],
   h3[data-section=our-services][data-translate=title],
-  h1[data-section=contact][data-translate=title] {
+  h2[data-section=contact][data-translate=title] {
     font-size: 1.6rem !important;
   }
 

@@ -4,7 +4,13 @@
       "Bash(node_modules\\\\.bin\\\\sass assets/scss/styles.scss assets/css/styles.css --no-source-map)",
       "PowerShell(cd \"c:\\\\Users\\\\karla\\\\Desktop\\\\joaquinmbaamonde\"; \\(Get-Item assets/css/styles.css\\).LastWriteTime)",
       "Bash(ffprobe -v quiet -print_format json -show_format \"c:/Users/karla/Desktop/joaquinmbaamonde/assets/imgs/auriculares.mp4\")",
-      "Bash(ffmpeg -i \"c:/Users/karla/Desktop/joaquinmbaamonde/assets/imgs/auriculares.mp4\" -vf \"blackdetect=d=0.01:pix_th=0.15\" -an -f null -)"
+      "Bash(ffmpeg -i \"c:/Users/karla/Desktop/joaquinmbaamonde/assets/imgs/auriculares.mp4\" -vf \"blackdetect=d=0.01:pix_th=0.15\" -an -f null -)",
+      "Bash(ffmpeg -version)",
+      "Bash(cwebp -version)",
+      "Bash(magick -version)",
+      "Bash(convert -version)",
+      "Bash(awk '{sum+=$1} END{print sum\"K total\"}')",
+      "Bash(ffmpeg -y -i assets/imgs/auriculares.mp4 -c:v libvpx-vp9 -crf 33 -b:v 0 -an -deadline good -cpu-used 2 assets/imgs/auriculares.webm)"
     ]
   }
 }
