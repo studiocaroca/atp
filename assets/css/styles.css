@@ -3687,10 +3687,10 @@ section:nth-child(odd) {
     max-width: 90px;
   }
   .slide-track--pro-static .slide:has(img[src*="deepdub"]) {
-    flex: 0 0 36%;
+    flex: 0 0 60%;
   }
   .slide-track--pro-static img[src*="deepdub"] {
-    max-height: 26px;
+    max-height: 50px;
     max-width: 100%;
   }
   .slide-track--pro-static img[src*="papercup"] {
