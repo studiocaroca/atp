@@ -10,7 +10,9 @@
       "Bash(magick -version)",
       "Bash(convert -version)",
       "Bash(awk '{sum+=$1} END{print sum\"K total\"}')",
-      "Bash(ffmpeg -y -i assets/imgs/auriculares.mp4 -c:v libvpx-vp9 -crf 33 -b:v 0 -an -deadline good -cpu-used 2 assets/imgs/auriculares.webm)"
+      "Bash(ffmpeg -y -i assets/imgs/auriculares.mp4 -c:v libvpx-vp9 -crf 33 -b:v 0 -an -deadline good -cpu-used 2 assets/imgs/auriculares.webm)",
+      "Bash(ffmpeg -i \"c:/Users/karla/Desktop/joaquinmbaamonde/assets/imgs/proyectos/flowers-in-the-attic.png\" -c:v libwebp -quality 85 \"c:/Users/karla/Desktop/joaquinmbaamonde/assets/imgs/proyectos/flowers-in-the-attic.webp\" -y)",
+      "Bash(ffmpeg -i \"c:/Users/karla/Desktop/joaquinmbaamonde/assets/imgs/proyectos/schitts-creek-byn.png\" -c:v libwebp -quality 85 \"c:/Users/karla/Desktop/joaquinmbaamonde/assets/imgs/proyectos/schitts-creek-byn.webp\" -y)"
     ]
   }
 }
