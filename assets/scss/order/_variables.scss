@@ -1,25 +1,32 @@
-$blue:    #79A9F5;
+$blue:    #A9E3FB;
 $indigo:  #C45F90;
 $purple:  #7948EC;
 $pink:    #FC8BC0;
-$red:     #F85C70;
-$orange:  #FF8882;
-$yellow:  #FAD02C;
+$red:     #DE3A1A;
+$orange:  #FF9E83;
+$yellow:  #E8A529;
 $green:   #A3C14A;
 $teal:    #20c997;
 $cyan:    #47D8E0;
 
 $white:    #FFFFFF;
-$black:    #000000;
+$black:    #343E4A;
 $gray-500: #A09CB0;
 $white-500: rgba(255, 255, 255, 0.6);
 
-$primary:       #7948EC;
-$secondary:     #B9A0EF;
-$primary-light:        rgba(121, 72, 236, 0.3);
-$primary-dark:          #5a35b5;
-$secondary-light:       rgba(185, 160, 239, 0.4);
-$secondary-dark:        #5a35b5;
+$celeste:       #A9E3FB;
+$rojo:          #DE3A1A;
+$coral:         #FF9E83;
+$ocre:          #E8A529;
+$peach:         #FCC094;
+$dark-blue:     #343E4A;
+
+$primary:       #DE3A1A;
+$secondary:     #E8A529;
+$primary-light:        rgba(222, 58, 26, 0.3);
+$primary-dark:          #A82C13;
+$secondary-light:       rgba(232, 165, 41, 0.4);
+$secondary-dark:        #B37E1E;
 
 // Define common padding and border radius sizes and more.
 $line-height-lg:              1.5;
@@ -37,17 +44,17 @@ $border-radius-sm:            .1rem;
 // Body
 //
 // Settings for the `<body>` element.
-$body-bg:                   #000000;
+$body-bg:                   #343E4A;
 $body-color:                #FFFFFF;
 
 
 // Fonts
 //
 // Font, line-height, and color for body text, headings, and more.
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 
 // stylelint-disable value-keyword-case
-$font-family-sans-serif:      'Inter', sans-serif;
+$font-family-sans-serif:      'Lato', sans-serif;
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 $font-family-base:            $font-family-sans-serif;
 // Fonts

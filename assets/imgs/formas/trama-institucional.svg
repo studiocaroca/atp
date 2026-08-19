@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1800">
+  <defs>
+    <path id="espiral" d="M64.06,177.45c-.68-1.83-1.32-3.52-2.05-5.5,1.39-.57,2.59-1.09,3.8-1.55,13.82-5.27,26.64-12.22,37.49-22.41,9.39-8.81,16.65-18.96,18.55-32.1,2.47-17.13-7.78-34.1-23.85-39.71-1.04-.36-2.12-.64-3.52-1.05-.15,2.81-.19,5.33-.43,7.83-1.21,12.18-6.71,22.34-15.37,30.69-8.42,8.11-17.82,14.84-29.62,17.28-10.26,2.13-19.23-1.63-23.33-9.89-3.27-6.59-2.43-13.2.64-19.57,4.63-9.62,12.23-16.62,20.88-22.5,11.33-7.7,23.9-11.55,37.65-11.37.49,0,.98-.11,1.47-.17-2.01-15.14-21.22-34-35.44-34.7-.08,1.39-.12,2.79-.25,4.19-.97,10.55-6.35,18.79-14.24,25.3-4.29,3.54-9.27,6.32-14.18,9.02-2.06,1.13-4.71,1.48-7.12,1.63-10.81.66-17.78-8.78-14.17-19.13,3.34-9.58,10.8-15.49,18.95-20.65,6.95-4.4,14.64-6.75,23.25-7.45-3.47-10.47-10.03-17.18-20.81-19.82.52-1.95,1-3.77,1.54-5.83,8.35,1.73,14.89,5.88,19.5,12.66,2.33,3.43,3.79,7.45,5.76,11.13.5.94,1.37,2.15,2.26,2.34,21.37,4.48,33.78,18.52,40.72,38.24,1.02,2.89,2.2,4.36,5.28,5.23,24.61,6.91,37.38,33.84,27.73,58-5.48,13.72-15.18,23.98-26.83,32.53-9.97,7.31-20.97,12.79-32.65,16.88-.46.16-.94.25-1.62.43ZM87.88,74.05c-1.58-.09-2.89-.24-4.21-.23-17.58.2-32.13,7.24-44.18,19.77-4.74,4.93-8.83,10.32-9.47,17.48-.7,7.88,4.45,14,12.36,14.04,3.7.02,7.62-.66,11.07-1.99,11.05-4.29,20.1-11.42,26.97-21.1,5.83-8.21,8.41-17.43,7.45-27.97ZM44.47,32.05c-1.17.03-2.26-.02-3.33.11-11.15,1.26-20.51,6.27-28.13,14.29-2.66,2.8-4.95,6.37-6.2,10-2.17,6.26,1.84,10.85,8.44,10.2,2.29-.22,4.66-.91,6.72-1.93,6.9-3.4,12.69-8.25,17.22-14.47,3.85-5.28,5.81-11.21,5.28-18.2Z"/>
+    <path id="onda" d="M182.34,143.69c-11.05.59-20.05-2.96-25.04-13.06-4.75-9.63-12.15-14.35-22.99-14.15-2.4.05-4.81-.38-7.21-.63-8-.84-13.67-4.94-17.29-11.95-3.31-6.42-7.53-12-15.13-13.74-2.97-.68-6.11-.86-9.18-.91-10.36-.17-18.45-3.75-23.05-13.53-4.35-9.25-11.98-13.61-22.29-13.17-11.79.51-19.62-4.97-24.48-15.18C12.57,40.79,7.23,37.43,0,36.53-.28,28.81,12.23,0,12.23,0c0,0,14.87,3.89,18.89,11.37.94,1.75,2.05,3.41,3.1,5.09,3.31,5.33,8.07,8.33,14.47,8.71,3.08.18,6.15.48,9.24.62,7.82.34,13.8,3.8,18.1,10.17,2.08,3.07,3.65,6.7,6.34,9.09,3.04,2.7,7.02,4.44,10.75,6.28,1.34.66,3.16.38,4.76.55,17.31,1.9,19.46.57,29.09,17.3,3.4,5.9,8.99,8.46,15.64,9.05,3.21.28,6.42.52,9.64.61,9.04.25,15.7,4.48,19.76,12.19,4.62,8.78,11.08,14.34,21.57,14.69,3.62.12-10.98,38.26-11.25,37.95Z"/>
+    <path id="semicirculo" d="M101.27,102.99l-22.27-17.17c12.06-15.64,9.14-38.17-6.49-50.23-15.64-12.06-38.17-9.14-50.23,6.49L0,24.9c5.27-6.83,11.72-12.43,19.18-16.64,7.2-4.06,15.02-6.66,23.25-7.73C50.67-.53,58.89,0,66.89,2.1c8.29,2.18,15.95,5.95,22.78,11.22,6.83,5.27,12.43,11.72,16.64,19.18,4.06,7.2,6.66,15.02,7.73,23.25,1.06,8.23.54,16.46-1.56,24.45-2.18,8.29-5.95,15.95-11.22,22.78Z"/>
+    <polygon id="escalera" points="74.67 74.67 74.67 37.33 37.33 37.33 37.33 0 0 0 0 37.33 0 74.67 0 112 37.33 112 74.67 112 112 112 112 74.67 74.67 74.67"/>
+    <g id="estrella">
+      <path d="M59.01,0v118.03"/>
+      <path d="M118.03,59.01H0"/>
+      <path d="M100.74,17.28L17.28,100.74"/>
+      <path d="M100.74,100.74L17.28,17.28"/>
+      <path d="M114.16,38S6.14,79.17,3.87,80.03"/>
+      <path d="M80.03,114.16S38.86,6.14,38,3.87"/>
+      <path d="M112.87,83.14S7.38,35.88,5.16,34.88"/>
+      <path d="M34.88,112.87S82.15,7.38,83.14,5.16"/>
+    </g>
+  </defs>
+  <g fill="#343e4a">
+    <rect x="18.1" y="18.1" width="87.41" height="87.41" transform="translate(90,285) rotate(-38) scale(0.48)"/>
+    <use href="#semicirculo" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(1333,1500) rotate(163) scale(0.28)"/>
+    <rect x="18.1" y="18.1" width="87.41" height="87.41" transform="translate(783,620) rotate(-67) scale(0.55)"/>
+    <use href="#escalera" transform="translate(1570,1016) rotate(44) scale(0.41)"/>
+    <use href="#semicirculo" transform="translate(575,987) rotate(-96) scale(0.43)"/>
+    <use href="#espiral" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(457,933) rotate(-78) scale(0.35)"/>
+    <circle cx="53" cy="53" r="53" transform="translate(1610,284) rotate(-29) scale(0.17)"/>
+    <use href="#onda" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(1653,1701) rotate(50) scale(0.16)"/>
+    <circle cx="53" cy="53" r="53" transform="translate(1408,720) rotate(141) scale(0.48)"/>
+    <use href="#espiral" transform="translate(606,1735) rotate(174) scale(0.49)"/>
+    <circle cx="53" cy="53" r="53" transform="translate(870,571) rotate(-55) scale(0.33)"/>
+    <use href="#escalera" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(1445,337) rotate(150) scale(0.26)"/>
+    <use href="#espiral" transform="translate(1432,1004) rotate(19) scale(0.57)"/>
+    <rect x="18.1" y="18.1" width="87.41" height="87.41" fill="none" stroke="#343e4a" stroke-width="5" transform="translate(1716,1393) rotate(-59) scale(0.39)"/>
+    <use href="#espiral" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(36,423) rotate(-165) scale(0.38)"/>
+    <use href="#escalera" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(1632,598) rotate(-133) scale(0.53)"/>
+    <circle cx="53" cy="53" r="53" transform="translate(234,898) rotate(47) scale(0.55)"/>
+    <rect x="18.1" y="18.1" width="87.41" height="87.41" transform="translate(132,1031) rotate(24) scale(0.4)"/>
+    <use href="#onda" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(786,797) rotate(108) scale(0.44)"/>
+    <use href="#espiral" transform="translate(408,512) rotate(-16) scale(0.51)"/>
+    <circle cx="53" cy="53" r="53" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(559,287) rotate(-9) scale(0.24)"/>
+    <rect x="18.1" y="18.1" width="87.41" height="87.41" fill="none" stroke="#343e4a" stroke-width="5" transform="translate(545,1086) rotate(81) scale(0.24)"/>
+    <use href="#onda" transform="translate(502,1392) rotate(-139) scale(0.5)"/>
+    <use href="#escalera" transform="translate(179,760) rotate(-52) scale(0.47)"/>
+    <use href="#estrella" fill="none" stroke="#343e4a" stroke-width="2" transform="translate(425,752) rotate(-179) scale(0.39)"/>
+    <use href="#espiral" transform="translate(1419,525) rotate(169) scale(0.37)"/>
+    <use href="#semicirculo" transform="translate(434,1573) rotate(-150) scale(0.53)"/>
+    <circle cx="53" cy="53" r="53" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(884,1708) rotate(-20) scale(0.29)"/>
+    <rect x="18.1" y="18.1" width="87.41" height="87.41" fill="none" stroke="#343e4a" stroke-width="5" transform="translate(39,1121) rotate(-65) scale(0.32)"/>
+    <use href="#onda" transform="translate(1371,606) rotate(177) scale(0.39)"/>
+    <use href="#escalera" transform="translate(998,1774) rotate(58) scale(0.25)"/>
+    <use href="#espiral" transform="translate(600,722) rotate(-53) scale(0.17)"/>
+    <use href="#onda" transform="translate(327,1018) rotate(-67) scale(0.46)"/>
+    <use href="#escalera" transform="translate(414,1242) rotate(112) scale(0.45)"/>
+    <use href="#onda" transform="translate(1023,59) rotate(-48) scale(0.37)"/>
+    <circle cx="53" cy="53" r="53" transform="translate(1203,1462) rotate(157) scale(0.24)"/>
+    <use href="#escalera" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(1661,414) rotate(0) scale(0.18)"/>
+    <circle cx="53" cy="53" r="53" transform="translate(54,902) rotate(-105) scale(0.5)"/>
+    <circle cx="53" cy="53" r="53" transform="translate(1725,554) rotate(126) scale(0.44)"/>
+    <rect x="18.1" y="18.1" width="87.41" height="87.41" transform="translate(1251,84) rotate(-149) scale(0.21)"/>
+    <use href="#onda" transform="translate(1226,1678) rotate(-68) scale(0.6)"/>
+    <use href="#espiral" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(1023,1337) rotate(20) scale(0.21)"/>
+    <use href="#escalera" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(694,170) rotate(-84) scale(0.34)"/>
+    <use href="#espiral" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(87,1294) rotate(-102) scale(0.48)"/>
+    <use href="#espiral" transform="translate(165,1755) rotate(-148) scale(0.37)"/>
+    <use href="#onda" transform="translate(1281,946) rotate(117) scale(0.16)"/>
+    <use href="#semicirculo" transform="translate(1185,902) rotate(154) scale(0.16)"/>
+    <use href="#escalera" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(1153,62) rotate(97) scale(0.23)"/>
+    <rect x="18.1" y="18.1" width="87.41" height="87.41" fill="none" stroke="#343e4a" stroke-width="5" transform="translate(1373,1406) rotate(158) scale(0.22)"/>
+    <use href="#estrella" fill="none" stroke="#343e4a" stroke-width="2" transform="translate(333,380) rotate(140) scale(0.31)"/>
+    <use href="#onda" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(1487,832) rotate(-14) scale(0.22)"/>
+    <use href="#semicirculo" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(1096,925) rotate(61) scale(0.16)"/>
+    <circle cx="53" cy="53" r="53" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(1687,184) rotate(-111) scale(0.52)"/>
+    <use href="#onda" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(531,1528) rotate(174) scale(0.54)"/>
+    <use href="#onda" transform="translate(29,780) rotate(76) scale(0.31)"/>
+    <use href="#onda" transform="translate(877,882) rotate(-122) scale(0.44)"/>
+    <use href="#onda" transform="translate(1769,807) rotate(168) scale(0.41)"/>
+    <circle cx="53" cy="53" r="53" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(588,1357) rotate(53) scale(0.22)"/>
+    <use href="#espiral" transform="translate(635,73) rotate(-178) scale(0.45)"/>
+    <use href="#estrella" fill="none" stroke="#343e4a" stroke-width="2" transform="translate(1498,1602) rotate(-136) scale(0.54)"/>
+    <circle cx="53" cy="53" r="53" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(1524,1343) rotate(60) scale(0.38)"/>
+    <rect x="18.1" y="18.1" width="87.41" height="87.41" transform="translate(743,331) rotate(15) scale(0.5)"/>
+    <use href="#escalera" transform="translate(294,148) rotate(-141) scale(0.55)"/>
+    <use href="#estrella" fill="none" stroke="#343e4a" stroke-width="2" transform="translate(1295,368) rotate(-178) scale(0.24)"/>
+    <use href="#escalera" transform="translate(1547,1165) rotate(-28) scale(0.14)"/>
+    <use href="#estrella" fill="none" stroke="#343e4a" stroke-width="2" transform="translate(1279,1360) rotate(-147) scale(0.28)"/>
+    <use href="#espiral" transform="translate(616,1191) rotate(-45) scale(0.23)"/>
+    <use href="#onda" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(176,620) rotate(-165) scale(0.42)"/>
+    <use href="#semicirculo" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(416,154) rotate(-95) scale(0.33)"/>
+    <use href="#semicirculo" transform="translate(1758,1606) rotate(-70) scale(0.34)"/>
+    <use href="#escalera" transform="translate(313,509) rotate(-33) scale(0.55)"/>
+    <circle cx="53" cy="53" r="53" transform="translate(1112,555) rotate(92) scale(0.18)"/>
+    <use href="#semicirculo" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(864,1520) rotate(-10) scale(0.46)"/>
+    <use href="#escalera" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(1309,707) rotate(35) scale(0.54)"/>
+    <use href="#semicirculo" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(1108,340) rotate(123) scale(0.53)"/>
+    <use href="#estrella" fill="none" stroke="#343e4a" stroke-width="2" transform="translate(995,446) rotate(-64) scale(0.45)"/>
+    <circle cx="53" cy="53" r="53" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(350,1642) rotate(146) scale(0.45)"/>
+    <use href="#semicirculo" transform="translate(899,1101) rotate(-133) scale(0.18)"/>
+    <use href="#espiral" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(114,835) rotate(-40) scale(0.41)"/>
+    <use href="#semicirculo" fill="none" stroke="#343e4a" stroke-width="3" transform="translate(189,1550) rotate(-1) scale(0.34)"/>
+    <use href="#onda" transform="translate(1637,49) rotate(92) scale(0.36)"/>
+    <use href="#estrella" fill="none" stroke="#343e4a" stroke-width="2" transform="translate(1202,247) rotate(-36) scale(0.53)"/>
+    <use href="#escalera" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(26,1648) rotate(-117) scale(0.58)"/>
+    <use href="#escalera" transform="translate(813,1380) rotate(58) scale(0.16)"/>
+    <circle cx="53" cy="53" r="53" transform="translate(883,671) rotate(-2) scale(0.39)"/>
+    <use href="#escalera" transform="translate(394,857) rotate(-16) scale(0.33)"/>
+    <circle cx="53" cy="53" r="53" fill="none" stroke="#343e4a" stroke-width="4" transform="translate(828,190) rotate(-61) scale(0.22)"/>
+    <use href="#onda" transform="translate(1033,727) rotate(-45) scale(0.37)"/>
+  </g>
+</svg>

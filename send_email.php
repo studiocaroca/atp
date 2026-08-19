@@ -1,6 +1,6 @@
 <?php
 // Reemplaza con los datos de tu servidor de correo
-$to_email = "joaquinmbaamonde@gmail.com";
+$to_email = "aptoparatodopublicogc@gmail.com";
 $subject = "Nuevo mensaje desde el formulario de contacto";
 $from_email = $_POST['email']; // El remitente será el email ingresado por el usuario
 $message = $_POST['message'];

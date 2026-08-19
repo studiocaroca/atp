@@ -2,38 +2,33 @@
     "en": {
         "menu": {
             "home": "Home",
-            "about": "About",
+            "about": "Who we are",
+            "institutional": "Institutional",
+            "plays": "Theater plays",
             "services": "Services",
-            "portfolio": "Projects",
+            "portfolio": "Other projects",
             "contact": "Contact"
         },
         "header": {
-            "security": "Dubbing Director",
-            "environment": "Audio Engineer",
-            "legal": "Music Producer"
+            "eyebrow": "diversity of possibilities",
+            "description": "It's an Argentine NGO that promotes accessible performing-arts content designed for all audiences. Its primary goal is to guarantee the cultural rights of people with disabilities, seeking to expand Argentina's cultural offerings."
         },
         "about": {
             "title": "About",
-            "name": "Hello, I'm Joaquín Baamonde",
+            "name": "Malena Sánchez Olmos",
             "welcome": "I welcome you and introduce myself.",
             "paragraph1": "I'm an Audio Engineer, Dubbing Director, and Music Producer with a passion for storytelling through sound. Since 2009, I've explored many sides of the audio industry, from music production and broadcast to dubbing, audiobooks, game-audio, and emerging AI-driven localization technologies.",
             "paragraph2": "What started as a love for music and audio technology evolved into a career directing voice talents, producing performances, and designing efficient audio workflows. Today, I combine technical expertise with a creative approach to help bring stories, characters, and performances to life through sound."
         },
         "portfolio": {
-            "title": "Projects"
+            "title": "Theatre plays"
         },
         "choose": {
             "title": "Selected Credits",
             "subtitle": "Direct Clients & Collaborators"
         },
         "our-services": {
-            "title": "Services",
-            "service7": "Dubbing Director",
-            "subtitle7": "Direction and coaching for voice talents across animation, live-action, documentaries, ADR, and singing dubbing. Focused on natural performances, accurate lip-sync, and helping every actor deliver their best take. Experience in dialogue adaptation for dubbing and localization, as well as integration and creative direction of synthetic voices powered by artificial intelligence when required for hybrid or AI-assisted productions.",
-            "service8": "Audio Engineer",
-            "subtitle8": "Recording, editing, restoration, mixing, and quality control for dubbing, audiobooks, podcasts, game-audio and broadcast content. Combining technical precision with practical workflows to deliver clean, reliable, production-ready audio.",
-            "service9": "Music Producer",
-            "subtitle9": "Music production, vocal recording, arranging, editing, and mixing for artists, commercial projects, and musical localization. From the first idea to the final master, helping turn creative concepts into polished productions."
+            "title": "Services"
         },
         "banner": {
             "title": "What are you waiting for?"
@@ -60,38 +55,33 @@
     "es": {
         "menu": {
             "home": "Home",
-            "about": "Sobre mí",
+            "about": "Quienes somos",
+            "institutional": "Institucional",
+            "plays": "Obras teatrales",
             "services": "Servicios",
-            "portfolio": "Proyectos",
+            "portfolio": "Otros proyectos",
             "contact": "Contacto"
         },
         "header": {
-            "security": "Director de Doblaje",
-            "environment": "Ingeniero de Audio",
-            "legal": "Productor Musical"
+            "eyebrow": "diversidad de posibilidades",
+            "description": "Es una ONG argentina que promueve contenidos escénicos accesibles pensados para todos los públicos. Su objetivo primario es garantizar los derechos culturales de las personas con discapacidad, buscando ampliar la oferta cultural argentina."
         },
         "about": {
             "title": "Sobre",
-            "name": "Hola, soy Joaquín Baamonde",
+            "name": "Malena Sánchez Olmos",
             "welcome": "Les doy la bienvenida y me presento.",
-            "paragraph1": "Soy un Ingeniero de Audio, Director de Doblaje y Productor Musical con pasión por contar historias a través del sonido. Desde 2009, he explorado múltiples facetas de la industria del audio, desde la producción musical y la radiodifusión hasta el doblaje, audiolibros, audio para videojuegos y las emergentes tecnologías de localización basadas en inteligencia artificial.",
-            "paragraph2": "Lo que comenzó como un amor por la música y la tecnología de audio se convirtió en una carrera de dirección de actores de voz, producción de interpretaciones y diseño flujos de trabajo de audio eficientes. Hoy combino experiencia técnica con un enfoque creativo para ayudar a dar vida a historias, personajes y actuaciones a través del sonido."
+            "paragraph1": "Se dedica hace más de 10 años al campo de la gestión cultural, más específicamente en el área de artes escénicas. Su interés principal gira en torno a los proyectos socioculturales y cultura comunitaria. Trabajó en diferentes ámbitos públicos, privados y del tercer sector. Actualmente es presidente de la asociación civil sin fines de lucro Apto para Todo Público, productora teatral argentina que brinda contenidos accesibles para que puedan ser disfrutados por todos los públicos.",
+            "paragraph2": ""
         },
         "portfolio": {
-            "title": "Proyectos"
+            "title": "Obras teatrales"
         },
         "choose": {
             "title": "Créditos Seleccionados",
             "subtitle": "Clientes Directos y Colaboradores"
         },
         "our-services": {
-            "title": "Servicios",
-            "service7": "Director de Doblaje",
-            "subtitle7": "Dirección y coaching de actores de voz en animación, acción real, documentales, ADR y doblaje de canciones. Orientado a interpretaciones naturales, sincronía labial precisa y a ayudar a cada actor a dar su mejor toma. Experiencia en adaptación de diálogos para doblaje y localización, así como en la integración y dirección creativa de voces sintéticas impulsadas por inteligencia artificial cuando se requiere en producciones híbridas o asistidas por IA.",
-            "service8": "Ingeniero de Audio",
-            "subtitle8": "Grabación, edición, restauración, mezcla y control de calidad para doblaje, audiolibros, podcasts, audio para videojuegos y contenido de radiodifusión. Combinando precisión técnica con flujos de trabajo prácticos para entregar audio limpio, confiable y listo para producción.",
-            "service9": "Productor Musical",
-            "subtitle9": "Producción musical, grabación de voces, arreglos, edición y mezcla para artistas, proyectos comerciales y localización musical. Desde la primera idea hasta el máster final, ayudando a convertir conceptos creativos en producciones pulidas."
+            "title": "Servicios"
         },
         "work": {
             "title": "¿Querés trabajar con nosotros?",
@@ -123,38 +113,33 @@
     "pt": {
         "menu": {
             "home": "Início",
-            "about": "Sobre mim",
+            "about": "Quem somos",
+            "institutional": "Institucional",
+            "plays": "Peças teatrais",
             "services": "Serviços",
-            "portfolio": "Projetos",
+            "portfolio": "Outros projetos",
             "contact": "Contato"
         },
         "header": {
-            "security": "Diretor de Dublagem",
-            "environment": "Engenheiro de Áudio",
-            "legal": "Produtor Musical"
+            "eyebrow": "diversidade de possibilidades",
+            "description": "É uma ONG argentina que promove conteúdos cênicos acessíveis pensados para todos os públicos. Seu objetivo principal é garantir os direitos culturais das pessoas com deficiência, buscando ampliar a oferta cultural argentina."
         },
         "about": {
             "title": "Sobre",
-            "name": "Olá, eu sou Joaquín Baamonde",
+            "name": "Malena Sánchez Olmos",
             "welcome": "Dou as boas-vindas e me apresento.",
             "paragraph1": "Sou um Engenheiro de Áudio, Diretor de Dublagem e Produtor Musical com paixão por contar histórias através do som. Desde 2009, explorei muitos aspectos da indústria de áudio, da produção musical e radiodifusão à dublagem, audiolivros, áudio para jogos e as emergentes tecnologias de localização baseadas em inteligência artificial.",
             "paragraph2": "O que começou como um amor pela música e pela tecnologia de áudio evoluiu para uma carreira dirigindo atores de voz, produzindo performances e desenvolvendo fluxos de trabalho de áudio eficientes. Hoje, combino expertise técnica com uma abordagem criativa para ajudar a dar vida a histórias, personagens e performances através do som."
         },
         "portfolio": {
-            "title": "Projetos"
+            "title": "Peças de teatro"
         },
         "choose": {
             "title": "Créditos Selecionados",
             "subtitle": "Clientes Diretos e Colaboradores"
         },
         "our-services": {
-            "title": "Serviços",
-            "service7": "Diretor de Dublagem",
-            "subtitle7": "Direção e coaching para atores de voz em animação, live-action, documentários, ADR e dublagem de canto. Focado em performances naturais, sincronização labial precisa e em ajudar cada ator a entregar sua melhor tomada. Experiência em adaptação de diálogos para dublagem e localização, bem como na integração e direção criativa de vozes sintéticas movidas por inteligência artificial quando necessário em produções híbridas ou assistidas por IA.",
-            "service8": "Engenheiro de Áudio",
-            "subtitle8": "Gravação, edição, restauração, mixagem e controle de qualidade para dublagem, audiolivros, podcasts, áudio para jogos e conteúdo de radiodifusão. Combinando precisão técnica com fluxos de trabalho práticos para entregar áudio limpo, confiável e pronto para produção.",
-            "service9": "Produtor Musical",
-            "subtitle9": "Produção musical, gravação de vocais, arranjos, edição e mixagem para artistas, projetos comerciais e localização musical. Da primeira ideia ao master final, ajudando a transformar conceitos criativos em produções refinadas."
+            "title": "Serviços"
         },
         "work": {
             "title": "Quer trabalhar conosco?",

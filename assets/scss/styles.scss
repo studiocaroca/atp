@@ -4,15 +4,13 @@
 @import "order/mixins";
 @import "order/typography";
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;700;800&display=swap");
-
 :root {
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Inter", sans-serif;
+  --font-family-sans-serif: "Lato", sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -28,7 +26,7 @@ html {
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(52, 62, 74, 0);
 }
 
 article,
@@ -75,6 +73,7 @@ h5,
 h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
+  overflow-wrap: break-word;
 }
 
 p {
@@ -374,9 +373,9 @@ h6,
 .h5,
 .h6 {
   margin-bottom: 0.5rem;
-  font-weight: 100;
+  font-weight: 900;
   line-height: 1.2;
-  font-family: 'tt-travels-next', sans-serif;
+  font-family: 'Lato', sans-serif;
   color: $white;
   text-transform: uppercase;
 }
@@ -412,17 +411,16 @@ h6,
 }
 
 
-#logo-joaquin {
+#logo-atp {
   height: 32px !important;
   width: auto !important;
   max-width: none !important;
   flex-shrink: 0;
 }
 
-#logo-joaquin2 {
+#logo-atp2 {
   width: 35%;
   display: block;
-  animation: logoPulse 14s ease-in-out infinite;
   opacity: 1;
 }
 
@@ -438,7 +436,7 @@ h6,
 }
 
 @media (min-width: 800px) and (max-width: 899px) {
-  #logo-joaquin { display: none; }
+  #logo-atp { display: none; }
   #logo-insignia { display: inline-block; }
 }
 
@@ -462,25 +460,33 @@ nav.page-navbar .nav-item {
 /* Reducir espacio entre items del menú a medida que achica */
 @media (min-width: 800px) and (max-width: 879px) {
   nav.page-navbar .nav-item .nav-link {
-    margin: 0 3px;
-    font-size: 0.62rem;
-    letter-spacing: 0.02em;
-    padding-right: 0.2rem;
-    padding-left: 0.2rem;
+    margin: 0 2px;
+    font-size: 0.52rem;
+    letter-spacing: 0.01em;
+    padding-right: 0.15rem;
+    padding-left: 0.15rem;
   }
   .flags { display: none; }
 }
 
 @media (min-width: 880px) and (max-width: 999px) {
   nav.page-navbar .nav-item .nav-link {
-    margin: 0 6px;
-    font-size: 0.68rem;
-    letter-spacing: 0.03em;
+    margin: 0 4px;
+    font-size: 0.58rem;
+    letter-spacing: 0.02em;
   }
   .flags { display: none; }
 }
 
 @media (min-width: 1000px) and (max-width: 1150px) {
+  nav.page-navbar .nav-item .nav-link {
+    margin: 0 6px;
+    font-size: 0.64rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (min-width: 1151px) and (max-width: 1300px) {
   nav.page-navbar .nav-item .nav-link {
     margin: 0 10px;
     font-size: 0.7rem;
@@ -488,7 +494,7 @@ nav.page-navbar .nav-item {
 }
 
 
-#logo-joaquin-blanco {
+#logo-atp-blanco {
   width: 60%;
 }
 
@@ -505,7 +511,8 @@ nav.page-navbar .nav-item {
 .whatsapp-button {
   animation: whatsappShake 5s ease-in-out infinite;
   position: fixed;
-  bottom: 20px;
+  // Bumped up to leave room for .scroll-button below it.
+  bottom: 95px;
   right: 20px;
   background-color: $primary;
   color: $white;
@@ -516,7 +523,7 @@ nav.page-navbar .nav-item {
   font-size: 24px;
   text-align: center;
   line-height: 60px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgba(52, 62, 74, 0.3);
   cursor: pointer;
   z-index: 1000;
 }
@@ -524,6 +531,32 @@ nav.page-navbar .nav-item {
 /* Estilos para el ícono de WhatsApp */
 .whatsapp-button i {
   font-size: 30px;
+}
+
+// Press-and-hold scroll button — sits where the WhatsApp button used to
+// be. JS flips the icon/direction between down and up depending on
+// whether the page is scrolled to the bottom.
+.scroll-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: $dark-blue;
+  color: $white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 22px;
+  text-align: center;
+  line-height: 60px;
+  box-shadow: 0 2px 5px rgba(52, 62, 74, 0.3);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.15s ease-in-out;
+
+  &:hover {
+    background-color: $black;
+  }
 }
 
 .lead {
@@ -622,7 +655,7 @@ a>code {
   color: $white;
   background-color: rgba(255, 255, 255, 0.07);
   background-clip: padding-box;
-  border: 1px solid rgba(121, 72, 236, 0.3);
+  border: 1px solid rgba(222, 58, 26, 0.3);
   border-radius: 0.2rem;
   -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -645,7 +678,7 @@ a>code {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: $primary;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(121, 72, 236, 0.3);
+  box-shadow: 0 0 0 0.2rem rgba(222, 58, 26, 0.3);
 }
 
 .form-control::-webkit-input-placeholder {
@@ -995,7 +1028,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary:hover {
-  color: $white;
+  color: $black;
   background-color: $secondary;
   border-color: $secondary;
 }
@@ -1015,7 +1048,7 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
 .show>.btn-primary.dropdown-toggle {
-  color: $black;
+  color: $white;
   background-color: $primary-dark;
   border-color: $primary-dark;
 }
@@ -1346,7 +1379,7 @@ input[type="button"].btn-block {
   text-align: center;
   white-space: nowrap;
   background-color: $white;
-  border: 1px solid #ced4da;
+  border: 1px solid rgba($dark-blue, 0.25);
   border-radius: 0.2rem;
 }
 
@@ -1584,7 +1617,7 @@ input[type="button"].btn-block {
   vertical-align: middle;
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.78rem center/8px 10px;
   background-color: $white;
-  border: 1px solid #ced4da;
+  border: 1px solid rgba($dark-blue, 0.25);
   border-radius: 0.2rem;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1680,7 +1713,7 @@ input[type="button"].btn-block {
   line-height: 1.5;
   color: $gray-500;
   background-color: $white;
-  border: 1px solid #ced4da;
+  border: 1px solid rgba($dark-blue, 0.25);
   border-radius: 0.2rem;
 }
 
@@ -2020,7 +2053,7 @@ input[type="button"].btn-block {
 }
 
 .navbar-light .navbar-nav .nav-link.disabled {
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(52, 62, 74, 0.3);
 }
 
 .navbar-light .navbar-nav .show>.nav-link,
@@ -2031,13 +2064,13 @@ input[type="button"].btn-block {
 }
 
 .navbar-light .navbar-toggler {
-  color: $secondary;
-  background-color: rgba($color: $white, $alpha: 0.3);
+  color: $black;
+  background-color: rgba($color: $black, $alpha: 0.12);
 }
 
 .navbar-light .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-  color: $secondary;
+  color: $black;
 }
 
 .navbar-light .navbar-text {
@@ -2313,9 +2346,9 @@ a.close.disabled {
   flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: #0a0a0a;
+  background-color: $black;
   background-clip: padding-box;
-  border: 1px solid rgba(121, 72, 236, 0.3);
+  border: 1px solid rgba(222, 58, 26, 0.3);
   border-radius: 0.15rem;
   outline: 0;
 }
@@ -2661,15 +2694,15 @@ button.bg-secondary:focus {
 }
 
 .shadow-sm {
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  box-shadow: 0 0.125rem 0.25rem rgba(52, 62, 74, 0.075) !important;
 }
 
 .shadow {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 1px 1px rgba(52, 62, 74, 0.2) !important;
 }
 
 .shadow-lg {
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  box-shadow: 0 1rem 3rem rgba(52, 62, 74, 0.175) !important;
 }
 
 .shadow-none {
@@ -2749,7 +2782,19 @@ button.bg-secondary:focus {
   z-index: 1;
   pointer-events: auto;
   content: "";
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(52, 62, 74, 0);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 .text-monospace {
@@ -2927,11 +2972,11 @@ a.text-dark:focus {
 }
 
 .modal-content .text-muted {
-  color: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(52, 62, 74, 0.5) !important;
 }
 
 .text-black-50 {
-  color: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(52, 62, 74, 0.5) !important;
 }
 
 .text-white-50 {
@@ -3046,25 +3091,27 @@ a.text-dark:focus {
 }
 
 body {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Lato', sans-serif !important;
   color: $white;
   background: $black;
   box-sizing: border-box;
 }
 
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 /* typography */
 p, .simil-p {
   font-size: calc(13px + (14 - 13) * ((100vw - 300px) / (1300 - 300)));
+  font-weight: 400;
   opacity: .85;
   color: rgba(255, 255, 255, 0.85);
 }
 
 .title {
   font-size: calc(15px + (20 - 15) * ((100vw - 300px) / (1300 - 300)));
+  font-weight: 700;
 }
 
 .bg-primary .navbar-brand,
@@ -3106,7 +3153,7 @@ nav.page-navbar {
   padding: 10px 0px 10px 20px;
   -webkit-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
-  background-color: #000000;
+  background-color: $celeste;
 }
 
 nav.page-navbar .navbar-brand {
@@ -3115,14 +3162,19 @@ nav.page-navbar .navbar-brand {
   transition: all 0.3s linear 0s;
 }
 
+.lang-selector__current,
+.lang-selector__option {
+  color: $black;
+}
+
 nav.page-navbar .navbar-brand .text-dark {
   color: $white !important;
 }
 
 nav.page-navbar .nav-item .nav-link {
-  color: $white;
-  font-family: 'tt-travels-next', sans-serif !important;
-  font-weight: 200;
+  color: $black;
+  font-family: 'Lato', sans-serif !important;
+  font-weight: 700;
   position: relative;
   z-index: 0;
   padding-bottom: 4px;
@@ -3130,30 +3182,44 @@ nav.page-navbar .nav-item .nav-link {
   font-size: 0.75rem;
   letter-spacing: 0.05em;
   margin: 0 18px;
+  white-space: nowrap;
 
   &:not(.btn)::after {
     content: '';
     position: absolute;
-    bottom: 6px;
-    left: 38%;
-    width: 0;
-    height: 9px;
-    background-color: rgba(121, 72, 236, 0.8);
-    border-radius: 2px;
-    transition: width 0.35s ease;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    background: no-repeat center / contain;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4) rotate(-10deg);
+    transition: opacity 0.35s ease, transform 0.35s ease;
     z-index: -1;
+    pointer-events: none;
   }
 
   &:not(.btn):hover::after {
-    width: 70%;
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
   }
 }
 
+// Una forma distinta de assets/imgs/formas por cada item del menú,
+// aparece detrás del texto al pasar el mouse.
+nav.page-navbar .navbar-nav .nav-item:nth-child(1) .nav-link::after { background-image: url(../imgs/formas/onda.svg); }
+nav.page-navbar .navbar-nav .nav-item:nth-child(2) .nav-link::after { background-image: url(../imgs/formas/circulo.svg); }
+nav.page-navbar .navbar-nav .nav-item:nth-child(3) .nav-link::after { background-image: url(../imgs/formas/rombo.svg); }
+nav.page-navbar .navbar-nav .nav-item:nth-child(4) .nav-link::after { background-image: url(../imgs/formas/estrella.svg); }
+nav.page-navbar .navbar-nav .nav-item:nth-child(5) .nav-link::after { background-image: url(../imgs/formas/semicirculo.svg); }
+nav.page-navbar .navbar-nav .nav-item:nth-child(6) .nav-link::after { background-image: url(../imgs/formas/escalera.svg); }
+
 nav.page-navbar .nav-item .nav-link.active:not(.btn) {
-  color: $white;
+  color: $black;
 
   &::after {
-    width: 70%;
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
   }
 }
 
@@ -3180,14 +3246,14 @@ nav.page-navbar .nav-item .btn {
 nav.page-navbar.affix {
   min-height: 75px;
   padding: 10px 0px 10px 20px;
-  background: #000000;
-  box-shadow: 0 2px 24px rgba(121, 72, 236, 0.4);
-  border-bottom: 1px solid rgba(121, 72, 236, 0.3);
-  color: $white;
+  background: $celeste;
+  box-shadow: 0 2px 24px rgba(222, 58, 26, 0.4);
+  border-bottom: 1px solid rgba(222, 58, 26, 0.3);
+  color: $black;
 }
 
 nav.page-navbar.affix .nav-link {
-  color: $white;
+  color: $black;
 }
 
 nav.page-navbar.affix .navbar-brand {
@@ -3285,77 +3351,201 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   margin: 0;
 }
 
-@keyframes blobMove1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25%       { transform: translate(-8%, 12%) scale(1.08); }
-  50%       { transform: translate(10%, -8%) scale(0.94); }
-  75%       { transform: translate(-5%, -12%) scale(1.05); }
-}
-
-@keyframes blobMove2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  30%       { transform: translate(10%, -10%) scale(1.06); }
-  60%       { transform: translate(-8%, 10%) scale(0.96); }
-  80%       { transform: translate(5%, 8%) scale(1.03); }
-}
-
-@keyframes blobMove3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  40%       { transform: translate(-12%, 6%) scale(1.1); }
-  70%       { transform: translate(8%, -6%) scale(0.92); }
-}
-
 .header {
-  background: #000000;
+  background: $coral;
   text-align: center;
   color: white;
   position: relative;
+  // Own stacking context, so the corner dot bleeding past the header's
+  // bottom edge paints above #about's background instead of being
+  // covered by it (both would otherwise sit in the same auto z-index
+  // bucket, decided by DOM order — #about comes after and would win).
+  z-index: 1;
   height: 100vh;
+  height: 100dvh;
   min-height: 500px;
-  overflow: hidden;
+  overflow: visible;
 }
 
-.header .overlay {
+.header-corner-dot {
+  --dot-size: clamp(320px, 90vh, 750px);
+  --dot-size: clamp(320px, 90dvh, 750px);
+  position: absolute;
+  // Bleeds past the header's own bottom edge so the circle keeps going
+  // visibly into the section below instead of stopping dead at the fold.
+  bottom: calc(var(--dot-size) * -0.18 - 40px);
+  left: calc(var(--dot-size) * -0.12);
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  background: $ocre;
+  z-index: 0;
+  animation: cornerDotPulse 6s ease-in-out infinite;
+}
+
+@keyframes cornerDotPulse {
+  0%   { transform: translateX(0) scale(1); }
+  50%  { transform: translateX(40px) scale(1.08); }
+  100% { transform: translateX(0) scale(1); }
+}
+
+.header-intersection {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.header-brand {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  // No z-index here on purpose: this must NOT become its own stacking
+  // context, so its children below can be individually placed above or
+  // below .header-intersection's canvas (z-index: 2) — the polygon stays
+  // under it (so the celeste overlap effect still shows through), while
+  // the logo/description are lifted above it (so the canvas never paints
+  // over them).
+}
+
+.header-brand-box {
+  position: relative;
+  width: calc(92vw + 60px);
+  height: 55vw;
+  max-width: 1300px;
+  max-height: 720px;
+  min-width: 750px;
+  min-height: 360px;
+  flex-shrink: 0;
+  transform: translateY(-72px);
   overflow: hidden;
-  z-index: 0;
+  // No z-index: stays at the auto/default stacking level, which sits
+  // below .header-intersection's explicit z-index: 2 — so the celeste
+  // circle/polygon overlap the canvas paints is still visible through it.
 
   &::before {
     content: '';
     position: absolute;
-    width: 65%;
-    height: 85%;
-    top: -25%;
-    right: -10%;
-    background: radial-gradient(circle, rgba(121, 72, 236, 0.75) 0%, transparent 70%);
-    filter: blur(50px);
-    animation: blobMove1 6s ease-in-out infinite;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    width: 55%;
-    height: 70%;
-    bottom: -20%;
-    left: -8%;
-    background: radial-gradient(circle, rgba(185, 160, 239, 0.5) 0%, transparent 70%);
-    filter: blur(45px);
-    animation: blobMove2 8s ease-in-out infinite;
+    top: -60px;
+    right: -60px;
+    bottom: 0;
+    left: 0;
+    background: $dark-blue;
+    clip-path: polygon(115px 0, 100% 0, 100% 100%, 0 calc(100% - 133px));
+    transform: rotate(-13deg);
+    animation: brandBoxFloat 5s ease-in-out infinite;
   }
 }
 
-.header .overlay-blob3 {
+@keyframes brandBoxFloat {
+  0%, 100% { transform: translateY(0) rotate(-13deg); }
+  50%      { transform: translateY(-24px) rotate(-13deg); }
+}
+
+// Sits on top of .header-brand-box, mirroring its own size/position
+// (same padding, same translateY) so the logo + description line up
+// exactly where they used to when nested inside the box. Kept as a
+// separate element specifically so it can carry a z-index above
+// .header-intersection's canvas (2) while .header-brand-box stays below
+// it — otherwise the canvas's celeste overlap paints over the text.
+.header-brand-content {
   position: absolute;
-  width: 40%;
-  height: 50%;
-  top: 40%;
-  left: 40%;
-  background: radial-gradient(circle, rgba(121, 72, 236, 0.35) 0%, transparent 65%);
-  filter: blur(60px);
-  animation: blobMove3 10s ease-in-out infinite;
-  z-index: 0;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5%;
+  transform: translateY(-52px);
+  z-index: 3;
+
+  #logo-atp2 {
+    width: 32%;
+    margin-bottom: 0;
+  }
+}
+
+.header-brand-description {
+  // Matches #logo-atp2's own width so this sits directly under it
+  // (both centered the same way by the flex column), text ranged left.
+  width: 42%;
+  max-width: 420px;
+  color: $white;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: left;
+  margin: 16px 0 0;
+  transform: translate(35px, 10px);
+}
+
+.header-eyebrow-stack {
+  position: relative;
+  display: inline-block;
+  margin: 15px 0 10px;
+  transform: translate(-525px, 180px);
+  z-index: 999;
+}
+
+.header-eyebrow {
+  text-transform: lowercase;
+  letter-spacing: 0.15em;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+
+  span {
+    display: inline-block;
+    animation: eyebrowWave 4.5s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 0.15s);
+  }
+}
+
+.header-eyebrow--base {
+  // "bilidades" — everything after the white "diversidad de posi"
+  color: $dark-blue;
+
+  // "diversidad de posi" — first 18 characters
+  span:nth-child(-n+18) {
+    color: $white;
+  }
+}
+
+// The fill copy is the exact same text, rendered in the brand dark blue and clipped
+// (polygon + circle wrapper, matching .header-brand-box::before and .header-corner-dot
+// pixel-for-pixel — see header-intersection.js) so it only shows where the celeste
+// background actually is. It sits on top of the base copy, replacing it there.
+.header-eyebrow-fill-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.header-eyebrow-fill-circle {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.header-eyebrow--fill {
+  position: absolute;
+  color: $dark-blue;
+}
+
+@keyframes eyebrowWave {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-16px); }
+}
+
+@keyframes eyebrowWave {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-16px); }
 }
 
 .header .header-content {
@@ -3368,37 +3558,13 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   transform: translateY(-50%);
   color: $white;
   margin-top: 40px;
-  z-index: 1;
+  // Above .header-brand-content (z-index: 3) and .header-intersection (2)
+  // so the eyebrow text (e.g. "bilidades") never gets covered by them.
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.header-roles {
-  display: flex;
-  gap: 2rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #fff;
-  span {
-    animation: logoPulse 14s ease-in-out infinite;
-    &:nth-child(1) { animation-delay: -3.5s; }
-    &:nth-child(2) { animation-delay: -7s; }
-    &:nth-child(3) { animation-delay: -10.5s; }
-  }
-}
-
-.header .header-content p {
-  color: white;
-  margin-bottom: 5px;
-  font-size: calc(15px + (20 - 15) * ((100vw - 300px) / (1200 - 300)));
-  margin-left: 15%;
-  animation: logoPulse 14s ease-in-out infinite;
-}
-
-.header .header-content p[data-translate="security"]    { animation-delay: -3.5s; }
-.header .header-content p[data-translate="environment"] { animation-delay: -7s; }
-.header .header-content p[data-translate="legal"]       { animation-delay: -10.5s; }
 
 .header .header-content h6 {
   margin-bottom: 25px;
@@ -3433,22 +3599,11 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   justify-content: center;
   text-align: center;
   padding: 1rem;
-  background: #000000 !important;
+  background: $black !important;
 }
 
 .logo {
   margin-bottom: 15px;
-}
-
-/* Logo pulse animation */
-@keyframes logoPulse {
-  0%   { opacity: 1; }
-  5%   { opacity: 0.05; }
-  11%  { opacity: 1; }
-  50%  { opacity: 1; }
-  67%  { opacity: 0.05; }
-  82%  { opacity: 1; }
-  100% { opacity: 1; }
 }
 
 body,
@@ -3460,6 +3615,22 @@ section {
   padding: 100px 0;
 }
 
+// So clicking a menu link doesn't leave the section's own title
+// scrolled underneath the fixed navbar (~90px tall).
+#home,
+#institucional,
+#otros-proyectos,
+#ourservices,
+#portfolio {
+  scroll-margin-top: 90px;
+}
+
+// Extra margin so the "Quienes somos" title stays on screen (not just
+// clear of the navbar) when this section is scrolled to.
+#about {
+  scroll-margin-top: 105px;
+}
+
 section:nth-child(odd) {
   background-color: $black;
 }
@@ -3468,7 +3639,7 @@ section:nth-child(odd) {
 
 /*Slide*/
 @mixin white-gradient {
-  background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(to right, rgba(52, 62, 74, 1) 0%, rgba(52, 62, 74, 0) 100%);
 }
 
 // Animation
@@ -3485,8 +3656,8 @@ section:nth-child(odd) {
 $animationSpeed: 40s;
 
 .slider {
-  background: #000000;
-  box-shadow: 0 10px 20px -5px rgba(121, 72, 236, 0.2);
+  background: $black;
+  box-shadow: 0 10px 20px -5px rgba(222, 58, 26, 0.2);
   height: 155px;
   margin: auto;
   overflow: hidden;
@@ -3518,6 +3689,11 @@ $animationSpeed: 40s;
     animation: scroll $animationSpeed linear infinite;
     display: flex;
     width: calc(250px * 14);
+
+    // Pauses the marquee while the cursor is over it.
+    &:hover {
+      animation-play-state: paused;
+    }
   }
 
   .slide {
@@ -3526,17 +3702,212 @@ $animationSpeed: 40s;
   }
 }
 
+// Apoyos slider: 10 unique logos, doubled to 20 slides for a seamless
+// loop. Logos vary a lot in width, so (unlike the fixed-250px slider
+// above) each slide here shrink-wraps its own logo — equal padding on
+// every slide is then what keeps the gap between any two logos' edges
+// truly equal, instead of a fixed slide box splitting leftover space
+// unevenly depending on how wide each logo happens to be. The scroll
+// distance can't be a constant per-slide-width formula anymore since
+// slides aren't a fixed width, so atp.js measures the track and sets
+// --apoyos-scroll-distance at runtime.
+@keyframes scroll-apoyos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(var(--apoyos-scroll-distance, -1400px)); }
+}
+
+.slider--apoyos {
+  background: transparent;
+  box-shadow: none;
+  // Taller than the shared 155px so the biggest logo (ORT, 130px)
+  // still fits with room to spare.
+  height: 165px;
+
+  &::before,
+  &::after {
+    display: none;
+  }
+
+  .slide {
+    width: auto;
+    height: auto;
+  }
+
+  .slide-track {
+    // Logos vary a lot in height — align-items: center (rather than
+    // the inherited stretch) is what actually centers each one on the
+    // same middle line instead of top-aligning them within a row whose
+    // height is set by the tallest logo.
+    align-items: center;
+    height: 100%;
+    width: max-content;
+    animation-name: scroll-apoyos;
+  }
+}
+
+.apoyo-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Half of the intended edge-to-edge gap (70px) on each side — every
+  // slide gets exactly this, regardless of its own logo's width.
+  padding: 0 35px;
+
+  span {
+    // Was white for a dark slider background; now that the slider is
+    // transparent it sits on .apoyos-block's white background instead.
+    color: $dark-blue;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+
+  // A fixed height (not a max-width/max-height box) — each slide now
+  // shrink-wraps to its logo's own rendered width (see .slider--apoyos
+  // .slide above), so the equal-gap job is handled by .apoyo-slide's
+  // padding instead of this height evening out leftover box space.
+  img {
+    height: 60px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+
+    // Bigger than the shared height, per-logo.
+    &[src*="logo-defensoria-del-pueblo"] {
+      height: 65px;
+    }
+
+    &[src*="logo-granja-zenon"],
+    &[src*="logo-ctba"] {
+      height: 82px;
+    }
+
+    // Square (1:1) source image, needs extra height to read at the
+    // same visual weight as the wide logos.
+    &[src*="logo-ort"] {
+      height: 130px;
+    }
+
+    // The one right before ORT in the strip — bigger still. Source
+    // image was re-cropped to trim the empty space around the actual
+    // logo marks (was a 1:1 canvas with the content only in the lower
+    // half, which made it render vertically off-center), so it's now
+    // a wide banner shape rather than square — sized by width instead.
+    &[src*="logo-chacra-remedios"] {
+      height: 95px;
+    }
+
+    // Smaller than the shared height, per-logo.
+    &[src*="logo-ocppc"],
+    &[src*="logo-paseo-la-plaza"],
+    &[src*="logo-la-matanza"] {
+      height: 42px;
+    }
+  }
+}
+
 
 #seguridadehigiene,
 #ourservices {
-  background: #000000;
+  background: $black;
+  position: relative;
+  overflow: hidden;
+  padding-top: 1rem !important;
 }
 
-#ourservices .services-wrapper:hover {
-  box-shadow: 0 3px 10px rgba($color: $white, $alpha: 0.9) !important;
-  color: $secondary;
+// Decorative shapes: flat, static and non-transparent so that where two
+// shapes cross, that crossing area can be assigned its own hand-picked
+// palette color instead of relying on an automatic transparency blend.
+.services-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  // Kept translucent (rather than fully opaque) so the shapes read as a
+  // colored accent behind the copy instead of a solid panel that would
+  // fail text contrast where it sits under a paragraph.
+  opacity: 0.38;
 }
 
+.services-blob--1 {
+  width: 60%;
+  height: 80%;
+  top: -25%;
+  right: -10%;
+  background: $rojo;
+}
+
+.services-blob--2 {
+  width: 55%;
+  height: 70%;
+  bottom: -20%;
+  left: -8%;
+  background: $ocre;
+}
+
+.services-blob--3 {
+  width: 40%;
+  height: 50%;
+  top: 40%;
+  left: 40%;
+  background: $celeste;
+}
+
+// Hand-picked crossing colors (not an automatic blend) for the areas
+// where .services-blob--3 overlaps the other two shapes.
+.services-blob-cross--1 {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  width: 26%;
+  height: 13%;
+  top: 43%;
+  left: 51%;
+  background: $coral;
+  opacity: 0.38;
+}
+
+.services-blob-cross--2 {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  width: 6%;
+  height: 34%;
+  top: 53%;
+  left: 41%;
+  background: $white;
+  opacity: 0.38;
+}
+
+#ourservices .container {
+  position: relative;
+  z-index: 3;
+}
+
+#ourservices::before,
+#ourservices::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#ourservices::before {
+  top: 0;
+  background: linear-gradient(to bottom, $black 0%, transparent 100%);
+}
+
+#ourservices::after {
+  bottom: 0;
+  background: linear-gradient(to top, $black 0%, transparent 100%);
+}
 
 #seguridadehigiene {
   color: $white;
@@ -3589,7 +3960,7 @@ section.has-bg-img .overlay {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(52, 62, 74, 0.7);
 }
 
 section.has-bg-img a {
@@ -3687,50 +4058,135 @@ section.height-auto {
 }
 
 /* about */
-.about-wrapper {
-  margin-left: 70px;
+.about-title {
+  @extend %section-title-style;
+  // Above .header's bled circle (z-index: 1), which now overlaps the
+  // top of this section since padding-top was removed.
   position: relative;
+  z-index: 5;
+}
+
+// Coverflow-style carousel: one active card centered up front, the
+// others stacked behind it left/right (scaled down + blurred), auto
+// advancing and pausing on hover — arrows for manual control.
+.about-carousel {
+  position: relative;
+  max-width: 1300px;
+  margin: 0 auto 40px;
+  padding: 0 60px;
+}
+
+.about-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: $primary;
+  color: $white;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease-in-out;
+
+  &:hover {
+    background: $primary;
+  }
+
+  &--prev { left: 0; }
+  &--next { right: 0; }
+}
+
+.about-wrapper {
+  margin-left: 0;
+  position: relative;
+  height: 640px;
 }
 
 .about-wrapper .content {
-  background-color: rgba(0, 0, 0, 0.88);
-  box-shadow: 0 3px 80px rgba(121, 72, 236, 0.2), 0 0 10px rgba(121, 72, 236, 0.15) !important;
-  border: 1px solid rgba(121, 72, 236, 0.2);
-  border-radius: 0.2rem;
-  padding: 35px;
-  position: relative;
-}
-
-.about-wrapper .after {
   position: absolute;
-  top: 10%;
-  left: -60px;
-  background: $primary;
-  box-shadow: 0 3px 80px rgba(121, 72, 236, 0.4), 0 0 10px rgba(121, 72, 236, 0.2) !important;
-  width: 62px;
-  height: 80%;
+  top: 0;
+  left: 50%;
+  width: 430px;
+  max-width: calc(100vw - 140px);
+  // Same coral as the section background, just darker, with enough
+  // transparency that the circle bleeding in from the header shows
+  // through underneath it.
+  background-color: rgba($coral, 0.75);
+  box-shadow: 0 3px 80px rgba(0, 0, 0, 0.25), 0 0 10px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(222, 58, 26, 0.2);
+  border-radius: 0.2rem;
+  padding: 34px;
   color: $white;
-  border-radius: 0.2rem;
-}
+  pointer-events: auto;
+  // Multiplied into the active card's scale() below — only it grows on
+  // hover, the side cards stay put (see .about-card--active:hover).
+  --hover-scale: 1;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.35s ease,
+              filter 0.35s ease;
 
-.about-wrapper .after h1 {
-  -webkit-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-  position: absolute;
-  top: 43%;
-  left: -45px;
-  font-size: 35px;
-}
+  .title,
+  p {
+    color: $white;
+    opacity: 1;
+  }
+  .title {
+    font-size: 1.4rem;
+  }
+  p {
+    font-size: 0.95rem;
+  }
 
+  // Positions relative to whichever card is currently active — JS keeps
+  // these classes in sync with the current index.
+  &.about-card--active {
+    transform: translateX(-50%) scale(var(--hover-scale));
+    opacity: 1;
+    filter: blur(0);
+    z-index: 5;
+
+    &:hover {
+      --hover-scale: 1.06;
+    }
+  }
+  &.about-card--next1 {
+    transform: translateX(calc(-50% + 230px)) scale(calc(0.82 * var(--hover-scale)));
+    opacity: 0.65;
+    filter: blur(2px);
+    z-index: 3;
+  }
+  &.about-card--prev1 {
+    transform: translateX(calc(-50% - 230px)) scale(calc(0.82 * var(--hover-scale)));
+    opacity: 0.65;
+    filter: blur(2px);
+    z-index: 3;
+  }
+  // All 5 cards stay visible at once now — the outer pair is just
+  // smaller/dimmer/blurrier than the inner pair, instead of hidden.
+  &.about-card--next2 {
+    transform: translateX(calc(-50% + 420px)) scale(calc(0.66 * var(--hover-scale)));
+    opacity: 0.35;
+    filter: blur(3px);
+    z-index: 1;
+  }
+  &.about-card--prev2 {
+    transform: translateX(calc(-50% - 420px)) scale(calc(0.66 * var(--hover-scale)));
+    opacity: 0.35;
+    filter: blur(3px);
+    z-index: 1;
+  }
+}
 
 @media (max-width: 767.98px) {
   .about-wrapper {
     margin-left: 0;
-  }
-
-  .about-wrapper .after {
-    display: none;
   }
 }
 
@@ -3744,7 +4200,7 @@ section.height-auto {
   left: -30px;
   width: 100px;
   height: 80%;
-  box-shadow: 0 3px 80px rgba(121, 72, 236, 0.3), 0 0 10px rgba(121, 72, 236, 0.2) !important;
+  box-shadow: 0 3px 80px rgba(222, 58, 26, 0.3), 0 0 10px rgba(222, 58, 26, 0.2) !important;
   border-radius: 0.2rem;
   background: $primary;
 }
@@ -3758,7 +4214,7 @@ section.height-auto {
   position: relative;
   width: 90%;
   border-radius: 0.2rem;
-  box-shadow: 0 3px 80px rgba(121, 72, 236, 0.4), 0 0 10px rgba(121, 72, 236, 0.3) !important;
+  box-shadow: 0 3px 80px rgba(222, 58, 26, 0.4), 0 0 10px rgba(222, 58, 26, 0.3) !important;
 }
 
 @media (max-width: 767.98px) {
@@ -3772,45 +4228,289 @@ section.height-auto {
   }
 }
 
-/* services */
-#ourservices row {
+/* otros proyectos */
+#otros-proyectos {
+  background: $black;
+  // Overrides the global "section { padding: 100px 0 }" top spacing —
+  // trimmed down (not 0) so the title still has room to breathe below
+  // the white Apoyos band above, without the full 100px gap back.
+  padding-top: 90px;
+}
+
+.op-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.op-title {
+  @extend %section-title-style;
+}
+
+.op-intro {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+// AcceDER I / AcceDER II / Podcast as click-to-expand accordion rows
+// (like corse3d.com.ar's "Métodos" section) instead of always-open
+// blocks — a divider line between rows, one open at a time.
+.op-blocks {
+  border-top: 1px solid rgba($white, 0.15);
+}
+
+.op-block {
+  text-align: left;
+  border-bottom: 1px solid rgba($white, 0.15);
+}
+
+.op-block-trigger {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
   width: 100%;
+  padding: 24px 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  // Buttons get a default focus ring on click in some browsers — drop
+  // it, but keep a subtle one for keyboard nav (:focus-visible only
+  // matches tab-focus, not mouse clicks).
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid rgba($white, 0.4);
+    outline-offset: 4px;
+  }
+}
+
+.op-block-title {
+  color: $white;
+  font-weight: 900;
+  margin-bottom: 0;
+}
+
+// A chevron drawn from two borders (no icon font dependency), rotated
+// to point up when the row's open.
+.op-block-icon {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid $white;
+  border-bottom: 2px solid $white;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+
+  .op-block.is-open & {
+    transform: rotate(-135deg);
+  }
+}
+
+// Height is set inline (px, from JS reading scrollHeight) when toggled,
+// so it can transition smoothly instead of snapping open/closed.
+.op-block-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.op-block-panel-inner {
+  padding-bottom: 30px;
+}
+
+.op-block-list {
+  padding-left: 20px;
+  margin-bottom: 12px;
+
+  li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    color: rgba($white, 0.85);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.link-pending {
+  color: rgba($white, 0.5);
+  font-style: italic;
+  font-size: 0.85em;
+}
+
+.op-block-media {
+  display: flex;
+  gap: 12px;
+  margin: 15px 0;
+
+  img,
+  .missing-photo {
+    width: calc((100% - 12px) / 2);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 0.2rem;
+  }
+
+  .missing-photo {
+    color: rgba($white, 0.6);
+    border-color: rgba($white, 0.4);
+  }
+
+  // AcceDER I's video sits alone in its row (not paired like the photo
+  // grids), so it gets the full width instead of the 50% split above.
+  video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.2rem;
+    background: $black;
+  }
+}
+
+.op-block-media--3 img,
+.op-block-media--3 .missing-photo {
+  width: calc((100% - 24px) / 3);
+}
+
+.op-block-sponsors {
+  color: rgba($white, 0.6);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  margin-top: 12px;
+}
+
+.op-block-youtube {
+  display: inline-block;
+  margin-top: 10px;
+  color: $primary;
+  font-weight: 700;
+  text-decoration: underline;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+/* services */
+// Same card shell as the original design (translucent dark background,
+// red-tinted border/shadow, row of cards, small floating icon badge) —
+// just auto-height instead of a fixed 250x200, since these cards now
+// also hold a photo and longer copy.
+.services-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 3;
 }
 
 .services-wrapper {
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(121, 72, 236, 0.2);
-  box-shadow: 0 2px 5px 0 rgba(121, 72, 236, 0.3) !important;
+  border: 1px solid rgba(222, 58, 26, 0.2);
+  box-shadow: 0 2px 5px 0 rgba(222, 58, 26, 0.3) !important;
   border-radius: 0.2rem;
   padding: 0 20px 20px;
-  margin-bottom: 60px;
-  margin-left: 20px;
-  width: 250px;
-  height: 200px;
+  text-align: left;
+  flex: 1 1 380px;
+  max-width: 440px;
+
+  &:hover {
+    box-shadow: 0 3px 10px rgba($white, 0.9) !important;
+  }
+
+  p {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
-.services-wrapper img {
+// The exact floating-icon badge the original cards had: a small round
+// icon overlapping the card's top edge.
+.services-wrapper-icon {
   width: 80px;
   height: 90px;
   border-radius: 50%;
   margin-bottom: 10px;
-  -webkit-transform: translateY(-45px);
-  -ms-transform: translateY(-45px);
   transform: translateY(-45px);
-  background: #000000;
+  background: $black;
   padding: 5px;
   padding-top: 15px;
 }
 
 .services-wrapper .title {
+  color: $white;
   margin-top: -40px;
+}
+
+// The illustrative photo/media sit below the title, as regular content.
+.services-wrapper-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 0.2rem;
+  margin-bottom: 15px;
+}
+
+// Photo + video are both portrait (phone-shot), so a taller aspect
+// ratio than the 4/3 used elsewhere fits them without heavy cropping.
+.services-wrapper-media {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+
+  img,
+  video,
+  .missing-photo {
+    width: calc((100% - 10px) / 2);
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 0.2rem;
+  }
+
+  .missing-photo {
+    color: rgba($white, 0.6);
+    border-color: rgba($white, 0.4);
+  }
+}
+
+.services-wrapper-credit {
+  color: $white;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
 }
 
 /* Projects Section */
 #portfolio {
   padding: 80px 0 100px;
-  background: #000000;
+  // contain (not cover) so the whole image shows uncropped; its own
+  // white background fills the rest of the section evenly since it
+  // matches $white.
+  background-color: $white;
+  background-image: url(../imgs/portada-obras.jpg);
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+
+  // No dark overlay anymore, so the title/intro (white by default,
+  // meant for #portfolio's old plain-black background) need to switch
+  // to a dark color to stay legible against the now-white background.
+  .projects-title {
+    color: $dark-blue !important;
+  }
+
+  .projects-intro {
+    color: rgba($dark-blue, 0.8);
+  }
 }
 
 .projects-wrapper {
@@ -3819,39 +4519,49 @@ section.height-auto {
   padding: 0 40px;
 }
 
+// Shared look for every section's intro title — matches "Quienes somos".
 %section-title-style {
-  font-family: 'tt-travels-next', sans-serif !important;
-  font-weight: 200 !important;
-  font-size: clamp(1.4rem, 3vw, 3.25rem) !important;
+  font-family: 'Lato', sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 2.2rem !important;
   color: $white !important;
-  letter-spacing: 0.05em !important;
   text-align: center;
   text-transform: uppercase !important;
+  margin-bottom: 30px;
 }
 
 .projects-title,
+.choose-subtitle,
 h1[data-section="choose"][data-translate="title"],
 h3[data-section="our-services"][data-translate="title"],
 h1[data-section="banner"][data-translate="title"],
+h2[data-section="contact"][data-translate="title"],
 h1[data-section="contact"][data-translate="title"] {
   @extend %section-title-style;
 }
 
-.projects-title {
-  font-family: 'tt-travels-next', sans-serif !important;
-  font-weight: 200 !important;
-  font-size: clamp(1.4rem, 3vw, 3.25rem);
-  color: $white;
-  letter-spacing: 0.05em;
+.projects-subtitle {
   text-align: center;
+  color: $primary;
+  font-weight: 900;
   text-transform: uppercase;
-  margin-bottom: 48px;
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
 }
 
+.projects-intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 50px;
+}
+
+// 5 square cards side by side, always one row — the fluid 1fr columns
+// (not a fixed px width) are what make them shrink to fit instead of
+// wrapping when the container's too narrow for 5 full-size squares.
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 260px 260px;
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
 }
 
@@ -3859,19 +4569,33 @@ h1[data-section="contact"][data-translate="title"] {
   position: relative;
   overflow: visible;
   cursor: pointer;
-  background: #141414;
+  background: lighten($black, 4%);
   z-index: 1;
+  aspect-ratio: 1 / 1;
   transition: transform 0.35s ease, z-index 0s;
 
   .project-img {
+    position: relative;
     width: 100%;
     height: 100%;
-    background-color: #222222;
+    background-color: lighten($black, 8%);
     background-size: cover;
     background-position: center;
-    filter: grayscale(100%);
-    transition: filter 0.4s ease;
     overflow: hidden;
+
+    &__default,
+    &__hover {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__hover {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
   }
 
   .project-overlay {
@@ -3880,14 +4604,14 @@ h1[data-section="contact"][data-translate="title"] {
     left: 0;
     right: 0;
     padding: 18px 20px;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+    background: linear-gradient(transparent, rgba(52, 62, 74, 0.85));
     opacity: 0;
     transition: opacity 0.35s ease;
     pointer-events: none;
 
     span {
       color: $white;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Lato', sans-serif;
       font-size: 0.8rem;
       font-weight: 300;
       letter-spacing: 0.05em;
@@ -3899,8 +4623,8 @@ h1[data-section="contact"][data-translate="title"] {
     z-index: 10;
     transition: transform 0.35s ease, z-index 0s 0s;
 
-    .project-img {
-      filter: grayscale(0%);
+    .project-img__hover {
+      opacity: 1;
     }
 
     .project-overlay {
@@ -3909,10 +4633,37 @@ h1[data-section="contact"][data-translate="title"] {
   }
 }
 
-@media (max-width: 900px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 220px);
+#contact {
+  // Overrides the alternating section:nth-child(odd) background-color
+  // — no color/tint behind the cover image, just the image itself.
+  background-color: transparent !important;
+  background-image: url(../imgs/portada-contactanos.jpg);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: top center;
+  // Was the global "section { padding: 100px 0 }" bottom spacing — the
+  // footer credit line (moved in here from its own #footer section)
+  // now sits close beneath the contact info, so everything fits
+  // within the height the cover image actually renders at.
+  padding-bottom: 20px;
+  // Matches the cover image's own ratio (background-size: 100% auto)
+  // so the section is always exactly as tall as the image needs to
+  // show it in full — otherwise its bottom portion goes unseen since
+  // the section (sized by its content) was ending before the image did.
+  aspect-ratio: 4000 / 2250;
+
+  // The footer credit line, moved in here from its own #footer section.
+  .footer {
+    // Negative to cancel out .container's own 15px left padding, so
+    // this sits flush with the section's actual edge.
+    margin: 20px 0 0 -15px;
+    border-top: none;
+    text-align: left;
+
+    p,
+    a {
+      color: $white;
+    }
   }
 }
 
@@ -3920,8 +4671,83 @@ h1[data-section="contact"][data-translate="title"] {
   gap: 20px;
 }
 
+// Frosted-glass card (same recipe as .timeline-card in Institucional)
+// wrapping the title/subtitle/form, so they read clearly over the busy
+// cover image instead of sitting directly on top of it.
+.contact-card {
+  background: rgba($white, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba($white, 0.15);
+  border-radius: 0.6rem;
+  padding: 60px;
+  width: 100%;
+  max-width: 700px;
+
+  // The global "p, .simil-p { color: rgba(255,255,255,.85) }" rule
+  // targets <p> directly, which always beats a color merely inherited
+  // from this wrapping div — so the subtitle needs its own explicit
+  // override instead of relying on cascade.
+  color: $dark-blue;
+
+  p {
+    color: $dark-blue;
+  }
+
+  h2[data-section="contact"][data-translate="title"] {
+    color: $dark-blue !important;
+  }
+
+  // Inputs were styled for the section's old plain-dark background
+  // (white text/border) — switched to brand blue for the light card.
+  .form-control {
+    color: $dark-blue;
+    border-color: $dark-blue;
+
+    &:focus {
+      color: $dark-blue;
+      border-color: $dark-blue;
+    }
+
+    &::placeholder {
+      color: $dark-blue;
+      opacity: 0.65;
+    }
+  }
+}
+
 .contact-form {
-  width: 50%;
+  // Was 50% of the wider outer .container — now inside .contact-card,
+  // which already constrains the width, so it fills that instead.
+  width: 100%;
+}
+
+// Spread the 4 icons out to span the same width as the Enviar button
+// below them, instead of clustering on one side.
+.contact-info-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+
+  // Brand blue instead of the default link red.
+  .contact-info-item {
+    color: $dark-blue;
+
+    &:hover {
+      color: $dark-blue;
+      opacity: 0.7;
+    }
+  }
+}
+
+// #contact's .container is a flex column with align-items: center,
+// which was shrinking .footer down to its own content width (losing
+// the long border-top line) and centering it as a block instead of
+// letting text-align: end right-align the text within a full-width
+// line, like it had before the footer moved in here.
+#contact .footer {
+  align-self: stretch;
 }
 
 /* The Modal (background) */
@@ -3930,8 +4756,10 @@ h1[data-section="contact"][data-translate="title"] {
   /* Hidden by default */
   position: fixed;
   /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
+  // Above every other z-index in the site (including a hovered,
+  // scaled-up .project-card at z-index: 10), so the popup is always
+  // on top of everything, not just the section it opened from.
+  z-index: 2000;
   left: 0;
   top: 0;
   width: 100%;
@@ -3940,26 +4768,39 @@ h1[data-section="contact"][data-translate="title"] {
   /* Full height */
   overflow: auto;
   /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(52, 62, 74);
   /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(52, 62, 74, 0.4);
   /* Black w/ opacity */
+  // Blurs whatever's behind the modal (the page content) instead of
+  // just dimming it.
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+// Belt-and-suspenders for the .project-card that triggered the modal:
+// closing the modal already lets its :hover state lapse naturally
+// once the modal (topmost, above it) covers the cursor, but this
+// forces it back to resting size immediately rather than relying on
+// that.
+body.modal-open .project-card {
+  transform: none !important;
+  z-index: 1 !important;
 }
 
 /* Modal Content */
 .modal-content {
-  background-color: #0a0a0a;
-  margin: 15% auto;
-  /* 15% from the top and centered */
+  background-color: $black;
+  margin: 20px auto;
   padding: 20px;
-  border: 1px solid rgba(121, 72, 236, 0.3);
+  border: 1px solid rgba(222, 58, 26, 0.3);
   width: 80%;
   /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
 .close {
-  color: #aaa;
+  color: rgba($white, 0.5);
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -3973,37 +4814,663 @@ h1[data-section="contact"][data-translate="title"] {
   cursor: pointer;
 }
 
-#about {
-  background-color: #000000;
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url(../imgs/trama.png);
-    background-repeat: space;
-    background-size: 180px;
-    opacity: 0.3;
-    pointer-events: none;
-    z-index: 0;
+// El Salpicón's modal (and future Obras teatrales entries) — title,
+// description, video, photo gallery and a credits list, instead of the
+// single embedded video the older dubbing-reel modals use.
+.play-modal {
+  max-width: 900px;
+  text-align: left;
+}
+
+.play-modal-title {
+  color: $white;
+  font-weight: 900;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.play-modal-text {
+  color: rgba($white, 0.85);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.play-modal-video {
+  margin-bottom: 20px;
+
+  video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.2rem;
+    background: $black;
+    display: block;
   }
-  & > * {
-    position: relative;
-    z-index: 1;
+
+  .missing-photo {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    color: rgba($white, 0.6);
+    border-color: rgba($white, 0.4);
   }
 }
 
-#footer {
-  background-color: #000000;
+.play-modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
 
-  p,
-  a,
-  h6 {
+  img,
+  .missing-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 0.2rem;
+  }
+
+  .missing-photo {
+    color: rgba($white, 0.6);
+    border-color: rgba($white, 0.4);
+  }
+
+  // A single photo (no siblings) reads better spanning the full width
+  // than sitting alone in the first of 3 columns.
+  img:only-child,
+  .missing-photo:only-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.play-modal-subtitle {
+  color: $white;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  padding-top: 15px;
+  margin-bottom: 12px;
+  border-top: 1px solid rgba($white, 0.15);
+}
+
+.play-modal-ficha {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    color: rgba($white, 0.85);
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+
+  strong {
     color: $white;
   }
 }
 
-#footer a:hover {
+.play-modal-notes {
+  color: rgba($white, 0.6);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  margin-top: 16px;
+}
+
+.about-layout {
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.about-photo-wrapper {
+  flex: 0 0 auto;
+  // Fixed size instead of matching the card's width, so widening the
+  // card doesn't enlarge the photo — it just centers within it.
+  width: 200px;
+  margin: 0 auto;
+}
+
+.about-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.about-layout .flex-column {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#about {
+  background-color: $coral;
+  // Overrides the global "section { padding: 100px 0 }" spacing.
+  padding-top: 0;
+  padding-bottom: 0;
+  position: relative;
+  overflow: hidden;
+
+  // Full-bleed instead of the default 80% .container, so the row of
+  // cards can stretch edge to edge.
+  .container {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+// Decorative shape from assets/imgs/formas, bleeding off the bottom-right
+// corner behind the cards (z-index: 5), low opacity so it reads as a
+// background accent rather than competing with the content.
+.about-shape {
+  position: absolute;
+  bottom: -12%;
+  right: -8%;
+  width: 45%;
+  padding-bottom: 45%;
+  background-image: url(../imgs/formas/circulo.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#institucional {
+  background-color: $ocre;
+  // Overrides the global "section { padding: 100px 0 }" bottom spacing —
+  // 0 so the full-bleed white Apoyos band butts right up against
+  // Otros proyectos below, no ocre gap in between.
+  padding-bottom: 0;
+  // Establishes its own stacking context so the texture's negative
+  // z-index below is contained here — safely behind this section's own
+  // content, without being compared against other sections on the page.
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+// Fixed-in-place shapes (circulo, escalera, espiral, estrella, onda,
+// rombo, semicirculo — same set as assets/imgs/formas) that each pulse
+// their own scale in place, some growing and some shrinking, instead of
+// the earlier version where the whole tile scrolled/"fell". That needed
+// a real inline <svg> (see index.html) rather than a CSS background-
+// image: browsers don't run animation on an SVG used as a background —
+// it's decoded as a static image in that context — so each shape has to
+// be an actual DOM element to animate independently.
+.institucional-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.2;
+  pointer-events: none;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.ip-shape {
+  // transform-box:fill-box makes `transform-origin` resolve against the
+  // shape's own bounding box instead of the whole SVG viewport, so each
+  // one scales from its own center — set per-shape (translate position)
+  // via inline style, since fill-box origin keywords don't account for
+  // an ancestor <g>'s own translate.
+  transform-box: fill-box;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.ip-shape--grow {
+  animation-name: ip-shape-grow;
+}
+
+.ip-shape--shrink {
+  animation-name: ip-shape-shrink;
+}
+
+@keyframes ip-shape-grow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+}
+
+@keyframes ip-shape-shrink {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.55); }
+}
+
+// Shared placeholder for any photo that hasn't been supplied yet — a
+// dashed box naming the expected file, instead of a broken image icon.
+.missing-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgba($dark-blue, 0.6);
+  border: 1px dashed rgba($dark-blue, 0.4);
+  font-size: 0.7rem;
+  line-height: 1.3;
+  padding: 6px;
+}
+
+.institucional-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto 50px;
+}
+
+.institucional-tab {
+  background: none;
+  border: 2px solid $primary;
+  border-radius: 2rem;
+  color: $primary;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+
+  &:hover {
+    background-color: rgba($primary, 0.1);
+  }
+
+  &.active {
+    background-color: $primary;
+    color: $white;
+  }
+}
+
+// Only the active tab's panel is shown — .institucional-block keeps its
+// layout rules, this just adds the toggle.
+.institucional-panel {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.institucional-block {
+  max-width: 900px;
+  margin: 0 auto 80px;
+  text-align: left;
+  color: $dark-blue;
+}
+
+// The timeline's side-by-side photo+text cards need more room than the
+// other panels to stay short — a narrower column just wraps the text
+// into more lines instead, making the cards taller, not shorter.
+.institucional-block[data-tab-panel="participaciones"] {
+  max-width: 1200px;
+}
+
+.institucional-block-title {
+  color: $dark-blue;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+// Apoyos breaks from the rest of Institucional (ocre background +
+// falling shapes): a white band, full-bleed to the viewport edges, so
+// the sponsor logos read cleanly — this also opaquely covers the
+// .institucional-bg shapes in this area.
+.apoyos-block {
+  background: $white;
+  padding: 40px 30px;
+  position: relative;
+  z-index: 1;
+  max-width: none;
+  width: 100vw;
+  // Overrides .institucional-block's margin: 0 auto 80px — 0 here so the
+  // white band sits flush against Otros proyectos below, no ocre gap.
+  margin: 0 calc(50% - 50vw);
+}
+
+.apoyos-title {
+  color: $ocre;
+}
+
+// Alianzas
+.alianza {
+  margin-bottom: 50px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.alianza-name {
+  color: $dark-blue;
+  font-weight: 900;
+  margin-bottom: 15px;
+  // Overrides the global h1-h6 uppercase rule — keep this as written
+  // in the HTML instead of all-caps.
+  text-transform: none;
+}
+
+// Image-left / text-right layout with a self-looping crossfade slideshow
+// on the image side, shared by every alianza block.
+.alianza-body {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+// .alianza-slideshow is just the sizing/positioning box now — the
+// clipping (overflow:hidden + shape) lives on .alianza-slideshow-frame
+// instead, so .alianza-slideshow-shadow (a same-shape solid color copy,
+// offset behind it) isn't clipped along with it and can peek out.
+.alianza-slideshow {
+  position: relative;
+  flex: 0 0 40%;
+  aspect-ratio: 4 / 3;
+
+  // A radius bigger than half the box's own width gets capped at 50%
+  // by the browser, so this renders a true semicircle on top that
+  // still tracks the element's actual (responsive) width — a doorway
+  // arch instead of the plain rounded-rectangle frame.
+  &--arch {
+    // Overrides .alianza-body's align-items:flex-start for just this
+    // item, so its height follows the (taller) text column next to it
+    // instead of the fixed 4/3 aspect-ratio.
+    align-self: stretch;
+    aspect-ratio: auto;
+
+    .alianza-slideshow-shadow,
+    .alianza-slideshow-frame {
+      border-radius: 999px 999px 0 0;
+    }
+  }
+
+  // A true square rotated 45° — every corner a real 90° angle. That
+  // only happens if the box itself is a square: the diamond's corners
+  // sit at the box's edge midpoints, so on a non-square (e.g. stretched
+  // to match the text column's height) box they'd be acute/obtuse
+  // instead of 90°. aspect-ratio:1/1 keeps it a square at any width.
+  &--rombo {
+    aspect-ratio: 1 / 1;
+    // Bigger than the base .alianza-slideshow's 40%, but pulled back
+    // from the earlier 80% — that left almost no room for the text.
+    flex: 0 0 55%;
+    // Flips it to the right of the text via flex order (DOM order is
+    // unchanged, so it still reads image-then-text for screen readers).
+    order: 2;
+
+    .alianza-slideshow-shadow,
+    .alianza-slideshow-frame {
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+  }
+}
+
+.alianza-slideshow--rombo ~ .alianza-copy {
+  order: 1;
+}
+
+// Same shape as the frame above it, filled flat and nudged behind it —
+// reads as a second card peeking out from behind.
+.alianza-slideshow-shadow {
+  position: absolute;
+  inset: 0;
+  transform: translate(28px, 10px);
+  background: $primary;
+  border-radius: 0.2rem;
+  z-index: 0;
+}
+
+// The arch's copy: brand blue instead of red, nudged up-left instead
+// of down-right, and further out than the shared default above.
+.alianza-slideshow--arch .alianza-slideshow-shadow {
+  transform: translate(-22px, -22px);
+  background: $dark-blue;
+}
+
+.alianza-slideshow-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 0.2rem;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: alianza-slideshow-fade 18s infinite;
+
+    &:nth-child(1) { animation-delay: 0s; }
+    &:nth-child(2) { animation-delay: 6s; }
+    &:nth-child(3) { animation-delay: 12s; }
+  }
+}
+
+// A little playful bounce/tilt on top of the crossfade instead of a
+// plain fade: each photo pops in slightly big & tilted, settles, then
+// tilts the other way as it leaves.
+// Each photo's "on" window (fade in -> hold -> fade out) is deliberately
+// longer than its 6s turn (33.33% of the 18s loop) so it overlaps with
+// the next photo's fade-in — one is always fully opaque, so the yellow
+// background never shows through mid-transition.
+@keyframes alianza-slideshow-fade {
+  0%     { opacity: 0; transform: scale(1.12) rotate(-2deg); }
+  8.33%  { opacity: 1; transform: scale(1) rotate(0deg); }
+  41.67% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50%    { opacity: 0; transform: scale(1.08) rotate(2deg); }
+  100%   { opacity: 0; }
+}
+
+.alianza-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.alianza-text {
+  color: $dark-blue;
+  opacity: 1;
+  line-height: 1.6;
+  margin-bottom: 12px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Participaciones institucionales (timeline). Cards alternate left/right
+// of a central rail, staggered brick-style — each card's top sits at the
+// vertical midpoint of the previous card (atp.js measures rendered
+// heights and sets each item's `top` in JS; plain CSS can't stagger by
+// "half of the sibling's actual height" since that height is dynamic).
+// Each item fades/slides up the first time it scrolls into view (atp.js
+// adds .is-visible), then stays — never reverses.
+.timeline {
+  position: relative;
+  max-width: 1150px;
+  margin: 0 auto;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $white;
+  }
+}
+
+.timeline-item {
+  position: absolute;
+  left: 0;
+  width: calc(50% - 20px);
+  box-sizing: border-box;
+  text-align: right;
+  opacity: 0;
+  // Starts well below its final spot so it visibly rises up the rail
+  // into place instead of just nudging up a little.
+  transform: translateY(120px);
+  transition: opacity 0.8s ease, transform 0.8s ease, top 0.3s ease;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  // Dot centered exactly on the rail (item's right edge sits 20px from
+  // the rail; the dot is 14px across with no border now — box-shadow
+  // doesn't add to the box, so -27px is what centers it here). A solid
+  // white core with a soft glow instead of a hard border, like the
+  // reference image's connector points.
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -27px;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: $white;
+    box-shadow: 0 0 0 3px rgba($ocre, 0.45), 0 0 14px 4px rgba($ocre, 0.5);
+    z-index: 1;
+  }
+
+  &:nth-child(even) {
+    left: calc(50% + 20px);
+    text-align: left;
+
+    &::before {
+      right: auto;
+      left: -27px;
+    }
+  }
+}
+
+.timeline-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 100%;
+  // Frosted-glass card: low opacity plus a blur so whatever's behind it
+  // (the falling-shapes texture, photos in other cards) shows through
+  // softened, instead of a flat translucent color.
+  background: rgba($dark-blue, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba($white, 0.15);
+  color: $white;
+  border-radius: 0.6rem;
+  padding: 16px 20px;
+  text-align: left;
+  // Own transform (separate from .timeline-item's entrance-animation
+  // translateY) so hover-scaling doesn't fight the reveal animation.
+  transition: transform 0.25s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    z-index: 2;
+  }
+
+  // Photo on the outside edge (away from the rail), copy on the inside
+  // (near the rail) — mirrored so it reads correctly on either side.
+  .timeline-item:nth-child(even) & {
+    flex-direction: row-reverse;
+  }
+}
+
+.timeline-card-copy {
+  min-width: 0;
+}
+
+.timeline-card-title {
+  color: $white;
+  font-weight: 900;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+.timeline-photo {
+  display: block;
+  flex: 0 0 130px;
+  width: 130px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 0.3rem;
+
+  // The card's own dark background makes the base .missing-photo's
+  // dark-blue text/border invisible — lighten it for this context.
+  &.missing-photo {
+    color: rgba($white, 0.6);
+    border-color: rgba($white, 0.4);
+  }
+}
+
+.timeline-card p {
+  color: rgba($white, 0.85);
+  opacity: 1;
+  line-height: 1.5;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+// Single column on narrow screens: rail moves to the left edge, every
+// card sits to its right regardless of odd/even, and the stagger is
+// turned off. position:relative (not static!) drops each item back into
+// normal flow — same effect on layout — while still anchoring its own
+// dot (position:absolute, so it needs *a* positioned ancestor): with
+// static it'd fall back to .timeline as a whole, putting every dot at
+// that shared box's top:50%/left instead of each item's own.
+@media (max-width: 700px) {
+  .timeline::before {
+    left: 10px;
+  }
+
+  .timeline-item,
+  .timeline-item:nth-child(even) {
+    position: relative !important;
+    // Resets the desktop even-column offset — relative (unlike static)
+    // still honors left/right, so without this the even cards would
+    // render shifted right by that same calc(50% + 20px).
+    left: 0;
+    width: 100%;
+    padding: 0 0 20px 40px;
+    text-align: left;
+
+    &::before {
+      left: 2px;
+      right: auto;
+    }
+  }
+
+  .timeline-card,
+  .timeline-item:nth-child(even) .timeline-card {
+    flex-direction: row;
+  }
+
+  .timeline-photo {
+    flex-basis: 90px;
+    width: 90px;
+  }
+}
+
+#contact .footer a:hover {
   color: $secondary;
 }
 
@@ -4085,12 +5552,6 @@ h1[data-section="contact"][data-translate="title"] {
   #workwithus {
     padding-left: 50%;
   }
-
-  #ourservices .row {
-    width: 70%;
-    gap: 50px;
-    justify-content: center;
-  }
 }
 
 @media (max-width: 1100px) {
@@ -4101,7 +5562,7 @@ h1[data-section="contact"][data-translate="title"] {
   .navbar-brand {
     width: 30%;
 
-    img:not(#logo-joaquin):not(#logo-insignia) {
+    img:not(#logo-atp):not(#logo-insignia) {
       width: 50% !important;
     }
   }
@@ -4110,7 +5571,7 @@ h1[data-section="contact"][data-translate="title"] {
     width: 70%;
   }
 
-  #logo-joaquin {
+  #logo-atp {
     width: 100%;
   }
 
@@ -4118,14 +5579,6 @@ h1[data-section="contact"][data-translate="title"] {
 
 @media (max-width: 1000px) {
 
-  #ourservices .row {
-    gap: 30px;
-    justify-content: center;
-    width: 90%;
-    margin-bottom: 20px;
-  }
-
-  
   .pre-footer .list {
     width: calc(100% / 3) !important;
   }
@@ -4161,7 +5614,7 @@ h1[data-section="contact"][data-translate="title"] {
   }
 
   #seguridadehigiene {
-    background-color: #000000;
+    background-color: $black;
     background-image: none !important;
 
     .container {
@@ -4248,7 +5701,7 @@ h1[data-section="contact"][data-translate="title"] {
   .navbar-expand-md .navbar-toggler {
     display: none;
   }
- 
+
   nav.page-navbar {
     padding: 10px 0px 0px 10px !important;
   }
@@ -4257,6 +5710,42 @@ h1[data-section="contact"][data-translate="title"] {
     padding: 0px;
   }
 
+}
+
+/* Con 6 items el menú horizontal no entra cómodo entre 800 y 1299px:
+   se mantiene el comportamiento de hamburguesa (como en mobile) en ese rango
+   en vez de forzar el menú en una sola línea. */
+@media (min-width: 800px) and (max-width: 1299px) {
+  .navbar-expand-md .navbar-toggler {
+    display: block !important;
+  }
+
+  .navbar-expand-md .navbar-nav {
+    flex-direction: column !important;
+  }
+
+  .navbar-expand-md>.container,
+  .navbar-expand-md>.container-fluid {
+    flex-wrap: wrap !important;
+  }
+
+  nav.page-navbar .navbar-collapse {
+    height: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    transition: all 0.3s linear 0s;
+  }
+
+  nav.page-navbar .navbar-collapse.show {
+    height: auto !important;
+    opacity: 1 !important;
+  }
+
+  nav.page-navbar .nav-item .nav-link {
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
 }
 
 
@@ -4289,12 +5778,12 @@ h1[data-section="contact"][data-translate="title"] {
   .navbar-brand {
     padding-right: 0px;
 
-    img:not(#logo-joaquin):not(#logo-insignia) {
+    img:not(#logo-atp):not(#logo-insignia) {
       width: 100% !important;
     }
   }
 
-  #logo-joaquin {
+  #logo-atp {
     width: 100%;
   }
 
@@ -4317,16 +5806,7 @@ h1[data-section="contact"][data-translate="title"] {
     width: 90% !important;
   }
 
-  .services-wrapper {
-    height: 150px;
-  }
-
   #ourservices {
-    .row {
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
     li {
       font-size: 0.94em;
     }
@@ -4351,7 +5831,7 @@ h1[data-section="contact"][data-translate="title"] {
     padding: 50px 0;
   }
 
-  #logo-joaquin {
+  #logo-atp {
     width: 100%;
   }
 
@@ -4380,7 +5860,7 @@ h1[data-section="contact"][data-translate="title"] {
     padding-right: 0px;
   }
 
-  #logo-joaquin {
+  #logo-atp {
     width: 100%;
   }
 

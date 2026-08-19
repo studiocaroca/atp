@@ -5,4 +5,4 @@ Disallow: /package.json
 Disallow: /readme.md
 Disallow: /translations.json
 
-Sitemap: https://www.joaquinmbaamonde.com/sitemap.xml
+Sitemap: https://www.aptoparatodopublico.org/sitemap.xml
