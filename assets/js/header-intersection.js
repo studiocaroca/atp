@@ -18,11 +18,40 @@
         var fillCircle = document.querySelector('.header-eyebrow-fill-circle');
         var fillText = document.querySelector('.header-eyebrow--fill');
 
+        // On mobile the box and circle deliberately bleed well past the
+        // header's own bottom edge (into #quienes-somos, per design) and can
+        // overlap each other down there too. Sizing the canvas to just the
+        // header's own rect clipped that overlap out of its drawable area,
+        // so the collision below the header's bottom edge rendered as the
+        // box's raw dark-blue with no celeste correction — a visible gap
+        // between the celeste patch above and the circle's plain ocre
+        // below. Extend the canvas down to the lower of the box/circle's
+        // live bottoms (plus a margin for the transform-driven animations'
+        // reach) instead, so it always covers wherever they can overlap.
+        // Left/right stay pinned to the header's own width — the box and
+        // header already span it exactly, and widening the canvas past it
+        // (like the vertical fix does) would bleed past the viewport's
+        // right edge and cause horizontal scroll, unlike a bottom bleed
+        // which .header's overflow: visible already handles safely.
+        var MARGIN = 60;
+
         function resize() {
-            var rect = header.getBoundingClientRect();
+            var headerRect = header.getBoundingClientRect();
+            var boxRect = box.getBoundingClientRect();
+            var circleRect = circle.getBoundingClientRect();
             dpr = window.devicePixelRatio || 1;
-            canvas.width = Math.max(1, Math.round(rect.width * dpr));
-            canvas.height = Math.max(1, Math.round(rect.height * dpr));
+
+            var width = headerRect.width;
+            var bottom = Math.max(headerRect.bottom, boxRect.bottom, circleRect.bottom) + MARGIN;
+            var height = bottom - headerRect.top;
+
+            canvas.style.left = '0px';
+            canvas.style.top = '0px';
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+
+            canvas.width = Math.max(1, Math.round(width * dpr));
+            canvas.height = Math.max(1, Math.round(height * dpr));
         }
 
         // Parses a computed clip-path polygon string into local [x, y] points (in px,
@@ -137,7 +166,10 @@
         }
 
         function draw() {
-            var headerRect = header.getBoundingClientRect();
+            // Freshly read every frame (not the resize-time canvasRect,
+            // which would drift out of sync with the live polygon/circle
+            // viewport coordinates below as soon as the page scrolls).
+            var canvasViewportRect = canvas.getBoundingClientRect();
             var polygon = getBoxPolygon();
             var circ = getCircle();
 
@@ -151,15 +183,15 @@
             if (polygon) {
                 polygonPath = new Path2D();
                 polygon.forEach(function (pt, i) {
-                    var x = pt[0] - headerRect.left;
-                    var y = pt[1] - headerRect.top;
+                    var x = pt[0] - canvasViewportRect.left;
+                    var y = pt[1] - canvasViewportRect.top;
                     if (i === 0) polygonPath.moveTo(x, y);
                     else polygonPath.lineTo(x, y);
                 });
                 polygonPath.closePath();
 
                 circlePath = new Path2D();
-                circlePath.arc(circ.x - headerRect.left, circ.y - headerRect.top, circ.r, 0, Math.PI * 2);
+                circlePath.arc(circ.x - canvasViewportRect.left, circ.y - canvasViewportRect.top, circ.r, 0, Math.PI * 2);
 
                 ctx.fillStyle = CELESTE;
                 ctx.fill(polygonPath);

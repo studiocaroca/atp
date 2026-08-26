@@ -50,7 +50,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.5;
   text-align: left;
 }
@@ -444,6 +444,33 @@ h6,
 nav.page-navbar .container {
   flex-wrap: nowrap;
   overflow: visible;
+}
+
+// Mobile-only "Apto para todo público." wordmark, centered in the
+// navbar between the icon logo and the hamburger — links home like the
+// icon logo does. Hidden on desktop, where the icon logo already reads
+// fine on its own.
+.navbar-brand-text {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  nav.page-navbar .container {
+    position: relative;
+  }
+
+  .navbar-brand-text {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: $dark-blue;
+    font-weight: 700;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    text-decoration: none;
+  }
 }
 
 nav.page-navbar .navbar-nav {
@@ -3104,9 +3131,15 @@ body {
 /* typography */
 p, .simil-p {
   font-size: calc(13px + (14 - 13) * ((100vw - 300px) / (1300 - 300)));
-  font-weight: 400;
+  font-weight: 500;
   opacity: .85;
   color: rgba(255, 255, 255, 0.85);
+
+  // A couple points bigger on mobile — the fluid size above bottoms
+  // out close to 13px there, which reads too small.
+  @media (max-width: 700px) {
+    font-size: 18px;
+  }
 }
 
 .title {
@@ -3229,10 +3262,29 @@ nav.page-navbar .nav-item .btn {
 }
 
 @media (max-width: 799px) {
+  // .navbar-collapse used to sit in-flow as a flex sibling of the brand
+  // and the toggler inside .container (which has align-items: center),
+  // so opening it — height growing to fit 6 stacked links, width
+  // squeezed into a narrow column by justify-content: space-between —
+  // stretched the whole row taller and re-centered the brand/toggler
+  // into the middle of that taller row, and its cramped width also
+  // pushed its own content past the viewport's right edge. Taken out
+  // of that flow as a full-width dropdown below the bar instead, so
+  // opening it never moves the brand or toggler at all.
+  nav.page-navbar .container {
+    position: relative;
+  }
+
   nav.page-navbar .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
     height: 0;
     overflow: hidden;
     opacity: 0;
+    background-color: $celeste;
     -webkit-transition: all 0.3s linear 0s;
     transition: all 0.3s linear 0s;
   }
@@ -3240,6 +3292,22 @@ nav.page-navbar .nav-item .btn {
   nav.page-navbar .navbar-collapse.show {
     height: auto;
     opacity: 1;
+  }
+
+  nav.page-navbar .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0 24px;
+  }
+
+  nav.page-navbar .nav-item .nav-link {
+    margin: 10px 0;
+  }
+
+  // The centered "Apto para todo público." wordmark sits right where
+  // the dropdown lands when open — hide it then so they don't overlap.
+  nav.page-navbar .container:has(.navbar-collapse.show) .navbar-brand-text {
+    display: none;
   }
 }
 
@@ -3357,9 +3425,9 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   color: white;
   position: relative;
   // Own stacking context, so the corner dot bleeding past the header's
-  // bottom edge paints above #about's background instead of being
+  // bottom edge paints above #quienes-somos's background instead of being
   // covered by it (both would otherwise sit in the same auto z-index
-  // bucket, decided by DOM order — #about comes after and would win).
+  // bucket, decided by DOM order — #quienes-somos comes after and would win).
   z-index: 1;
   height: 100vh;
   height: 100dvh;
@@ -3370,6 +3438,21 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 .header-corner-dot {
   --dot-size: clamp(320px, 90vh, 750px);
   --dot-size: clamp(320px, 90dvh, 750px);
+
+  // Sized from viewport HEIGHT above, which on a narrow/tall phone makes
+  // it far wider than the screen — its right edge (at dot-size * 0.88,
+  // per the left/width below) bled past the viewport and caused
+  // page-wide horizontal scroll. Capped by width instead on mobile.
+  @media (max-width: 700px) {
+    --dot-size: clamp(280px, 95vw, 480px);
+    // Lower than desktop's formula — fine if it overlaps the
+    // #quienes-somos card below, per request. Pushed down further so
+    // less of the circle overlaps the box (smaller celeste collision).
+    // The box (and hence the intersection) stays put, so this shrinks
+    // the celeste part and grows the plain-ocre part, per request.
+    bottom: calc(var(--dot-size) * -0.18 - 160px);
+  }
+
   position: absolute;
   // Bleeds past the header's own bottom edge so the circle keeps going
   // visibly into the section below instead of stopping dead at the fold.
@@ -3391,9 +3474,11 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 
 .header-intersection {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  // top/left/width/height are set inline by header-intersection.js —
+  // sized to the union of the header, box and circle's live rects (they
+  // bleed past the header's own edges), not just the header itself.
+  top: 0;
+  left: 0;
   z-index: 2;
   pointer-events: none;
 }
@@ -3437,14 +3522,18 @@ nav.page-navbar.affix .navbar-brand .text-dark {
     left: 0;
     background: $dark-blue;
     clip-path: polygon(115px 0, 100% 0, 100% 100%, 0 calc(100% - 133px));
-    transform: rotate(-13deg);
+    // Mobile flips this 180° (see the media query below) via a custom
+    // property, since the animation's own keyframes drive `transform`
+    // continuously and would otherwise override a plain rule here.
+    --brand-rotate: -13deg;
+    transform: rotate(var(--brand-rotate));
     animation: brandBoxFloat 5s ease-in-out infinite;
   }
 }
 
 @keyframes brandBoxFloat {
-  0%, 100% { transform: translateY(0) rotate(-13deg); }
-  50%      { transform: translateY(-24px) rotate(-13deg); }
+  0%, 100% { transform: translateY(0) rotate(var(--brand-rotate, -13deg)); }
+  50%      { transform: translateY(-24px) rotate(var(--brand-rotate, -13deg)); }
 }
 
 // Sits on top of .header-brand-box, mirroring its own size/position
@@ -3571,6 +3660,141 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   font-size: calc(35px + (60 - 35) * ((100vw - 300px) / (1200 - 300)));
 }
 
+// The whole .header composition (brand box/logo, corner-dot circle,
+// eyebrow text, canvas collision) was built with fixed desktop pixel
+// values (750px+ min-width box, -525px eyebrow offset) and never had a
+// mobile layout — below 700px the brand box rendered mostly off-screen
+// (anchored right:0 but wider than the viewport), the eyebrow text's
+// -525px shift pushed it off the left edge entirely, and the box and
+// corner-dot circle ended up nowhere near each other so the celeste
+// "collision" (painted live by header-intersection.js from their actual
+// rendered positions) never appeared. This re-anchors everything with
+// viewport-relative sizes instead, and deliberately overlaps the box's
+// bottom edge with the circle's top so the collision effect still shows.
+@media (max-width: 700px) {
+  // Shorter than 100dvh — shrinking the header pulls the corner-dot
+  // circle up with it (it's anchored to the header's own bottom edge)
+  // without changing its relationship to #quienes-somos right after,
+  // so the circle now actually reaches the taller box below instead of
+  // there being a gap between them.
+  .header {
+    // 40px shorter — #quienes-somos (and everything after it) starts
+    // right where the header ends, so this pulls all of it up with it.
+    height: calc(78vh - 40px);
+    min-height: 560px;
+  }
+
+  .header-brand {
+    // Tucked up under the fixed navbar (~90px tall) — the navbar's
+    // z-index (1030) is well above the header's own stacking context,
+    // so it paints over whatever part of the box sits underneath it.
+    top: 20px;
+    bottom: auto;
+    right: 0;
+    left: 0;
+    transform: none;
+    align-items: flex-end;
+  }
+
+  .header-brand-box {
+    // Edge to edge — was 90vw with room on both sides, now spans the
+    // full viewport width.
+    width: 100%;
+    // Grows down past the header's own bottom edge into #quienes-somos
+    // (the circle and the eyebrow text below it are deliberately left
+    // untouched).
+    height: 230vw;
+    min-width: 0;
+    max-width: none;
+    max-height: 860px;
+    min-height: 0;
+    transform: none;
+
+    &::before {
+      // No bleed/rotation here — straight left/right edges flush with
+      // the box's own 0%/100%, which (box is full-width) land exactly
+      // on the screen edges. Only the bottom is diagonal now.
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      // The right edge's cutoff (82% before) ended above the circle's
+      // own bottom edge, so a sliver of its solid ocre color peeked out
+      // from behind the box's diagonal cut. Pushed down past it.
+      clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
+      --brand-rotate: 0deg;
+    }
+  }
+
+  .header-brand-content {
+    // Anchored near the top of the box, not vertically centered — the
+    // box is now much taller than the logo needs, and centering would
+    // have dragged the logo down into the eyebrow text below it.
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10% 5% 0;
+    transform: none;
+
+    #logo-atp2 {
+      width: 68%;
+      margin-top: 80px;
+    }
+  }
+
+  // Back on mobile now that the box is much taller (see .header-brand-box
+  // above) — there's finally room for it under the logo.
+  .header-brand-description {
+    display: block;
+    width: 70%;
+    max-width: none;
+    font-size: 15px;
+    text-align: center;
+    transform: none;
+    margin: 40px auto 0;
+  }
+
+  .header-eyebrow-stack {
+    // Below the (now much taller) box instead of overlapping the logo
+    // at its natural vertically-centered position — plus 40px more.
+    // Constrained + centered so the doubled-size text below wraps into
+    // a readable block instead of one unreadable giant line.
+    transform: translateY(260px);
+    width: 85%;
+    max-width: 340px;
+  }
+
+  // Specificity bump (3 classes) needed to beat a pre-existing legacy
+  // rule elsewhere in this same media query — ".header .header-content
+  // p { font-size: 1em; }" — which also matches this <p> and was
+  // silently winning over a plain ".header-eyebrow" selector.
+  .header .header-content .header-eyebrow {
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+    // Doesn't fit on one line on a phone screen — let it wrap.
+    white-space: normal;
+    text-align: center;
+  }
+
+  // Normally the second half of this text ("bilidades") is dark-blue,
+  // invisible until the live collision with the circle paints a celeste
+  // copy through it (see header-intersection.js) — the box's mobile
+  // position/size doesn't reliably overlap this text, so it's solid
+  // white throughout here instead of relying on that effect.
+  .header-eyebrow--base,
+  .header-eyebrow--base span:nth-child(-n+18) {
+    color: $white;
+  }
+
+  // header-intersection.js positions this duplicate (dark, clipped to
+  // the live collision shape) assuming a single line of text — once the
+  // base copy wraps to 2 lines above, its offsets go stale and the two
+  // copies render misaligned/overlapping. Hidden here since the base
+  // copy is already solid white on its own.
+  .header-eyebrow-fill-clip {
+    display: none;
+  }
+}
+
 .header-title {
   font-size: 2.4rem;
   font-weight: bold;
@@ -3620,14 +3844,14 @@ section {
 #home,
 #institucional,
 #otros-proyectos,
-#ourservices,
-#portfolio {
+#servicios,
+#obras-teatrales {
   scroll-margin-top: 90px;
 }
 
 // Extra margin so the "Quienes somos" title stays on screen (not just
 // clear of the navbar) when this section is scrolled to.
-#about {
+#quienes-somos {
   scroll-margin-top: 105px;
 }
 
@@ -3809,104 +4033,21 @@ $animationSpeed: 40s;
 }
 
 
-#seguridadehigiene,
-#ourservices {
+#seguridadehigiene {
   background: $black;
+}
+
+// Flat brand-pink background, same recipe as #quienes-somos.
+#servicios {
+  background-color: $coral;
   position: relative;
   overflow: hidden;
-  padding-top: 1rem !important;
+  padding-top: 4rem !important;
 }
 
-// Decorative shapes: flat, static and non-transparent so that where two
-// shapes cross, that crossing area can be assigned its own hand-picked
-// palette color instead of relying on an automatic transparency blend.
-.services-blob {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  // Kept translucent (rather than fully opaque) so the shapes read as a
-  // colored accent behind the copy instead of a solid panel that would
-  // fail text contrast where it sits under a paragraph.
-  opacity: 0.38;
-}
-
-.services-blob--1 {
-  width: 60%;
-  height: 80%;
-  top: -25%;
-  right: -10%;
-  background: $rojo;
-}
-
-.services-blob--2 {
-  width: 55%;
-  height: 70%;
-  bottom: -20%;
-  left: -8%;
-  background: $ocre;
-}
-
-.services-blob--3 {
-  width: 40%;
-  height: 50%;
-  top: 40%;
-  left: 40%;
-  background: $celeste;
-}
-
-// Hand-picked crossing colors (not an automatic blend) for the areas
-// where .services-blob--3 overlaps the other two shapes.
-.services-blob-cross--1 {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  width: 26%;
-  height: 13%;
-  top: 43%;
-  left: 51%;
-  background: $coral;
-  opacity: 0.38;
-}
-
-.services-blob-cross--2 {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  width: 6%;
-  height: 34%;
-  top: 53%;
-  left: 41%;
-  background: $white;
-  opacity: 0.38;
-}
-
-#ourservices .container {
+#servicios .container {
   position: relative;
   z-index: 3;
-}
-
-#ourservices::before,
-#ourservices::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 180px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-#ourservices::before {
-  top: 0;
-  background: linear-gradient(to bottom, $black 0%, transparent 100%);
-}
-
-#ourservices::after {
-  bottom: 0;
-  background: linear-gradient(to top, $black 0%, transparent 100%);
 }
 
 #seguridadehigiene {
@@ -3927,7 +4068,7 @@ $animationSpeed: 40s;
   margin-right: 120px;
 }
 
-#ourservices {
+#servicios {
   li {
     text-align: left;
     line-height: 2;
@@ -4064,6 +4205,10 @@ section.height-auto {
   // top of this section since padding-top was removed.
   position: relative;
   z-index: 5;
+
+  @media (max-width: 700px) {
+    transform: translateY(-20px);
+  }
 }
 
 // Coverflow-style carousel: one active card centered up front, the
@@ -4235,12 +4380,28 @@ section.height-auto {
   // trimmed down (not 0) so the title still has room to breathe below
   // the white Apoyos band above, without the full 100px gap back.
   padding-top: 90px;
+  position: relative;
+  overflow: hidden;
+}
+
+// Decorative spiral outline, right side, behind the Podcast card.
+.op-bg-spiral {
+  position: absolute;
+  top: 0;
+  right: -20px;
+  height: 92%;
+  width: auto;
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .op-wrapper {
-  max-width: 900px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 0 40px;
+  position: relative;
+  z-index: 1;
 }
 
 .op-title {
@@ -4252,25 +4413,41 @@ section.height-auto {
   margin-bottom: 50px;
 }
 
-// AcceDER I / AcceDER II / Podcast as click-to-expand accordion rows
-// (like corse3d.com.ar's "Métodos" section) instead of always-open
-// blocks — a divider line between rows, one open at a time.
+// AcceDER I / AcceDER II / Podcast as click-to-expand cards, side by
+// side (wrapping to fewer columns on narrower screens), one open at a
+// time.
 .op-blocks {
-  border-top: 1px solid rgba($white, 0.15);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 24px;
 }
 
+// Frosted-glass card (same recipe as .contact-card), kept visible both
+// collapsed and expanded — not just while the panel is open.
 .op-block {
   text-align: left;
-  border-bottom: 1px solid rgba($white, 0.15);
+  flex: 1 1 calc((100% - 48px) / 3);
+  min-width: 280px;
+  background: rgba($white, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba($white, 0.15);
+  border-radius: 0.6rem;
+  padding: 0 24px;
 }
 
 .op-block-trigger {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
   width: 100%;
   padding: 24px 0;
+  // Floors the collapsed height so all 3 cards match AcceDER II's
+  // (the tallest, since it has the biggest logo) — doesn't cap growth,
+  // so each card can still expand independently when opened.
+  min-height: 300px;
   background: none;
   border: 0;
   cursor: pointer;
@@ -4280,22 +4457,73 @@ section.height-auto {
   // matches tab-focus, not mouse clicks).
   outline: none;
 
+  // AcceDER I/II show a tall program logo instead of plain text — less
+  // vertical padding so the collapsed row doesn't grow so much (Podcast,
+  // with a plain-text title, keeps the default padding above).
+  &:has(.op-block-title img) {
+    padding-top: 2px;
+  }
+
   &:focus-visible {
     outline: 2px solid rgba($white, 0.4);
     outline-offset: 4px;
   }
 }
 
+// Wraps the title/logo and its preview text, stacked (cards are narrow
+// now that they sit side by side), leaving the chevron pinned to the end.
+.op-block-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .op-block-title {
   color: $white;
   font-weight: 900;
+  font-size: 1.8rem;
   margin-bottom: 0;
+  flex: 0 0 auto;
+  align-self: stretch;
+  text-align: center;
+
+  // AcceDER I/II show their own program logo here instead of text
+  // (Podcast has no logo, so it stays plain text).
+  img {
+    display: block;
+    margin: 0 auto;
+    max-height: 130px;
+    width: auto;
+  }
+
+  img[src*="logo-acceder-II"] {
+    max-height: 155px;
+  }
+}
+
+// Short preview of the panel's own intro paragraph — stays visible
+// next to the title/logo whether the row is open or collapsed.
+.op-block-preview {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: rgba($white, 0.65);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+
+  @media (max-width: 700px) {
+    font-size: 18px;
+  }
 }
 
 // A chevron drawn from two borders (no icon font dependency), rotated
 // to point up when the row's open.
 .op-block-icon {
   flex: 0 0 auto;
+  align-self: center;
   width: 12px;
   height: 12px;
   border-right: 2px solid $white;
@@ -4372,6 +4600,9 @@ section.height-auto {
 .op-block-media--3 img,
 .op-block-media--3 .missing-photo {
   width: calc((100% - 24px) / 3);
+  // The podcast photos are square (900x900) — the shared 4:3 box was
+  // cropping their top/bottom off.
+  aspect-ratio: 1 / 1;
 }
 
 .op-block-sponsors {
@@ -4379,6 +4610,40 @@ section.height-auto {
   font-size: 0.85rem;
   letter-spacing: 0.02em;
   margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+// Sponsor logos are opaque (not transparent), so each gets its own
+// white "badge" background to read intentionally against this dark
+// section instead of showing raw white rectangles.
+.op-block-sponsor-logos {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  img {
+    height: 56px;
+    width: auto;
+    background: $white;
+    padding: 6px 10px;
+    border-radius: 0.2rem;
+  }
+
+  // Mecenazgo's logo reads much smaller than the others at the same
+  // height in AcceDER II's row — drop its padding so the logo itself
+  // fills the white box, without growing the box past the others'
+  // total height (56px logo + 12px padding = 68px).
+  .op-block:nth-child(2) & img[src*="logo-mecenazgo"] {
+    height: 68px;
+    padding: 0;
+  }
+
+  span {
+    color: rgba($white, 0.6);
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
 }
 
 .op-block-youtube {
@@ -4403,51 +4668,59 @@ section.height-auto {
   flex-wrap: wrap;
   justify-content: center;
   gap: 40px;
-  max-width: 1000px;
+  max-width: 1300px;
   margin: 0 auto;
   position: relative;
   z-index: 3;
 }
 
 .services-wrapper {
-  background: rgba(255, 255, 255, 0.04);
+  // Same recipe as .about-wrapper .content (darker coral over the
+  // section's own coral background, same border), now that #servicios
+  // has a flat coral background instead of black.
+  background: rgba($coral, 0.75);
   border: 1px solid rgba(222, 58, 26, 0.2);
   box-shadow: 0 2px 5px 0 rgba(222, 58, 26, 0.3) !important;
   border-radius: 0.2rem;
-  padding: 0 20px 20px;
+  padding: 20px 40px;
   text-align: left;
-  flex: 1 1 380px;
-  max-width: 440px;
+  // Narrow enough that both cards stay side by side within the
+  // .container's 80%-of-viewport width instead of wrapping.
+  flex: 1 1 560px;
+  max-width: 580px;
 
   &:hover {
     box-shadow: 0 3px 10px rgba($white, 0.9) !important;
   }
 
-  p {
+  p:not(.services-wrapper-credit) {
+    font-size: 1rem;
     margin-bottom: 12px;
 
     &:last-child {
       margin-bottom: 0;
     }
-  }
-}
 
-// The exact floating-icon badge the original cards had: a small round
-// icon overlapping the card's top edge.
-.services-wrapper-icon {
-  width: 80px;
-  height: 90px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  transform: translateY(-45px);
-  background: $black;
-  padding: 5px;
-  padding-top: 15px;
+    @media (max-width: 700px) {
+      font-size: 18px;
+    }
+  }
 }
 
 .services-wrapper .title {
   color: $white;
-  margin-top: -40px;
+  // Small enough that "Formación en introducción a la accesibilidad
+  // cultural" (the longest of the two) still fits on one line inside
+  // the card's narrower content area (more side padding now).
+  font-size: 1rem;
+  white-space: nowrap;
+  margin-bottom: 24px;
+
+  // Cards shrink below their content width on narrow screens — wrap
+  // instead of overflowing.
+  @media (max-width: 700px) {
+    white-space: normal;
+  }
 }
 
 // The illustrative photo/media sit below the title, as regular content.
@@ -4459,38 +4732,48 @@ section.height-auto {
   margin-bottom: 15px;
 }
 
-// Photo + video are both portrait (phone-shot), so a taller aspect
-// ratio than the 4/3 used elsewhere fits them without heavy cropping.
-.services-wrapper-media {
+// Flyer sits to the right of the intro copy, below the video.
+.services-wrapper-text-flyer {
   display: flex;
-  gap: 10px;
+  gap: 15px;
+  align-items: flex-start;
   margin-bottom: 15px;
-
-  img,
-  video,
-  .missing-photo {
-    width: calc((100% - 10px) / 2);
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    border-radius: 0.2rem;
-  }
-
-  .missing-photo {
-    color: rgba($white, 0.6);
-    border-color: rgba($white, 0.4);
-  }
 }
 
+.services-wrapper-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.services-wrapper-flyer-col {
+  flex: 0 0 140px;
+  width: 140px;
+}
+
+.services-wrapper-flyer {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 0.2rem;
+}
+
+// Caption directly under the flyer, like a photo credit line — small
+// enough (and non-wrapping) to fit on one line within the 140px column.
 .services-wrapper-credit {
   color: $white;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
+  font-size: 0.65rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: nowrap;
+  margin-top: 6px;
+  margin-bottom: 0;
 }
 
 /* Projects Section */
-#portfolio {
+#obras-teatrales {
   padding: 80px 0 100px;
   // contain (not cover) so the whole image shows uncropped; its own
   // white background fills the rest of the section evenly since it
@@ -4501,8 +4784,13 @@ section.height-auto {
   background-position: left center;
   background-repeat: no-repeat;
 
+  // On mobile, pin the image to the bottom-right corner of the section.
+  @media (max-width: 700px) {
+    background-position: right bottom;
+  }
+
   // No dark overlay anymore, so the title/intro (white by default,
-  // meant for #portfolio's old plain-black background) need to switch
+  // meant for #obras-teatrales's old plain-black background) need to switch
   // to a dark color to stay legible against the now-white background.
   .projects-title {
     color: $dark-blue !important;
@@ -4522,7 +4810,7 @@ section.height-auto {
 // Shared look for every section's intro title — matches "Quienes somos".
 %section-title-style {
   font-family: 'Lato', sans-serif !important;
-  font-weight: 300 !important;
+  font-weight: 900 !important;
   font-size: 2.2rem !important;
   color: $white !important;
   text-align: center;
@@ -4563,6 +4851,12 @@ h1[data-section="contact"][data-translate="title"] {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
+
+  // 2 columns on mobile instead of 5 squeezed-down squares — 3 rows,
+  // the 5th card left alone on the last row.
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .project-card {
@@ -4717,9 +5011,11 @@ h1[data-section="contact"][data-translate="title"] {
 }
 
 .contact-form {
-  // Was 50% of the wider outer .container — now inside .contact-card,
-  // which already constrains the width, so it fills that instead.
+  // Narrower than the card and centered, instead of stretching
+  // edge-to-edge across the full 700px card.
   width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 // Spread the 4 icons out to span the same width as the Enviar button
@@ -4737,6 +5033,13 @@ h1[data-section="contact"][data-translate="title"] {
     &:hover {
       color: $dark-blue;
       opacity: 0.7;
+    }
+  }
+
+  // Icons only on mobile — the labels crowd the row at that width.
+  @media (max-width: 700px) {
+    .contact-info-item span {
+      display: none;
     }
   }
 }
@@ -4836,60 +5139,110 @@ body.modal-open .project-card {
   margin-bottom: 20px;
 }
 
-.play-modal-video {
-  margin-bottom: 20px;
+// Hero + thumbnails gallery: one big main item (video or photo) on the
+// left, smaller clickable thumbnails on the right — clicking a thumb
+// swaps its media into the main slot (see the JS IIFE in atp.js).
+.play-modal-media {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
 
+.play-modal-media-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.2rem;
+  overflow: hidden;
+  background: $black;
+
+  img,
   video {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 0.2rem;
-    background: $black;
+    height: 100%;
+    object-fit: cover;
     display: block;
-  }
-
-  .missing-photo {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    color: rgba($white, 0.6);
-    border-color: rgba($white, 0.4);
   }
 }
 
-.play-modal-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 25px;
+.play-modal-thumbs {
+  flex: 0 0 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  // Fits 6 thumbs (96px wide, 4:3, so 72px tall each) without
+  // scrolling — only kicks in if a modal ever has more than that.
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.play-modal-thumb {
+  position: relative;
+  flex: 0 0 auto;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 0.2rem;
+  overflow: hidden;
+  cursor: pointer;
+  background: $black;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
 
   img,
-  .missing-photo {
+  video {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    height: 100%;
     object-fit: cover;
-    border-radius: 0.2rem;
+    display: block;
   }
 
-  .missing-photo {
-    color: rgba($white, 0.6);
-    border-color: rgba($white, 0.4);
+  &:hover {
+    opacity: 1;
   }
 
-  // A single photo (no siblings) reads better spanning the full width
-  // than sitting alone in the first of 3 columns.
-  img:only-child,
-  .missing-photo:only-child {
-    grid-column: 1 / -1;
-    aspect-ratio: 16 / 9;
+  &.is-active {
+    opacity: 1;
+    border-color: $primary;
+  }
+}
+
+// Play-triangle overlay, only on thumbnails whose full version is a video.
+.play-modal-thumb--video::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent $white;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.7));
+}
+
+@media (max-width: 600px) {
+  .play-modal-media {
+    flex-direction: column;
   }
 
-  @media (max-width: 600px) {
-    grid-template-columns: repeat(2, 1fr);
+  .play-modal-thumbs {
+    flex-direction: row;
+    flex: 0 0 auto;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .play-modal-thumb {
+    flex: 0 0 72px;
   }
 }
 
 .play-modal-subtitle {
   color: $white;
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   font-size: 1rem;
   letter-spacing: 0.04em;
@@ -4919,6 +5272,28 @@ body.modal-open .project-card {
   font-size: 0.85rem;
   letter-spacing: 0.02em;
   margin-top: 16px;
+
+  &:has(+ .play-modal-sponsors) {
+    margin-bottom: 10px;
+  }
+}
+
+// Sponsor logos are opaque white boxes (not transparent), so each gets
+// its own white "badge" background to read intentionally against the
+// modal's dark background instead of showing raw white rectangles.
+.play-modal-sponsors {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  img {
+    height: 32px;
+    width: auto;
+    background: $white;
+    padding: 6px 10px;
+    border-radius: 0.2rem;
+  }
 }
 
 .about-layout {
@@ -4948,7 +5323,7 @@ body.modal-open .project-card {
   min-width: 0;
 }
 
-#about {
+#quienes-somos {
   background-color: $coral;
   // Overrides the global "section { padding: 100px 0 }" spacing.
   padding-top: 0;
@@ -5119,7 +5494,7 @@ body.modal-open .project-card {
 
 .institucional-block-title {
   color: $dark-blue;
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 40px;
@@ -5293,6 +5668,44 @@ body.modal-open .project-card {
   }
 }
 
+// Image on top, text below, centered — instead of the side-by-side
+// layout, which gets cramped at mobile widths.
+@media (max-width: 700px) {
+  .alianza-body {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .alianza-slideshow {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 320px;
+
+    &--arch {
+      align-self: center;
+      aspect-ratio: 4 / 3;
+    }
+
+    &--rombo {
+      width: 70%;
+      max-width: 260px;
+      // Was flipped after the copy (via order: 2) to sit on the right
+      // in the row layout — back to its natural DOM order (image first)
+      // now that it's stacked.
+      order: 0;
+    }
+  }
+
+  .alianza-copy {
+    padding: 0 20px;
+  }
+
+  .alianza-slideshow--rombo ~ .alianza-copy {
+    order: 0;
+  }
+}
+
 // Participaciones institucionales (timeline). Cards alternate left/right
 // of a central rail, staggered brick-style — each card's top sits at the
 // vertical midpoint of the previous card (atp.js measures rendered
@@ -5401,7 +5814,7 @@ body.modal-open .project-card {
 
 .timeline-card-title {
   color: $white;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 0.9rem;
   margin-bottom: 6px;
 }
@@ -5510,7 +5923,7 @@ body.modal-open .project-card {
 
 @media (max-width: 1366px) {
 
-  #ourservices .container {
+  #servicios .container {
     width: 90%;
   }
 }
@@ -5521,7 +5934,7 @@ body.modal-open .project-card {
     margin-right: 50px;
   }
 
-  #ourservices .container {
+  #servicios .container {
     width: 100%;
 
     ol {
@@ -5529,7 +5942,7 @@ body.modal-open .project-card {
     }
   }
 
-  #about .container {
+  #quienes-somos .container {
     width: 80%;
   }
 }
@@ -5602,7 +6015,7 @@ body.modal-open .project-card {
     width: 98%;
   }
 
-  #about {
+  #quienes-somos {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5631,7 +6044,7 @@ body.modal-open .project-card {
     padding-left: 0;
   }
 
-  #about .container {
+  #quienes-somos .container {
     background-size: cover !important;
   }
 }
@@ -5762,7 +6175,7 @@ body.modal-open .project-card {
     margin-left: 10%;
   }
 
-  #ourservices .container ol {
+  #servicios .container ol {
     margin: 0 50px 100px 50px;
   }
 
@@ -5806,7 +6219,7 @@ body.modal-open .project-card {
     width: 90% !important;
   }
 
-  #ourservices {
+  #servicios {
     li {
       font-size: 0.94em;
     }
@@ -5827,7 +6240,7 @@ body.modal-open .project-card {
     }
   }
 
-  #about {
+  #quienes-somos {
     padding: 50px 0;
   }
 

@@ -1,1 +1,8 @@
 node_modules/
+
+# Raw/uncompressed video originals — too large for GitHub (>100MB) and
+# unused by the site, which links the "-web" compressed versions instead.
+assets/imgs/videos/Distendida GDZ.mp4
+assets/imgs/videos/after movie.mp4
+assets/imgs/videos/Video El Salpicón_Apto para Todo Público.mp4
+assets/imgs/after movie.mp4

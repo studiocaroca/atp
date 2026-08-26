@@ -474,6 +474,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // the tab click (see the institucional-tab handler) to retry.
         if (timeline.offsetParent === null) return;
 
+        // Below 700px, CSS switches every .timeline-item to a single
+        // column in normal flow (position: relative, no left/right
+        // alternation) — a leftover inline `top` from the desktop
+        // stagger would still push it down from there, so clear it
+        // instead of computing one.
+        if (window.matchMedia('(max-width: 700px)').matches) {
+            items.forEach(function (item) {
+                item.style.top = '';
+            });
+            timeline.style.minHeight = '';
+            return;
+        }
+
         // Same gap the "half of the previous card" rule produces when
         // it's the one in control — used below so the floor case reads
         // the same as everywhere else, instead of butting flush.
@@ -658,4 +671,30 @@ document.addEventListener('DOMContentLoaded', function () {
     setScrollDistance();
     window.addEventListener('load', setScrollDistance);
     window.addEventListener('resize', setScrollDistance);
+})();
+
+// Obras teatrales modals: hero + thumbnails gallery. Clicking a thumb
+// swaps its media (video or image) into the big main slot.
+(function () {
+    document.querySelectorAll('.play-modal-media').forEach(function (block) {
+        var main = block.querySelector('.play-modal-media-main');
+        var thumbs = block.querySelectorAll('.play-modal-thumb');
+
+        thumbs.forEach(function (thumb) {
+            thumb.addEventListener('click', function () {
+                var videoSrc = thumb.getAttribute('data-video');
+                var imgSrc = thumb.getAttribute('data-img');
+                var alt = thumb.getAttribute('data-alt') || '';
+
+                thumbs.forEach(function (t) { t.classList.remove('is-active'); });
+                thumb.classList.add('is-active');
+
+                if (videoSrc) {
+                    main.innerHTML = '<video src="' + videoSrc + '" controls preload="metadata" playsinline></video>';
+                } else if (imgSrc) {
+                    main.innerHTML = '<img src="' + imgSrc + '" alt="' + alt + '">';
+                }
+            });
+        });
+    });
 })();
