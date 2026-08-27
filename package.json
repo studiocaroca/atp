@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass --watch assets/scss/styles.scss:assets/css/styles.css"
+    "sass": "sass --watch assets/scss/styles.scss:assets/css/styles.css",
+    "php-server": "\"C:\\Users\\karla\\AppData\\Local\\Microsoft\\WinGet\\Packages\\PHP.PHP.8.2_Microsoft.Winget.Source_8wekyb3d8bbwe\\php.exe\" -S localhost:8000"
   },
   "keywords": [],
   "author": "",

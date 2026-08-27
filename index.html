@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -28,6 +28,8 @@
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="body">
+
+    <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
 
     <!-- Page Navbar -->
     <nav id="scrollspy" class="navbar page-navbar navbar-light navbar-expand-md fixed-top" data-spy="affix"
@@ -76,10 +78,25 @@
                     <li class="nav-item">
                         <a class="nav-link" data-section="menu" data-translate="services" href="#servicios">Servicios</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-section="menu" data-translate="contact" href="#contact">Contacto</a>
+                    </li>
+                    <li class="nav-item nav-item-admin">
+                        <a class="nav-link nav-link-admin" href="admin/login.php" aria-label="Acceso administrador" title="Acceso administrador">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav><!-- End of Page Navbar -->
+
+    <!-- High-contrast toggle -->
+    <button type="button" id="contrast-toggle" class="contrast-toggle-button" aria-pressed="false"
+        aria-label="Activar alto contraste" title="Alto contraste">
+        <i class="fa fa-adjust" aria-hidden="true"></i>
+    </button>
+    <!-- End High-contrast toggle -->
 
     <!-- Whatsapp button -->
     <a class="whatsapp-button" href="https://api.whatsapp.com/send?phone=5491132190222" target="_blank"
@@ -92,6 +109,8 @@
     <button type="button" class="scroll-button" aria-label="Bajar de página">
         <i class="fa fa-chevron-down"></i>
     </button>
+
+    <main id="contenido-principal">
 
     <!-- Page Header -->
     <header id="home" class="header">
@@ -120,11 +139,11 @@
 
 
     <!-- About Section -->
-    <section id="quienes-somos">
+    <section id="quienes-somos" aria-labelledby="quienes-somos-heading">
         <div class="about-shape" aria-hidden="true"></div>
         <!-- Container -->
         <div class="container">
-            <h2 class="about-title">Quienes somos</h2>
+            <h2 class="about-title" id="quienes-somos-heading">Quienes somos</h2>
             <!-- About carousel -->
             <div class="about-carousel">
                 <button type="button" class="about-carousel-arrow about-carousel-arrow--prev" aria-label="Anterior">&#10094;</button>
@@ -136,7 +155,7 @@
                             <img src="assets/imgs/quienes-somos/malena.jpg" alt="Malena Sánchez Olmos" class="about-photo">
                         </div>
                         <div class="flex-column">
-                            <h5 data-section="about" data-translate="name" class="title">Malena Sánchez Olmos</h5>
+                            <h3 data-section="about" data-translate="name" class="title">Malena Sánchez Olmos</h3>
                             <p data-section="about" data-translate="paragraph1"></p>
                             <p data-section="about" data-translate="paragraph2"></p>
                         </div>
@@ -148,7 +167,7 @@
                             <img src="assets/imgs/quienes-somos/sol.jpg" alt="Sol Grunschlager" class="about-photo">
                         </div>
                         <div class="flex-column">
-                            <h5 class="title">Sol Grunschlager</h5>
+                            <h3 class="title">Sol Grunschlager</h3>
                             <p>Es docente y gestora cultural. Trabajó en producción teatral, museos y medios de comunicación independientes. Fue asistente de Coordinación de Arte en Barrios, Ministerio de Cultura de la Ciudad, donde junto a Malena Sánchez Olmos creó Escuela de Proyectos, capacitación en desarrollo de proyectos culturales comunitarios. Desde 2017 trabaja como gestora cultural independiente y docente en nivel medio y superior. En Apto para Todo Público se ocupa del desarrollo de proyectos y coordinación institucional.</p>
                         </div>
                     </div>
@@ -159,7 +178,7 @@
                             <img src="assets/imgs/quienes-somos/pau.jpg" alt="Paula Ciruzzi" class="about-photo">
                         </div>
                         <div class="flex-column">
-                            <h5 class="title">Paula Ciruzzi</h5>
+                            <h3 class="title">Paula Ciruzzi</h3>
                             <p>Es bailarina de Tango, Tap y Contemporáneo. Se formó en la Universidad Nacional de las Artes, en la escuela de Julio Bocca y en El Método Kairós. Fue parte de las compañías Proyecto Primavera, UBN y Elementum. Actualmente dirige e interpreta el proyecto "La Parte y los Todos", produce la obra de teatro "IMPRO AL 2020" y es docente y presidenta de la Asociación Argentina de Tap. Trabaja en el área de Comunicación de Apto para Todo Público.</p>
                         </div>
                     </div>
@@ -170,7 +189,7 @@
                             <img src="assets/imgs/quienes-somos/tatiana.jpg" alt="Tatiana Marconi" class="about-photo">
                         </div>
                         <div class="flex-column">
-                            <h5 class="title">Tatiana Marconi</h5>
+                            <h3 class="title">Tatiana Marconi</h3>
                             <p>Es Licenciada en Psicología por la Universidad de Buenos Aires. Realizó sus prácticas en las áreas de atención comunitaria y abordajes infanto-juveniles. Actualmente continúa su formación en una Especialización en adultos y en TCC infanto-juvenil. Su experiencia laboral incluye atención clínica, dictado de talleres y trabajo como acompañante terapéutica. Desde 2024 acompaña funciones distendidas y actividades de formación de Apto para Todo Público.</p>
                         </div>
                     </div>
@@ -181,7 +200,7 @@
                             <img src="assets/imgs/quienes-somos/florencea.jpg" alt="Florencea Fernández" class="about-photo">
                         </div>
                         <div class="flex-column">
-                            <h5 class="title">Florencea Fernández</h5>
+                            <h3 class="title">Florencea Fernández</h3>
                             <p>Es directora y productora escénica, con trayectoria en artes escénicas y políticas culturales públicas. Coordina el Área de Visitas Guiadas del Teatro San Martín, se desempeña como docente en la Escuela de Oficios Teatrales del Complejo Teatral de Buenos Aires y participa en la dirección artística de proyectos para Apto para Todo Público. Su práctica articula dirección, territorio, accesibilidad y trabajo comunitario.</p>
                         </div>
                     </div>
@@ -194,7 +213,7 @@
 
 
     <!-- Institucional Section -->
-    <section id="institucional" class="text-center height-auto">
+    <section id="institucional" class="text-center height-auto" aria-labelledby="institucional-heading">
 
         <div class="institucional-bg" aria-hidden="true">
     <svg viewBox="0 0 1800 3200" preserveAspectRatio="xMidYMin slice" fill="#343e4a">
@@ -280,15 +299,15 @@
 </div>
 
 
-        <h2 class="choose-subtitle">Institucional</h2>
+        <h2 class="choose-subtitle" id="institucional-heading">Institucional</h2>
 
-        <div class="institucional-tabs" role="tablist">
-            <button type="button" class="institucional-tab active" data-tab="alianzas" role="tab" aria-selected="true">Alianzas</button>
-            <button type="button" class="institucional-tab" data-tab="participaciones" role="tab" aria-selected="false">Participaciones institucionales</button>
+        <div class="institucional-tabs" role="tablist" aria-label="Secciones de Institucional">
+            <button type="button" id="tab-alianzas" class="institucional-tab active" data-tab="alianzas" role="tab" aria-selected="true" aria-controls="panel-alianzas">Alianzas</button>
+            <button type="button" id="tab-participaciones" class="institucional-tab" data-tab="participaciones" role="tab" aria-selected="false" aria-controls="panel-participaciones">Participaciones institucionales</button>
         </div>
 
         <!-- Alianzas -->
-        <div class="institucional-block institucional-panel active" data-tab-panel="alianzas">
+        <div class="institucional-block institucional-panel active" data-tab-panel="alianzas" id="panel-alianzas" role="tabpanel" aria-labelledby="tab-alianzas" tabindex="0">
             <h3 class="institucional-block-title">Alianzas</h3>
 
             <div class="alianza">
@@ -330,7 +349,7 @@
         </div>
 
         <!-- Participaciones institucionales -->
-        <div class="institucional-block institucional-panel" data-tab-panel="participaciones">
+        <div class="institucional-block institucional-panel" data-tab-panel="participaciones" id="panel-participaciones" role="tabpanel" aria-labelledby="tab-participaciones" tabindex="0">
             <h3 class="institucional-block-title">Participaciones institucionales</h3>
 
             <div class="timeline">
@@ -435,65 +454,65 @@
 
 
     <!-- Projects Section -->
-    <section id="obras-teatrales">
+    <section id="obras-teatrales" aria-labelledby="obras-teatrales-heading">
         <div class="projects-wrapper">
-            <h2 class="projects-title" data-section="portfolio" data-translate="title">Obras teatrales</h2>
+            <h2 class="projects-title" id="obras-teatrales-heading" data-section="portfolio" data-translate="title">Obras teatrales</h2>
             <p class="projects-subtitle">Catálogo</p>
             <p class="projects-intro">Obras producidas especialmente o adaptadas<br>para realizar funciones distendidas.</p>
             <div class="projects-grid">
-                <div class="project-card openModalLink" data-modal="modal-project1">
-                    <div class="project-img project-img--hover">
-                        <img class="project-img__default" src="assets/imgs/IMG_0074-web.jpg" alt="El Salpicón" loading="lazy">
-                        <img class="project-img__hover" src="assets/imgs/IMG_0074-web.jpg" alt="El Salpicón" loading="lazy">
-                    </div>
-                </div>
-                <div class="project-card openModalLink" data-modal="modal-project8">
-                    <div class="project-img project-img--hover">
-                        <img class="project-img__default" src="assets/imgs/IMG_0206-web.jpg" alt="Sirena Encubierta" loading="lazy">
-                        <img class="project-img__hover" src="assets/imgs/IMG_0206-web.jpg" alt="Sirena Encubierta" loading="lazy">
-                    </div>
-                </div>
-                <div class="project-card openModalLink" data-modal="modal-project3">
-                    <div class="project-img project-img--hover">
-                        <img class="project-img__default" src="assets/imgs/esteticas-cotidiano-web.jpg" alt="Estéticas de lo Cotidiano" loading="lazy">
-                        <img class="project-img__hover" src="assets/imgs/esteticas-cotidiano-web.jpg" alt="Estéticas de lo Cotidiano" loading="lazy">
-                    </div>
-                </div>
-                <div class="project-card openModalLink" data-modal="modal-project4">
-                    <div class="project-img project-img--hover">
-                        <img class="project-img__default" src="assets/imgs/todo-lo-que-se-mueve-web.jpg" alt="Todo lo que se mueve" loading="lazy">
-                        <img class="project-img__hover" src="assets/imgs/todo-lo-que-se-mueve-web.jpg" alt="Todo lo que se mueve" loading="lazy">
-                    </div>
-                </div>
-                <div class="project-card openModalLink" data-modal="modal-project5">
-                    <div class="project-img project-img--hover">
-                        <img class="project-img__default" src="assets/imgs/IMG_5817-web.jpg" alt="Funciones Distendidas" loading="lazy">
-                        <img class="project-img__hover" src="assets/imgs/IMG_5817-web.jpg" alt="Funciones Distendidas" loading="lazy">
-                    </div>
-                </div>
+                <button type="button" class="project-card openModalLink" data-modal="modal-project1" aria-label="Ver ficha de El Salpicón">
+                    <span class="project-img project-img--hover">
+                        <img class="project-img__default" src="assets/imgs/IMG_0074-web.jpg" alt="" loading="lazy">
+                        <img class="project-img__hover" src="assets/imgs/IMG_0074-web.jpg" alt="" loading="lazy">
+                    </span>
+                </button>
+                <button type="button" class="project-card openModalLink" data-modal="modal-project8" aria-label="Ver ficha de Sirena Encubierta">
+                    <span class="project-img project-img--hover">
+                        <img class="project-img__default" src="assets/imgs/IMG_0206-web.jpg" alt="" loading="lazy">
+                        <img class="project-img__hover" src="assets/imgs/IMG_0206-web.jpg" alt="" loading="lazy">
+                    </span>
+                </button>
+                <button type="button" class="project-card openModalLink" data-modal="modal-project3" aria-label="Ver ficha de Estéticas de lo Cotidiano">
+                    <span class="project-img project-img--hover">
+                        <img class="project-img__default" src="assets/imgs/esteticas-cotidiano-web.jpg" alt="" loading="lazy">
+                        <img class="project-img__hover" src="assets/imgs/esteticas-cotidiano-web.jpg" alt="" loading="lazy">
+                    </span>
+                </button>
+                <button type="button" class="project-card openModalLink" data-modal="modal-project4" aria-label="Ver ficha de Todo lo que se mueve">
+                    <span class="project-img project-img--hover">
+                        <img class="project-img__default" src="assets/imgs/todo-lo-que-se-mueve-web.jpg" alt="" loading="lazy">
+                        <img class="project-img__hover" src="assets/imgs/todo-lo-que-se-mueve-web.jpg" alt="" loading="lazy">
+                    </span>
+                </button>
+                <button type="button" class="project-card openModalLink" data-modal="modal-project5" aria-label="Ver ficha de Funciones Distendidas">
+                    <span class="project-img project-img--hover">
+                        <img class="project-img__default" src="assets/imgs/IMG_5817-web.jpg" alt="" loading="lazy">
+                        <img class="project-img__hover" src="assets/imgs/IMG_5817-web.jpg" alt="" loading="lazy">
+                    </span>
+                </button>
             </div>
         </div>
     </section><!-- End of Projects Section -->
 
     <!-- Otros proyectos Section -->
-    <section id="otros-proyectos">
+    <section id="otros-proyectos" aria-labelledby="otros-proyectos-heading">
         <svg class="op-bg-spiral" aria-hidden="true" viewBox="0 0 150 200" preserveAspectRatio="xMidYMid meet">
             <use href="#espiral" fill="none" stroke="#FF9E83" stroke-width="0.8"/>
         </svg>
         <div class="op-wrapper">
-            <h2 class="op-title">Otros proyectos</h2>
+            <h2 class="op-title" id="otros-proyectos-heading">Otros proyectos</h2>
             <p class="op-intro">Apto para todo público ofrece un acercamiento a los públicos con discapacidades mediante distintas líneas de acción: funciones distendidas, podcast, espacios de formación en accesibilidad cultural y asesoramiento de proyectos.</p>
 
             <div class="op-blocks">
             <div class="op-block">
-                <button type="button" class="op-block-trigger" aria-expanded="false">
+                <button type="button" class="op-block-trigger" aria-expanded="false" aria-controls="op-panel-1">
                     <span class="op-block-heading">
                         <span class="op-block-title"><img src="assets/imgs/logos/logo-acceder.png" alt="AcceDER I - Festival Distendido"></span>
-                        <p class="op-block-preview">Festival Distendido se realizó los días 30/11, 1 y 2/12 de 2023 y consistió de distintas actividades orientadas a promover la Accesibilidad Cultural.</p>
+                        <span class="op-block-preview">Festival Distendido se realizó los días 30/11, 1 y 2/12 de 2023 y consistió de distintas actividades orientadas a promover la Accesibilidad Cultural.</span>
                     </span>
                     <span class="op-block-icon" aria-hidden="true"></span>
                 </button>
-                <div class="op-block-panel">
+                <div class="op-block-panel" id="op-panel-1">
                     <div class="op-block-panel-inner">
                         <p>Como parte de la programación se proyectó el documental "8 cuentos sobre mi hipoacusia" de Charo Mato, se realizaron funciones distendidas de "El Salpicón" y "Sirena encubierta" y se llevó a cabo la primera edición del Foro de Accesibilidad Cultural.</p>
                         <div class="op-block-media">
@@ -512,14 +531,14 @@
             </div>
 
             <div class="op-block">
-                <button type="button" class="op-block-trigger" aria-expanded="false">
+                <button type="button" class="op-block-trigger" aria-expanded="false" aria-controls="op-panel-2">
                     <span class="op-block-heading">
                         <span class="op-block-title"><img src="assets/imgs/logos/logo-acceder-II.png" alt="AcceDER II - Recursero de Accesibilidad Cultural"></span>
-                        <p class="op-block-preview">Es un conjunto de acciones que tienen como objetivo acercar recursos teóricos y prácticos para cualquier persona interesada en la temática.</p>
+                        <span class="op-block-preview">Es un conjunto de acciones que tienen como objetivo acercar recursos teóricos y prácticos para cualquier persona interesada en la temática.</span>
                     </span>
                     <span class="op-block-icon" aria-hidden="true"></span>
                 </button>
-                <div class="op-block-panel">
+                <div class="op-block-panel" id="op-panel-2">
                     <div class="op-block-panel-inner">
                         <p>Esto incluye:</p>
                         <ul class="op-block-list">
@@ -539,14 +558,14 @@
             </div>
 
             <div class="op-block">
-                <button type="button" class="op-block-trigger" aria-expanded="false">
+                <button type="button" class="op-block-trigger" aria-expanded="false" aria-controls="op-panel-3">
                     <span class="op-block-heading">
                         <span class="op-block-title">Podcast</span>
-                        <p class="op-block-preview">El Podcast Apto para Todo Público está dirigido a toda la comunidad, tiene el objetivo de difundir la accesibilidad cultural y socializar el aprendizaje.</p>
+                        <span class="op-block-preview">El Podcast Apto para Todo Público está dirigido a toda la comunidad, tiene el objetivo de difundir la accesibilidad cultural y socializar el aprendizaje.</span>
                     </span>
                     <span class="op-block-icon" aria-hidden="true"></span>
                 </button>
-                <div class="op-block-panel">
+                <div class="op-block-panel" id="op-panel-3">
                     <div class="op-block-panel-inner">
                         <p> Consta de 3 entrevistas sobre accesibilidad cultural a trabajadores de la cultura, instituciones, docentes y especialistas en el tema, buscando invitarles a abrir una conversación, compartir reflexiones y que nos cuenten sus recorridos.</p>
                         <div class="op-block-media op-block-media--3">
@@ -565,21 +584,21 @@
 
 
     <!-- services Section -->
-    <section class="text-center pt-5" id="servicios">
+    <section class="text-center pt-5" id="servicios" aria-labelledby="servicios-heading">
         <!-- Container -->
         <div class="container flex-column align-items-center">
-            <h3 data-section="our-services" data-translate="title" class="mt-3 pb-5 text-light">Nuestros servicios</h3>
+            <h2 data-section="our-services" data-translate="title" id="servicios-heading" class="mt-3 pb-5 text-light">Nuestros servicios</h2>
 
             <!-- Cards -->
             <div class="services-row">
                 <div class="services-wrapper">
-                    <h6 class="title mb-3">Formación en introducción a la accesibilidad cultural</h6>
+                    <h3 class="title mb-3">Formación en introducción a la accesibilidad cultural</h3>
                     <img class="services-wrapper-photo" src="assets/imgs/IMG-20230715-WA0007.jpg" alt="Formación en introducción a la accesibilidad cultural">
                     <p>La capacitación ofrece una introducción a la accesibilidad cultural desde un enfoque de derechos. Se propone abrir un espacio de reflexión sobre las creencias y conceptos en torno a la discapacidad que nos atraviesan en nuestras prácticas cotidianas. La propuesta invita a un acercamiento al material teórico disponible y el intercambio de experiencias en el campo para construir herramientas que permitan pensar nuevas formas y propuestas accesibles.</p>
                 </div>
 
                 <div class="services-wrapper">
-                    <h6 class="title mb-3">Asesorías - Accesibilizá tu proyecto</h6>
+                    <h3 class="title mb-3">Asesorías - Accesibilizá tu proyecto</h3>
                     <video class="services-wrapper-photo" src="assets/imgs/videos/distendida-gdz-web.mp4" controls preload="metadata" playsinline></video>
                     <div class="services-wrapper-text-flyer">
                         <div class="services-wrapper-text">
@@ -599,10 +618,10 @@
 
 
     <!-- Project Modals -->
-    <div id="modal-project1" class="modal">
+    <div id="modal-project1" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-project1-title">
         <div class="modal-content play-modal">
-            <span class="close" data-modal="modal-project1">&times;</span>
-            <h3 class="play-modal-title">El Salpicón</h3>
+            <button type="button" class="close" data-modal="modal-project1" aria-label="Cerrar">&times;</button>
+            <h3 class="play-modal-title" id="modal-project1-title">El Salpicón</h3>
             <p class="play-modal-text">El Salpicón (1995) es un musical infantil, de la famosa dupla Gianni-Midón. Cuatro intérpretes, dos actores y dos actrices, encarnan diferentes papeles, en un paseo por diversas escenas que nos invitan a sumergirnos en el universo imaginario de Hugo Midón, traduciendo la realidad en escenas que nos conmueven, divierten y hacen reflexionar. Recuperando el valor del juego, los intérpretes cambian de personaje a la vista del público, generando espacios y situaciones con lo que tienen a mano, transformando lo cotidiano en fantástico y jugando con la libertad tan propia de los chicxs cuando juegan sin ser vistos.</p>
 
             <div class="play-modal-media">
@@ -648,10 +667,10 @@
     </div>
 
     <!-- Project Modal 3 -->
-    <div id="modal-project3" class="modal">
+    <div id="modal-project3" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-project3-title">
         <div class="modal-content play-modal">
-            <span class="close" data-modal="modal-project3">&times;</span>
-            <h3 class="play-modal-title">Estéticas de lo Cotidiano</h3>
+            <button type="button" class="close" data-modal="modal-project3" aria-label="Cerrar">&times;</button>
+            <h3 class="play-modal-title" id="modal-project3-title">Estéticas de lo Cotidiano</h3>
             <p class="play-modal-text">Cuatro intérpretes hacen una obra para explorar lo cotidiano. A través de diálogos sinceros sobre sus rutinas, deseos y hábitos, los personajes se enfrentan a preguntas profundas sobre la diversidad y cómo nos relacionamos con los demás en nuestras vidas diarias. Entre risas, silencios y confesiones, la obra invita al público a reflexionar sobre lo común y lo extraordinario en nuestras rutinas, y cómo esas experiencias nos conectan o nos separan como seres humanos.</p>
 
             <div class="play-modal-media">
@@ -693,10 +712,10 @@
     </div>
 
     <!-- Project Modal 4 -->
-    <div id="modal-project4" class="modal">
+    <div id="modal-project4" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-project4-title">
         <div class="modal-content play-modal">
-            <span class="close" data-modal="modal-project4">&times;</span>
-            <h3 class="play-modal-title">Todo lo que se mueve</h3>
+            <button type="button" class="close" data-modal="modal-project4" aria-label="Cerrar">&times;</button>
+            <h3 class="play-modal-title" id="modal-project4-title">Todo lo que se mueve</h3>
             <p class="play-modal-text">Una criatura encuentra un objeto misterioso que da inicio a una travesía emocional: la alegría de lo nuevo, la frustración de lo perdido, la tristeza del vacío y la calma que llega cuando el vínculo aparece. A lo largo del recorrido, los colores emergen en escena como expresión de las emociones que se despiertan. El cuerpo se transforma, el espacio se modifica y los objetos cobran nuevos sentidos. En este viaje poético y sensorial, nada permanece igual. El cuerpo, el espacio y el encuentro con otros, todo se mueve.</p>
 
             <div class="play-modal-media">
@@ -731,10 +750,10 @@
     </div>
 
     <!-- Project Modal 5 -->
-    <div id="modal-project5" class="modal">
+    <div id="modal-project5" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-project5-title">
         <div class="modal-content play-modal">
-            <span class="close" data-modal="modal-project5">&times;</span>
-            <h3 class="play-modal-title">Funciones Distendidas</h3>
+            <button type="button" class="close" data-modal="modal-project5" aria-label="Cerrar">&times;</button>
+            <h3 class="play-modal-title" id="modal-project5-title">Funciones Distendidas</h3>
             <p class="play-modal-text">Las obras que realiza Apto para Todo Público pueden realizarse en formato común o distendido. Las funciones distendidas son funciones de artes escénicas sutilmente modificadas para propiciar un espacio más relajado, más tranquilo y menos formal, beneficiando e integrando a los públicos con discapacidades, pero especialmente a personas con dificultades sensoriales, espectro autista, y otras necesidades especiales.</p>
 
             <div class="play-modal-media">
@@ -756,10 +775,10 @@
     </div>
 
     <!-- Project Modal 8 -->
-    <div id="modal-project8" class="modal">
+    <div id="modal-project8" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-project8-title">
         <div class="modal-content play-modal">
-            <span class="close" data-modal="modal-project8">&times;</span>
-            <h3 class="play-modal-title">Sirena Encubierta</h3>
+            <button type="button" class="close" data-modal="modal-project8" aria-label="Cerrar">&times;</button>
+            <h3 class="play-modal-title" id="modal-project8-title">Sirena Encubierta</h3>
             <p class="play-modal-text">Sirena EnCubierta es un cuento musical narrado y cantado en tercera persona con ocho canciones que, al estar tan próximas entre sí, lo convierte en un cuento dinámico y original. Narra sucesos reales en la vida de una niña que desde su temprana edad adora el océano y toda la fauna marina. En la tierra la sirena choca con la niña (protagonista de la historia) y en ese choque mágico descubren el poder de la unión. Emprenden, desde la sirena encubierta, un camino de concientización, amor y contemplación del mundo como una unidad, fusionando así la fuerza de la tierra y del mar.</p>
 
             <div class="play-modal-media">
@@ -798,25 +817,28 @@
 
 
     <!-- Contact Section -->
-    <section id="contact" class="text-center">
+    <section id="contact" class="text-center" aria-labelledby="contact-heading">
         <!-- container -->
         <div class="container flex-column align-items-center justify-content-center">
             <div class="contact-card">
-                <h2 data-section="contact" data-translate="title">CONTACTANOS</h2>
+                <h2 data-section="contact" data-translate="title" id="contact-heading">CONTACTANOS</h2>
                 <p class="mb-5" data-section="contact" data-translate="subtitle">Si ten&eacute;s alguna pregunta, o necesitas ayuda, por favor contactanos!</p>
 
                 <!-- Contact form -->
                 <form action="https://formspree.io/f/xnjynnqj" method="post" class="contact-form">
                     <div class="form-row">
                         <div class="col form-group">
+                            <label for="nombre" class="visually-hidden" data-section="contact" data-translate="name">Nombre</label>
                             <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required
                                 data-section="contact" data-translate="name" data-translate-placeholder>
                         </div>
                         <div class="col form-group">
+                            <label for="email" class="visually-hidden" data-section="contact" data-translate="email">Email</label>
                             <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="message" class="visually-hidden" data-section="contact" data-translate="message">Mensaje</label>
                         <textarea id="message" name="message" cols="30" rows="5" class="form-control" placeholder="Mensaje"
                             required data-section="contact" data-translate="message" data-translate-placeholder></textarea>
                     </div>
@@ -825,7 +847,8 @@
                             data-section="contact" data-translate="button" data-translate-value>
                     </div>
                 </form><!-- End of Contact form -->
-                <div id="form-success" class="form-success-msg" style="display:none;">Su mensaje ha sido enviado</div>
+                <div id="form-success" class="form-success-msg" style="display:none;" role="status" aria-live="polite"></div>
+                <div id="form-error" class="form-error-msg" style="display:none;" role="alert" aria-live="assertive"></div>
 
                 <!-- Contact info -->
                 <div class="contact-info-row">
@@ -850,6 +873,17 @@
 
             <!-- foooter -->
             <footer class="footer text-align">
+                <nav class="footer-sitemap" aria-label="Mapa del sitio">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#quienes-somos">Quienes somos</a></li>
+                        <li><a href="#institucional">Institucional</a></li>
+                        <li><a href="#obras-teatrales">Obras teatrales</a></li>
+                        <li><a href="#otros-proyectos">Otros proyectos</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#contact">Contacto</a></li>
+                    </ul>
+                </nav>
                 <p>Copyright
                     <script>document.write(new Date().getFullYear())</script> &copy; by <a
                         href="http://www.studiocaroca.com.ar" target="_blank"><img src="assets/imgs/logo-caroca.svg"
@@ -859,6 +893,8 @@
 
         </div><!-- End of Container-->
     </section><!-- End of Contact Section -->
+
+    </main>
 
     <!-- core  -->
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>

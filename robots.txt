@@ -4,5 +4,6 @@ Disallow: /package-lock.json
 Disallow: /package.json
 Disallow: /readme.md
 Disallow: /translations.json
+Disallow: /admin/
 
 Sitemap: https://www.aptoparatodopublico.org/sitemap.xml

@@ -20,6 +20,43 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// High-contrast toggle — off by default (page looks exactly as
+// designed); switches a handful of white-on-coral/ocre titles and
+// cards to dark-blue text for better contrast. Remembered across
+// visits via localStorage.
+document.addEventListener('DOMContentLoaded', function () {
+    var toggle = document.getElementById('contrast-toggle');
+    if (!toggle) return;
+
+    var STORAGE_KEY = 'atp-high-contrast';
+
+    function applyState(enabled) {
+        document.body.classList.toggle('a11y-contrast', enabled);
+        toggle.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+        toggle.setAttribute('aria-label', enabled ? 'Desactivar alto contraste' : 'Activar alto contraste');
+        toggle.setAttribute('title', enabled ? 'Desactivar alto contraste' : 'Activar alto contraste');
+    }
+
+    var saved;
+    try {
+        saved = localStorage.getItem(STORAGE_KEY);
+    } catch (e) {
+        saved = null;
+    }
+    applyState(saved === 'on');
+
+    toggle.addEventListener('click', function () {
+        var enabled = !document.body.classList.contains('a11y-contrast');
+        applyState(enabled);
+        try {
+            localStorage.setItem(STORAGE_KEY, enabled ? 'on' : 'off');
+        } catch (e) {
+            // localStorage unavailable (private browsing, etc.) — the
+            // toggle still works for the current page view.
+        }
+    });
+});
+
 // Navbar logo animation loop
 document.addEventListener('DOMContentLoaded', function () {
     const logoSequence = [
@@ -54,13 +91,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //modal
 document.addEventListener('DOMContentLoaded', function () {
-    function openModal(modal) {
+    // Tracks the currently open modal and whatever triggered it, so
+    // Escape knows what to close and focus can return to the card that
+    // opened it (a keyboard user's focus would otherwise be left
+    // behind on a now-hidden trigger with no indication where they are).
+    var currentModal = null;
+    var lastTrigger = null;
+
+    function openModal(modal, trigger) {
+        currentModal = modal;
+        lastTrigger = trigger || null;
         modal.style.display = 'block';
         document.body.classList.add('modal-open');
         var iframe = modal.querySelector('iframe[data-src]');
         if (iframe) {
             iframe.setAttribute('src', iframe.getAttribute('data-src'));
         }
+        var closeBtn = modal.querySelector('.close');
+        if (closeBtn) closeBtn.focus();
     }
 
     function closeModal(modal) {
@@ -70,23 +118,30 @@ document.addEventListener('DOMContentLoaded', function () {
         if (iframe) {
             iframe.setAttribute('src', '');
         }
+        if (modal === currentModal) {
+            currentModal = null;
+            if (lastTrigger) {
+                lastTrigger.focus();
+                lastTrigger = null;
+            }
+        }
     }
 
-    // Get all links that open modals
+    // Get all buttons that open modals
     var links = document.querySelectorAll('.openModalLink');
     links.forEach(function (link) {
         link.addEventListener('click', function (event) {
             event.preventDefault();
             var modalId = this.getAttribute('data-modal');
             var modal = document.getElementById(modalId);
-            if (modal) openModal(modal);
+            if (modal) openModal(modal, this);
         });
     });
 
-    // Get all span elements that close modals
-    var spans = document.querySelectorAll('.close');
-    spans.forEach(function (span) {
-        span.addEventListener('click', function () {
+    // Get all buttons that close modals
+    var closers = document.querySelectorAll('.close');
+    closers.forEach(function (closer) {
+        closer.addEventListener('click', function () {
             var modalId = this.getAttribute('data-modal');
             var modal = document.getElementById(modalId);
             if (modal) closeModal(modal);
@@ -99,6 +154,38 @@ document.addEventListener('DOMContentLoaded', function () {
             closeModal(event.target);
         }
     };
+
+    // Escape closes the open modal — with no backdrop to click, this is
+    // the only way a keyboard-only user can dismiss it. Tab/Shift+Tab
+    // are trapped within it (wrapping from the last focusable element
+    // back to the first, and vice versa) — aria-modal="true" tells
+    // assistive tech to treat the rest of the page as inert, but Tab
+    // would otherwise still physically move focus into it.
+    document.addEventListener('keydown', function (event) {
+        if (!currentModal) return;
+
+        if (event.key === 'Escape' || event.key === 'Esc') {
+            closeModal(currentModal);
+            return;
+        }
+
+        if (event.key === 'Tab') {
+            var focusable = currentModal.querySelectorAll(
+                'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+            );
+            if (!focusable.length) return;
+            var first = focusable[0];
+            var last = focusable[focusable.length - 1];
+
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        }
+    });
 });
 
 
@@ -197,15 +284,41 @@ document.addEventListener('DOMContentLoaded', function () {
         pt: 'Sua mensagem foi enviada'
     };
 
+    const errorMessages = {
+        en: 'There was a problem sending your message. Please try again in a moment.',
+        es: 'Hubo un problema al enviar tu mensaje. Por favor, intentá de nuevo en un momento.',
+        pt: 'Houve um problema ao enviar sua mensagem. Por favor, tente novamente em instantes.'
+    };
+
     const form = document.querySelector('.contact-form');
     const successEl = document.getElementById('form-success');
+    const errorEl = document.getElementById('form-error');
 
-    if (!form || !successEl) return;
+    if (!form || !successEl || !errorEl) return;
+
+    // Both messages are aria-live regions (see index.html) so a screen
+    // reader announces whichever one appears — neither was reachable
+    // before without stumbling onto it manually. Hiding one whenever
+    // the other shows keeps a stale message from lingering underneath.
+    function showSuccess(text) {
+        errorEl.style.display = 'none';
+        errorEl.textContent = '';
+        successEl.textContent = text;
+        successEl.style.display = 'block';
+    }
+
+    function showError(text) {
+        successEl.style.display = 'none';
+        successEl.textContent = '';
+        errorEl.textContent = text;
+        errorEl.style.display = 'block';
+    }
 
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         const data = new FormData(form);
+        const lang = (document.getElementById('lang-current')?.textContent || 'en').toLowerCase();
 
         try {
             const response = await fetch(form.action, {
@@ -215,13 +328,14 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (response.ok) {
-                const lang = (document.getElementById('lang-current')?.textContent || 'en').toLowerCase();
-                successEl.textContent = successMessages[lang] || successMessages.en;
-                successEl.style.display = 'block';
+                showSuccess(successMessages[lang] || successMessages.en);
                 form.reset();
+            } else {
+                showError(errorMessages[lang] || errorMessages.en);
             }
         } catch (err) {
             console.error('Form submission error:', err);
+            showError(errorMessages[lang] || errorMessages.en);
         }
     });
 

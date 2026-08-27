@@ -3246,6 +3246,7 @@ nav.page-navbar .navbar-nav .nav-item:nth-child(3) .nav-link::after { background
 nav.page-navbar .navbar-nav .nav-item:nth-child(4) .nav-link::after { background-image: url(../imgs/formas/estrella.svg); }
 nav.page-navbar .navbar-nav .nav-item:nth-child(5) .nav-link::after { background-image: url(../imgs/formas/semicirculo.svg); }
 nav.page-navbar .navbar-nav .nav-item:nth-child(6) .nav-link::after { background-image: url(../imgs/formas/escalera.svg); }
+nav.page-navbar .navbar-nav .nav-item:nth-child(7) .nav-link::after { background-image: url(../imgs/formas/espiral.svg); }
 
 nav.page-navbar .nav-item .nav-link.active:not(.btn) {
   color: $black;
@@ -3253,6 +3254,29 @@ nav.page-navbar .nav-item .nav-link.active:not(.btn) {
   &::after {
     opacity: 0.9;
     transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+}
+
+// Icon-only link to /admin — set apart from the regular menu items with
+// a divider instead of a label, since it isn't page content.
+nav.page-navbar .nav-link-admin {
+  font-size: 0.9rem;
+  margin-left: 6px;
+  padding-left: 20px;
+  border-left: 1px solid rgba($black, 0.25);
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 799px) {
+  nav.page-navbar .nav-link-admin {
+    margin: 18px 0 0;
+    padding: 14px 0 0;
+    border-left: 0;
+    border-top: 1px solid rgba($black, 0.25);
   }
 }
 
@@ -3417,6 +3441,53 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 
 .footer p {
   margin: 0;
+}
+
+// Second, distinct way to reach any section besides the top nav menu —
+// same anchors, presented as a plain list in the footer.
+.footer-sitemap {
+  text-align: left;
+  margin-bottom: 16px;
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: $white;
+    font-size: 0.85rem;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+      color: $celeste;
+    }
+  }
+}
+
+// Hidden until it receives keyboard focus (Tab from the very top of the
+// page) — lets a keyboard user jump straight past the navbar's 8 links
+// to <main> instead of tabbing through all of them every time.
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 0;
+  background: $dark-blue;
+  color: $white;
+  padding: 12px 20px;
+  z-index: 2000;
+  text-decoration: none;
+  font-weight: 700;
+  transition: top 0.2s ease;
+
+  &:focus {
+    top: 0;
+  }
 }
 
 .header {
@@ -4821,7 +4892,7 @@ section.height-auto {
 .projects-title,
 .choose-subtitle,
 h1[data-section="choose"][data-translate="title"],
-h3[data-section="our-services"][data-translate="title"],
+h2[data-section="our-services"][data-translate="title"],
 h1[data-section="banner"][data-translate="title"],
 h2[data-section="contact"][data-translate="title"],
 h1[data-section="contact"][data-translate="title"] {
@@ -4860,6 +4931,17 @@ h1[data-section="contact"][data-translate="title"] {
 }
 
 .project-card {
+  // Now a <button> (was a <div>) so it's reachable and operable by
+  // keyboard — resets the browser's default button chrome (border,
+  // padding, font) that would otherwise show through.
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: inherit;
+  -webkit-appearance: none;
+  appearance: none;
   position: relative;
   overflow: visible;
   cursor: pointer;
@@ -4868,7 +4950,15 @@ h1[data-section="contact"][data-translate="title"] {
   aspect-ratio: 1 / 1;
   transition: transform 0.35s ease, z-index 0s;
 
+  &:focus-visible {
+    outline: 3px solid $celeste;
+    outline-offset: 3px;
+  }
+
   .project-img {
+    // Now a <span> (was a <div>) — <button> doesn't allow block-level
+    // children per the HTML spec, so this needs its block layout back.
+    display: block;
     position: relative;
     width: 100%;
     height: 100%;
@@ -5016,6 +5106,26 @@ h1[data-section="contact"][data-translate="title"] {
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
+}
+
+.form-success-msg,
+.form-error-msg {
+  margin-top: 16px;
+  padding: 12px 18px;
+  border-radius: 0.4rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.form-success-msg {
+  background: rgba($celeste, 0.35);
+  color: $dark-blue;
+}
+
+.form-error-msg {
+  background: rgba($primary, 0.12);
+  color: $primary;
 }
 
 // Spread the 4 icons out to span the same width as the Enviar button
@@ -6282,6 +6392,116 @@ body.modal-open .project-card {
   }
 
   .has-bg-img h1{
-    font-size: 2.8em;    
+    font-size: 2.8em;
+  }
+}
+
+// ===========================================================
+// Accessibility: high-contrast toggle
+// ===========================================================
+// Several titles/cards use white text over the site's coral/ocre
+// accent backgrounds, which only reaches ~2:1 contrast (WCAG needs
+// 4.5:1) — but switching them to dark-blue by default changes the
+// site's look, so instead it's opt-in: a floating button (above the
+// WhatsApp button) toggles a `.a11y-contrast` class on <body> via
+// assets/js/atp.js, which is what every rule below is scoped to. The
+// preference is remembered (localStorage) so it stays on next visit.
+// Off by default, the page renders exactly as it did before.
+
+.contrast-toggle-button {
+  position: fixed;
+  bottom: 170px;
+  right: 20px;
+  background-color: $dark-blue;
+  color: $white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 22px;
+  text-align: center;
+  line-height: 60px;
+  box-shadow: 0 2px 5px rgba(52, 62, 74, 0.3);
+  cursor: pointer;
+  z-index: 1000;
+
+  // Marks the toggle itself as currently on.
+  &[aria-pressed="true"] {
+    background-color: $primary;
+  }
+}
+
+body.a11y-contrast {
+  .about-title,
+  .choose-subtitle,
+  h2[data-section="our-services"][data-translate="title"] {
+    color: $dark-blue !important;
+  }
+
+  .institucional-tab {
+    border-color: $dark-blue;
+    color: $dark-blue;
+
+    &:hover {
+      background-color: rgba($dark-blue, 0.1);
+    }
+
+    &.active {
+      background-color: $dark-blue;
+      border-color: $dark-blue;
+      color: $white;
+    }
+  }
+
+  .timeline-card {
+    background: rgba($dark-blue, 0.85);
+  }
+
+  .about-wrapper .content {
+    color: $dark-blue;
+
+    .title,
+    p {
+      color: $dark-blue;
+    }
+  }
+
+  .services-wrapper {
+    p:not(.services-wrapper-credit) {
+      color: $dark-blue;
+    }
+  }
+
+  .services-wrapper .title,
+  .services-wrapper-credit {
+    color: $dark-blue;
+  }
+
+  // "Nos acompañan" — ocre text on the Apoyos band's white background
+  // only reaches ~2.1:1 contrast (needs 4.5:1).
+  .apoyos-title {
+    color: $dark-blue;
+  }
+
+  // Already dark-blue on #obras-teatrales's white background, just
+  // faded to 80% opacity — solidifying it here for full contrast
+  // headroom, not because it currently fails.
+  .projects-intro {
+    opacity: 1;
+  }
+
+  // Faded/gray body text sitting on dark-blue backgrounds — bumped to
+  // solid white here (not dark-blue, which would be invisible against
+  // a dark-blue background). Covers the header intro paragraph, the
+  // "Otros proyectos" intro and its accordion cards, and the timeline
+  // cards in Participaciones institucionales.
+  .header-brand-description,
+  .op-intro,
+  .op-block-preview,
+  .op-block-sponsors,
+  .op-block-panel-inner p,
+  .timeline-card p {
+    color: $white;
+    opacity: 1;
   }
 }
