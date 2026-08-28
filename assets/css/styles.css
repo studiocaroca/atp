@@ -3470,7 +3470,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 }
 @media (max-width: 700px) {
   .header-corner-dot {
-    --dot-size: clamp(280px, 95vw, 480px);
+    --dot-size: clamp(150px, 95vw, 480px);
     bottom: calc(var(--dot-size) * -0.18 - 160px);
   }
 }
@@ -3509,10 +3509,8 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   height: 55vw;
   max-width: 1300px;
   max-height: 720px;
-  min-width: 750px;
-  min-height: 360px;
   flex-shrink: 0;
-  transform: translateY(-72px);
+  transform: translateY(-10%);
   overflow: hidden;
 }
 .header-brand-box::before {
@@ -3545,7 +3543,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   align-items: center;
   justify-content: center;
   padding: 5%;
-  transform: translateY(-52px);
+  transform: translateY(-7%);
   z-index: 3;
 }
 .header-brand-content #logo-atp2 {
@@ -3568,7 +3566,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   position: relative;
   display: inline-block;
   margin: 15px 0 10px;
-  transform: translate(-525px, 180px);
+  transform: translate(max(-525px, -50vw + 197px), 180px);
   z-index: 999;
 }
 

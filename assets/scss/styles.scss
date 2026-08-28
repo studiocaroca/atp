@@ -3515,7 +3515,13 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   // per the left/width below) bled past the viewport and caused
   // page-wide horizontal scroll. Capped by width instead on mobile.
   @media (max-width: 700px) {
-    --dot-size: clamp(280px, 95vw, 480px);
+    // 280px floor never actually mattered on a real phone (95vw only
+    // drops that low below a ~295px-wide viewport, narrower than any
+    // real device) — but it does bite at deep browser zoom, where the
+    // *effective* viewport shrinks the same way, and a circle wider
+    // than the viewport it's floored against caused horizontal scroll.
+    // Lower, so the floor stops mattering at a width nothing real hits.
+    --dot-size: clamp(150px, 95vw, 480px);
     // Lower than desktop's formula — fine if it overlaps the
     // #quienes-somos card below, per request. Pushed down further so
     // less of the circle overlaps the box (smaller celeste collision).
@@ -3575,10 +3581,24 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   height: 55vw;
   max-width: 1300px;
   max-height: 720px;
-  min-width: 750px;
-  min-height: 360px;
+  // No min-width/min-height floor anymore — a flat 750x360px floor
+  // meant this box (and #logo-atp2 sized as a % of it, since it's
+  // absolutely positioned relative to .header-brand which shrinks to
+  // fit this box) couldn't shrink past 750px wide even when the actual
+  // viewport was narrower (e.g. zoomed to 200% on an ordinary desktop
+  // width, or just a browser window between the 700px mobile handoff
+  // and 750px) — overflowing off the right edge. The fluid width/height
+  // above already tapers continuously down to the mobile layout's own
+  // rules at 700px, with nothing below ~654px (55vw) ever visible on
+  // desktop anyway since mobile takes over first.
   flex-shrink: 0;
-  transform: translateY(-72px);
+  // Was a fixed -72px, tuned against this box's height at typical
+  // desktop sizes (~720px, so ~10% of its own height) — at a squeezed
+  // viewport height (e.g. zoomed in, shrinking 55vw's real height well
+  // below 720), that fixed amount stayed just as large, pushing the
+  // box (and the logo centered against it) increasingly further above
+  // the top edge. A % shift scales down together with the box itself.
+  transform: translateY(-10%);
   overflow: hidden;
   // No z-index: stays at the auto/default stacking level, which sits
   // below .header-intersection's explicit z-index: 2 — so the celeste
@@ -3621,7 +3641,12 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   align-items: center;
   justify-content: center;
   padding: 5%;
-  transform: translateY(-52px);
+  // Was a fixed -52px (~7% of this box's height at typical desktop
+  // sizes) — same issue as .header-brand-box's translateY above: fixed
+  // px against a box whose real height shrinks a lot at a squeezed
+  // viewport height pushed the logo increasingly above the top edge
+  // (clipped, not just covered by the fixed navbar). % scales with it.
+  transform: translateY(-7%);
   z-index: 3;
 
   #logo-atp2 {
@@ -3647,7 +3672,14 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   position: relative;
   display: inline-block;
   margin: 15px 0 10px;
-  transform: translate(-525px, 180px);
+  // -525px was tuned for wide desktop screens (~1444px+, where this
+  // still leaves it on-screen) — .header-content centers this first,
+  // so on narrower windows (or the same window zoomed) that fixed
+  // shift pushed it increasingly past the left edge, cutting text off.
+  // max() keeps -525px wherever it's safe, and past that switches to a
+  // formula solved to land the box's left edge a fixed 20px from the
+  // viewport's, so it can never go negative.
+  transform: translate(max(-525px, calc(-50vw + 197px)), 180px);
   z-index: 999;
 }
 
