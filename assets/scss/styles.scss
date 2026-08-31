@@ -36,6 +36,17 @@ html {
   html {
     font-size: 93%;
   }
+
+  // Headings read fine at that scale on their own — it's specifically
+  // the body copy that's still a bit big. Every <p> across the site
+  // already carries its own component-scoped font-size (dozens of
+  // them), each with more specificity than a bare "p" selector would
+  // have — em (not px/rem) keeps each one's relative proportions intact
+  // while !important is what actually lets one rule reach all of them
+  // instead of adding a mobile override to every single component.
+  p {
+    font-size: 0.88em !important;
+  }
 }
 
 article,
@@ -3566,6 +3577,21 @@ nav.page-navbar.affix .navbar-brand .text-dark {
       color: $celeste;
     }
   }
+
+  // Desktop only, per request — one link per line, in the site's own
+  // Lato (this inherits it from body already, but explicit here so it
+  // doesn't depend on that not changing), no underline.
+  @media (min-width: 701px) {
+    ul {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    a {
+      font-family: $font-family-base;
+      text-decoration: none;
+    }
+  }
 }
 
 // Hidden until it receives keyboard focus (Tab from the very top of the
@@ -4813,15 +4839,6 @@ section.height-auto {
     background: $white;
     padding: 6px 10px;
     border-radius: 0.2rem;
-  }
-
-  // Mecenazgo's logo reads much smaller than the others at the same
-  // height in AcceDER II's row — drop its padding so the logo itself
-  // fills the white box, without growing the box past the others'
-  // total height (56px logo + 12px padding = 68px).
-  .op-block:nth-child(2) & img[src*="logo-mecenazgo"] {
-    height: 68px;
-    padding: 0;
   }
 
   span {
@@ -6269,6 +6286,25 @@ body.modal-open .project-card {
     width: 100%;
   }
 
+}
+
+// The 70% above (legacy, shared with tablet widths up to 1100px) left
+// a lot of unused card padding on a phone screen, with the inputs/
+// textarea/button nowhere near the card's own edges. Wider specifically
+// below 700px — after the 1100px block above in source order, so it
+// wins there despite matching specificity.
+@media (max-width: 700px) {
+  .contact-form {
+    width: 100%;
+  }
+
+  // %section-title-style's 2.2rem (shared with every other section
+  // title) was wrapping "CONTÁCTAME" mid-word on a narrower card.
+  // Matches that rule's own selector + !important so this actually
+  // wins against it instead of losing to equal specificity.
+  h2[data-section="contact"][data-translate="title"] {
+    font-size: 1.7rem !important;
+  }
 }
 
 @media (max-width: 1000px) {

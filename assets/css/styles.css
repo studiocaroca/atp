@@ -68,6 +68,9 @@ html {
   html {
     font-size: 93%;
   }
+  p {
+    font-size: 0.88em !important;
+  }
 }
 article,
 aside,
@@ -3518,6 +3521,16 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 .footer-sitemap a:hover, .footer-sitemap a:focus {
   color: #A9E3FB;
 }
+@media (min-width: 701px) {
+  .footer-sitemap ul {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .footer-sitemap a {
+    font-family: "Lato", sans-serif;
+    text-decoration: none;
+  }
+}
 
 .skip-link {
   position: absolute;
@@ -4480,10 +4493,6 @@ section.height-auto {
   background: #FFFFFF;
   padding: 6px 10px;
   border-radius: 0.2rem;
-}
-.op-block:nth-child(2) .op-block-sponsor-logos img[src*=logo-mecenazgo] {
-  height: 68px;
-  padding: 0;
 }
 .op-block-sponsor-logos span {
   color: rgba(255, 255, 255, 0.6);
@@ -5633,6 +5642,14 @@ body.modal-open .project-card {
   }
   #logo-atp {
     width: 100%;
+  }
+}
+@media (max-width: 700px) {
+  .contact-form {
+    width: 100%;
+  }
+  h2[data-section=contact][data-translate=title] {
+    font-size: 1.7rem !important;
   }
 }
 @media (max-width: 1000px) {

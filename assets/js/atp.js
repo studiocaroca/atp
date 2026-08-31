@@ -20,6 +20,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// Mobile menu: close it after picking a section, or on any tap outside
+// it — Bootstrap's collapse only opens/closes from its own toggler
+// button by default, with no such auto-dismiss built in.
+document.addEventListener('DOMContentLoaded', function () {
+    var collapseEl = document.getElementById('navbarSupportedContent');
+    var toggler = document.querySelector('.navbar-toggler');
+    if (!collapseEl || !toggler) return;
+
+    function closeMenu() {
+        if (!collapseEl.classList.contains('show')) return;
+        if (window.jQuery) {
+            window.jQuery(collapseEl).collapse('hide');
+        } else {
+            collapseEl.classList.remove('show');
+            toggler.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    collapseEl.querySelectorAll('.nav-link').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!collapseEl.classList.contains('show')) return;
+        if (collapseEl.contains(e.target) || toggler.contains(e.target)) return;
+        closeMenu();
+    });
+});
+
 // High-contrast toggle — off by default (page looks exactly as
 // designed); switches a handful of white-on-coral/ocre titles and
 // cards to dark-blue text for better contrast. Remembered across
