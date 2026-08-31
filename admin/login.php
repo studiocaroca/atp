@@ -1,7 +1,19 @@
 <?php
 require __DIR__ . '/config.php';
 
+// The lock icon on the public site opens this inline (a dropdown form,
+// not a full page — see #admin-login-dropdown in index.html and its
+// handler in atp.js), submitting here via fetch with this header set.
+// Direct visits to admin/login.php (no JS, bookmarked URL, etc.) still
+// get the full classic page below as a fallback.
+$isAjax = ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest';
+
 if (admin_is_logged_in()) {
+    if ($isAjax) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true]);
+        exit;
+    }
     header('Location: index.php');
     exit;
 }
@@ -18,11 +30,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($username === ADMIN_USERNAME && password_verify($password, ADMIN_PASSWORD_HASH)) {
             session_regenerate_id(true);
             $_SESSION['atp_admin_logged_in'] = true;
+            if ($isAjax) {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => true]);
+                exit;
+            }
             header('Location: index.php');
             exit;
         }
 
         $error = 'Usuario o contraseña incorrectos.';
+    }
+
+    if ($isAjax) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'error' => $error]);
+        exit;
     }
 }
 

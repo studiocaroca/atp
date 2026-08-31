@@ -28,23 +28,65 @@ $fieldMap = [
         ],
     ],
     'about' => [
-        'label' => 'Quienes somos — mensaje de bienvenida',
+        'label' => 'Malena Sánchez Olmos',
         'fields' => [
             'name' => ['label' => 'Nombre', 'type' => 'text'],
             'paragraph1' => ['label' => 'Párrafo 1', 'type' => 'textarea'],
             'paragraph2' => ['label' => 'Párrafo 2', 'type' => 'textarea'],
         ],
     ],
-    'portfolio' => [
-        'label' => 'Obras teatrales',
+    'about-sol' => [
+        'label' => 'Sol Grunschlager',
+        'fields' => [
+            'name' => ['label' => 'Nombre', 'type' => 'text'],
+            'paragraph1' => ['label' => 'Párrafo 1', 'type' => 'textarea'],
+            'paragraph2' => ['label' => 'Párrafo 2', 'type' => 'textarea'],
+        ],
+    ],
+    'about-pau' => [
+        'label' => 'Paula Ciruzzi',
+        'fields' => [
+            'name' => ['label' => 'Nombre', 'type' => 'text'],
+            'paragraph1' => ['label' => 'Párrafo 1', 'type' => 'textarea'],
+            'paragraph2' => ['label' => 'Párrafo 2', 'type' => 'textarea'],
+        ],
+    ],
+    'about-tatiana' => [
+        'label' => 'Tatiana Marconi',
+        'fields' => [
+            'name' => ['label' => 'Nombre', 'type' => 'text'],
+            'paragraph1' => ['label' => 'Párrafo 1', 'type' => 'textarea'],
+            'paragraph2' => ['label' => 'Párrafo 2', 'type' => 'textarea'],
+        ],
+    ],
+    'about-florencea' => [
+        'label' => 'Florencea Fernández',
+        'fields' => [
+            'name' => ['label' => 'Nombre', 'type' => 'text'],
+            'paragraph1' => ['label' => 'Párrafo 1', 'type' => 'textarea'],
+            'paragraph2' => ['label' => 'Párrafo 2', 'type' => 'textarea'],
+        ],
+    ],
+    'our-services' => [
+        'label' => 'Título de la sección',
         'fields' => [
             'title' => ['label' => 'Título de la sección', 'type' => 'text'],
         ],
     ],
-    'our-services' => [
-        'label' => 'Servicios',
+    'servicios-formacion' => [
+        'label' => 'Formación en introducción a la accesibilidad cultural',
         'fields' => [
-            'title' => ['label' => 'Título de la sección', 'type' => 'text'],
+            'title' => ['label' => 'Título', 'type' => 'text'],
+            'paragraph1' => ['label' => 'Descripción', 'type' => 'textarea'],
+        ],
+    ],
+    'servicios-asesorias' => [
+        'label' => 'Asesorías - Accesibilizá tu proyecto',
+        'fields' => [
+            'title' => ['label' => 'Título', 'type' => 'text'],
+            'paragraph1' => ['label' => 'Párrafo 1', 'type' => 'textarea'],
+            'paragraph2' => ['label' => 'Párrafo 2', 'type' => 'textarea'],
+            'credit' => ['label' => 'Crédito de la foto del flyer', 'type' => 'text'],
         ],
     ],
     'contact' => [
@@ -57,6 +99,20 @@ $fieldMap = [
             'button' => ['label' => 'Texto del botón de envío', 'type' => 'text'],
         ],
     ],
+];
+
+// Purely for how the form is grouped/collapsed on screen — the save
+// logic above still walks $fieldMap section by section, unaffected by
+// this. Each group becomes one collapsible <details>; a group listing
+// more than one section (just "Quienes somos" today) gets its sections
+// nested as their own inner <details> so the whole page isn't one
+// giant scroll of every organizadora's bio at once.
+$renderGroups = [
+    ['label' => 'Menú de navegación', 'sections' => ['menu'], 'nested' => []],
+    ['label' => 'Portada (Home)', 'sections' => ['header'], 'nested' => []],
+    ['label' => 'Quienes somos', 'sections' => [], 'nested' => ['about', 'about-sol', 'about-pau', 'about-tatiana', 'about-florencea']],
+    ['label' => 'Servicios', 'sections' => ['our-services'], 'nested' => ['servicios-formacion', 'servicios-asesorias']],
+    ['label' => 'Contacto', 'sections' => ['contact'], 'nested' => []],
 ];
 
 $message = '';
@@ -132,7 +188,9 @@ $csrf = admin_csrf_token();
         <a href="index.php">Apto para Todo Público — Admin</a>
         <nav>
             <a href="index.php">Textos</a>
+            <a href="obras.php">Obras teatrales</a>
             <a href="images.php">Imágenes</a>
+            <a href="videos.php">Videos</a>
             <a href="../index.html" target="_blank">Ver sitio ↗</a>
             <a href="logout.php">Salir</a>
         </nav>
@@ -149,25 +207,44 @@ $csrf = admin_csrf_token();
         <form method="post">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf) ?>">
 
-            <?php foreach ($fieldMap as $section => $sectionDef): ?>
-                <fieldset class="admin-section">
-                    <legend><?= htmlspecialchars($sectionDef['label']) ?></legend>
-                    <?php foreach ($sectionDef['fields'] as $key => $fieldDef): ?>
-                        <?php
-                        $current = $translations['es'][$section][$key] ?? '';
-                        $inputId = 'field_' . $section . '_' . $key;
-                        $inputName = "field[$section][$key]";
-                        ?>
-                        <div class="admin-field">
-                            <label for="<?= htmlspecialchars($inputId) ?>"><?= htmlspecialchars($fieldDef['label']) ?></label>
-                            <?php if ($fieldDef['type'] === 'textarea'): ?>
-                                <textarea id="<?= htmlspecialchars($inputId) ?>" name="<?= htmlspecialchars($inputName) ?>"><?= htmlspecialchars($current) ?></textarea>
-                            <?php else: ?>
-                                <input type="text" id="<?= htmlspecialchars($inputId) ?>" name="<?= htmlspecialchars($inputName) ?>" value="<?= htmlspecialchars($current) ?>">
-                            <?php endif; ?>
-                        </div>
-                    <?php endforeach; ?>
-                </fieldset>
+            <?php
+            // Renders one section's fields (used both directly inside a
+            // single-section group and nested inside a multi-section one).
+            function admin_render_fields($section, $sectionDef, $translations) {
+                foreach ($sectionDef['fields'] as $key => $fieldDef):
+                    $current = $translations['es'][$section][$key] ?? '';
+                    $inputId = 'field_' . $section . '_' . $key;
+                    $inputName = "field[$section][$key]";
+                    ?>
+                    <div class="admin-field">
+                        <label for="<?= htmlspecialchars($inputId) ?>"><?= htmlspecialchars($fieldDef['label']) ?></label>
+                        <?php if ($fieldDef['type'] === 'textarea'): ?>
+                            <textarea id="<?= htmlspecialchars($inputId) ?>" name="<?= htmlspecialchars($inputName) ?>"><?= htmlspecialchars($current) ?></textarea>
+                        <?php else: ?>
+                            <input type="text" id="<?= htmlspecialchars($inputId) ?>" name="<?= htmlspecialchars($inputName) ?>" value="<?= htmlspecialchars($current) ?>">
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach;
+            }
+            ?>
+
+            <?php foreach ($renderGroups as $group): ?>
+                <details class="admin-section">
+                    <summary><?= htmlspecialchars($group['label']) ?></summary>
+                    <div class="admin-section-body">
+                        <?php foreach ($group['sections'] as $section): ?>
+                            <?php admin_render_fields($section, $fieldMap[$section], $translations); ?>
+                        <?php endforeach; ?>
+                        <?php foreach ($group['nested'] as $section): ?>
+                            <details class="admin-subsection">
+                                <summary><?= htmlspecialchars($fieldMap[$section]['label']) ?></summary>
+                                <div class="admin-section-body">
+                                    <?php admin_render_fields($section, $fieldMap[$section], $translations); ?>
+                                </div>
+                            </details>
+                        <?php endforeach; ?>
+                    </div>
+                </details>
             <?php endforeach; ?>
 
             <button type="submit" class="admin-btn">Guardar cambios</button>

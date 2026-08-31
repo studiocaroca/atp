@@ -2,8 +2,6 @@
 // and the animated circle (.header-corner-dot) on a canvas layer, every frame.
 // Reads their live computed transform/position only — never duplicates or animates on its own.
 (function () {
-    var CELESTE = '#A9E3FB';
-
     function init() {
         var header = document.querySelector('.header');
         var box = document.querySelector('.header-brand-box');
@@ -13,10 +11,17 @@
 
         var ctx = canvas.getContext('2d');
         var dpr = 1;
-        var eyebrowStack = document.querySelector('.header-eyebrow-stack');
-        var fillClip = document.querySelector('.header-eyebrow-fill-clip');
-        var fillCircle = document.querySelector('.header-eyebrow-fill-circle');
-        var fillText = document.querySelector('.header-eyebrow--fill');
+
+        // --header-collision-color (see styles.scss) switches this from
+        // celeste to brand ocre under the same mobile media query the
+        // rest of the header's mobile layout uses — read fresh on every
+        // resize (not just once) so crossing that breakpoint updates it
+        // without a reload.
+        var collisionColor = '#A9E3FB';
+        function readCollisionColor() {
+            var value = getComputedStyle(header).getPropertyValue('--header-collision-color').trim();
+            if (value) collisionColor = value;
+        }
 
         // On mobile the box and circle deliberately bleed well past the
         // header's own bottom edge (into #quienes-somos, per design) and can
@@ -36,6 +41,8 @@
         var MARGIN = 60;
 
         function resize() {
+            readCollisionColor();
+
             var headerRect = header.getBoundingClientRect();
             var boxRect = box.getBoundingClientRect();
             var circleRect = circle.getBoundingClientRect();
@@ -132,39 +139,6 @@
             };
         }
 
-        // Positions the dark-blue eyebrow text copy so it is clipped by the exact same
-        // polygon (box edge) and circle used to paint the canvas above — not an approximation.
-        // The polygon clip-path is set directly on .header-eyebrow-fill-clip, in coordinates
-        // relative to the stack. The circle can't be combined into that same clip-path (CSS
-        // only supports one shape per element), so it's a nested wrapper instead: a
-        // border-radius:50% box positioned/sized to match the live circle, with the text
-        // pushed back by that wrapper's own offset so it still lines up with the base copy.
-        function updateEyebrowFill(polygon, circ) {
-            if (!eyebrowStack || !fillClip || !fillCircle || !fillText) return;
-            if (!polygon || !circ) {
-                fillClip.style.clipPath = 'polygon(0 0, 0 0, 0 0)';
-                return;
-            }
-
-            var stackRect = eyebrowStack.getBoundingClientRect();
-
-            var clipPoints = polygon.map(function (pt) {
-                return (pt[0] - stackRect.left) + 'px ' + (pt[1] - stackRect.top) + 'px';
-            });
-            fillClip.style.clipPath = 'polygon(' + clipPoints.join(', ') + ')';
-
-            var circleLeft = (circ.x - circ.r) - stackRect.left;
-            var circleTop = (circ.y - circ.r) - stackRect.top;
-            var circleSize = circ.r * 2;
-            fillCircle.style.left = circleLeft + 'px';
-            fillCircle.style.top = circleTop + 'px';
-            fillCircle.style.width = circleSize + 'px';
-            fillCircle.style.height = circleSize + 'px';
-
-            fillText.style.left = (-circleLeft) + 'px';
-            fillText.style.top = (-circleTop) + 'px';
-        }
-
         function draw() {
             // Freshly read every frame (not the resize-time canvasRect,
             // which would drift out of sync with the live polygon/circle
@@ -193,15 +167,13 @@
                 circlePath = new Path2D();
                 circlePath.arc(circ.x - canvasViewportRect.left, circ.y - canvasViewportRect.top, circ.r, 0, Math.PI * 2);
 
-                ctx.fillStyle = CELESTE;
+                ctx.fillStyle = collisionColor;
                 ctx.fill(polygonPath);
 
                 ctx.globalCompositeOperation = 'destination-in';
                 ctx.fill(circlePath);
                 ctx.globalCompositeOperation = 'source-over';
             }
-
-            updateEyebrowFill(polygon, circ);
 
             requestAnimationFrame(draw);
         }

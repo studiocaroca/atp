@@ -63,7 +63,7 @@
             "contact": "Contacto"
         },
         "header": {
-            "eyebrow": "diversidad de posibilidades",
+            "eyebrow": "diversidad de posiblidades",
             "description": "Es una ONG argentina que promueve contenidos escénicos accesibles pensados para todos los públicos. Su objetivo primario es garantizar los derechos culturales de las personas con discapacidad, buscando ampliar la oferta cultural argentina."
         },
         "about": {
@@ -72,6 +72,36 @@
             "welcome": "Les doy la bienvenida y me presento.",
             "paragraph1": "Se dedica hace más de 10 años al campo de la gestión cultural, más específicamente en el área de artes escénicas. Su interés principal gira en torno a los proyectos socioculturales y cultura comunitaria. Trabajó en diferentes ámbitos públicos, privados y del tercer sector. Actualmente es presidente de la asociación civil sin fines de lucro Apto para Todo Público, productora teatral argentina que brinda contenidos accesibles para que puedan ser disfrutados por todos los públicos.",
             "paragraph2": ""
+        },
+        "about-sol": {
+            "name": "Sol Grunschlager",
+            "paragraph1": "Es docente y gestora cultural. Trabajó en producción teatral, museos y medios de comunicación independientes. Fue asistente de Coordinación de Arte en Barrios, Ministerio de Cultura de la Ciudad, donde junto a Malena Sánchez Olmos creó Escuela de Proyectos, capacitación en desarrollo de proyectos culturales comunitarios. Desde 2017 trabaja como gestora cultural independiente y docente en nivel medio y superior. En Apto para Todo Público se ocupa del desarrollo de proyectos y coordinación institucional.",
+            "paragraph2": ""
+        },
+        "about-pau": {
+            "name": "Paula Ciruzzi",
+            "paragraph1": "Es bailarina de Tango, Tap y Contemporáneo. Se formó en la Universidad Nacional de las Artes, en la escuela de Julio Bocca y en El Método Kairós. Fue parte de las compañías Proyecto Primavera, UBN y Elementum. Actualmente dirige e interpreta el proyecto \"La Parte y los Todos\", produce la obra de teatro \"IMPRO AL 2020\" y es docente y presidenta de la Asociación Argentina de Tap. Trabaja en el área de Comunicación de Apto para Todo Público.",
+            "paragraph2": ""
+        },
+        "about-tatiana": {
+            "name": "Tatiana Marconi",
+            "paragraph1": "Es Licenciada en Psicología por la Universidad de Buenos Aires. Realizó sus prácticas en las áreas de atención comunitaria y abordajes infanto-juveniles. Actualmente continúa su formación en una Especialización en adultos y en TCC infanto-juvenil. Su experiencia laboral incluye atención clínica, dictado de talleres y trabajo como acompañante terapéutica. Desde 2024 acompaña funciones distendidas y actividades de formación de Apto para Todo Público.",
+            "paragraph2": ""
+        },
+        "about-florencea": {
+            "name": "Florencea Fernández",
+            "paragraph1": "Es directora y productora escénica, con trayectoria en artes escénicas y políticas culturales públicas. Coordina el Área de Visitas Guiadas del Teatro San Martín, se desempeña como docente en la Escuela de Oficios Teatrales del Complejo Teatral de Buenos Aires y participa en la dirección artística de proyectos para Apto para Todo Público. Su práctica articula dirección, territorio, accesibilidad y trabajo comunitario.",
+            "paragraph2": ""
+        },
+        "servicios-formacion": {
+            "title": "Formación en introducción a la accesibilidad cultural",
+            "paragraph1": "La capacitación ofrece una introducción a la accesibilidad cultural desde un enfoque de derechos. Se propone abrir un espacio de reflexión sobre las creencias y conceptos en torno a la discapacidad que nos atraviesan en nuestras prácticas cotidianas. La propuesta invita a un acercamiento al material teórico disponible y el intercambio de experiencias en el campo para construir herramientas que permitan pensar nuevas formas y propuestas accesibles."
+        },
+        "servicios-asesorias": {
+            "title": "Asesorías - Accesibilizá tu proyecto",
+            "paragraph1": "Espacio de acompañamiento para que los proyectos culturales nazcan o se vuelvan accesibles para todos los públicos. A través de herramientas de gestión cultural y poniendo el foco en la accesibilidad cultural, buscamos aportar en el desarrollo de proyectos culturales aptos para todo público.",
+            "paragraph2": "Este servicio integral incluye: adaptación técnica del contenido, armado de material anticipatorio, diseño de señalética con pictogramas, capacitación al equipo de producción y personal de sala y acompañamiento por parte de un equipo de salud mental previo y durante las funciones.",
+            "credit": "La Granja de Zenón"
         },
         "portfolio": {
             "title": "Obras teatrales"

@@ -1,0 +1,99 @@
+{
+    "plays": [
+        {
+            "id": "salpicon",
+            "title": "El Salpicón",
+            "paragraphs": [
+                "El Salpicón (1995) es un musical infantil, de la famosa dupla Gianni-Midón. Cuatro intérpretes, dos actores y dos actrices, encarnan diferentes papeles, en un paseo por diversas escenas que nos invitan a sumergirnos en el universo imaginario de Hugo Midón, traduciendo la realidad en escenas que nos conmueven, divierten y hacen reflexionar. Recuperando el valor del juego, los intérpretes cambian de personaje a la vista del público, generando espacios y situaciones con lo que tienen a mano, transformando lo cotidiano en fantástico y jugando con la libertad tan propia de los chicxs cuando juegan sin ser vistos."
+            ],
+            "video": "videos/salpicon-web.mp4",
+            "images": [
+                "obras-teatrales-salpicon-1.jpg",
+                "obras-teatrales-salpicon-2.jpg",
+                "obras-teatrales-salpicon-3.jpg",
+                "obras-teatrales-salpicon-4.jpg",
+                "obras-teatrales-salpicon-5.jpg"
+            ],
+            "ficha": "Autoría: Hugo Midón y Carlos Gianni\nIntérpretes: Lucía Braude, Gustavo Monje, Nicolás Serraiti y Carla Tarantino\nDiseño de vestuario y escenografía: Bruno Mesa\nDiseño de luces: Lucía Feijoó\nCoreografía: Mariela Kantor\nDirección musical: Carlos Gianni\nProducción artística: Florencea Fernández\nProducción general: Apto Para Todo Público\nProducción ejecutiva: Malena Sánchez Olmos\nDirección: Marcelo Albamonte",
+            "sponsors": [],
+            "notes": ""
+        },
+        {
+            "id": "sirena",
+            "title": "Sirena Encubierta",
+            "paragraphs": [
+                "Sirena EnCubierta es un cuento musical narrado y cantado en tercera persona con ocho canciones que, al estar tan próximas entre sí, lo convierte en un cuento dinámico y original. Narra sucesos reales en la vida de una niña que desde su temprana edad adora el océano y toda la fauna marina. En la tierra la sirena choca con la niña (protagonista de la historia) y en ese choque mágico descubren el poder de la unión. Emprenden, desde la sirena encubierta, un camino de concientización, amor y contemplación del mundo como una unidad, fusionando así la fuerza de la tierra y del mar."
+            ],
+            "video": "",
+            "images": [
+                "obras-teatrales-sirena-2.jpg",
+                "obras-teatrales-sirena-3.jpg",
+                "obras-teatrales-sirena-1.jpg"
+            ],
+            "ficha": "Autoría: Carla Tarantino\nMúsica: Carlos Gianni\nDirección: Florencea Fernández\nCoreografía: Rosario Ruete\nIntérpretes: Carla Tarantino y Guido Napolitano\nVestuario: Cintia Ledesma\nEscenografía: Emiliano\nIluminación: Jorge Thefs\nArreglos musicales: Diego Lozano\nProducción general: Apto para Todo Público\nProducción ejecutiva: Malena Sánchez Olmos",
+            "sponsors": [],
+            "notes": ""
+        },
+        {
+            "id": "esteticas",
+            "title": "Estéticas de lo Cotidiano",
+            "paragraphs": [
+                "Cuatro intérpretes hacen una obra para explorar lo cotidiano. A través de diálogos sinceros sobre sus rutinas, deseos y hábitos, los personajes se enfrentan a preguntas profundas sobre la diversidad y cómo nos relacionamos con los demás en nuestras vidas diarias. Entre risas, silencios y confesiones, la obra invita al público a reflexionar sobre lo común y lo extraordinario en nuestras rutinas, y cómo esas experiencias nos conectan o nos separan como seres humanos."
+            ],
+            "video": "",
+            "images": [
+                "obras-teatrales-esteticas-2.jpg",
+                "obras-teatrales-esteticas-3.jpg",
+                "obras-teatrales-esteticas-1.jpg"
+            ],
+            "ficha": "Dramaturgia: Florencea Fernández\nIntérpretes: Analía Verónica Masciangioli, Eva Candela Morales, Guido Napolitano y Marco Chirino\nDirección: Florencea Fernández\nDiseño: Facundo Nievas\nDiseño de iluminación: Lucía Feijoó\nAsistencia coreográfica: Rosario Ruete\nProducción ejecutiva: Malena Sánchez Olmos\nProducción general: Apto para Todo Público",
+            "sponsors": [
+                {
+                    "src": "logos/logo-proteatro.png",
+                    "alt": "Proteatro"
+                },
+                {
+                    "src": "logos/logo-fiba.png",
+                    "alt": "FIBA - Festival Internacional de Buenos Aires"
+                }
+            ],
+            "notes": "Falta subir el teaser (Male)."
+        },
+        {
+            "id": "mueve",
+            "title": "Todo lo que se mueve",
+            "paragraphs": [
+                "Una criatura encuentra un objeto misterioso que da inicio a una travesía emocional: la alegría de lo nuevo, la frustración de lo perdido, la tristeza del vacío y la calma que llega cuando el vínculo aparece. A lo largo del recorrido, los colores emergen en escena como expresión de las emociones que se despiertan. El cuerpo se transforma, el espacio se modifica y los objetos cobran nuevos sentidos. En este viaje poético y sensorial, nada permanece igual. El cuerpo, el espacio y el encuentro con otros, todo se mueve."
+            ],
+            "video": "",
+            "images": [
+                "obras-teatrales-mueve-1.jpg",
+                "obras-teatrales-mueve-2.jpg"
+            ],
+            "ficha": "Idea y guión: Malena Sánchez Olmos\nCoreografía: Creación colectiva\nDiseño sonoro: Santiago Ruiz Armendia\nIntérpretes: Martina Archain y Francisco Gómez Nicolau\nVestuario y escenografía: Dennis Godetti\nProducción: Apto para Todo Público",
+            "sponsors": [
+                {
+                    "src": "logos/logo-proteatro.png",
+                    "alt": "Proteatro"
+                }
+            ],
+            "notes": ""
+        },
+        {
+            "id": "distendidas",
+            "title": "Funciones Distendidas",
+            "paragraphs": [
+                "Las obras que realiza Apto para Todo Público pueden realizarse en formato común o distendido. Las funciones distendidas son funciones de artes escénicas sutilmente modificadas para propiciar un espacio más relajado, más tranquilo y menos formal, beneficiando e integrando a los públicos con discapacidades, pero especialmente a personas con dificultades sensoriales, espectro autista, y otras necesidades especiales.",
+                "En cada función se arma un espacio de bajos estímulos a cargo de un equipo de salud mental, que puede contener cualquier situación o necesidad del público, en cualquier momento de la función."
+            ],
+            "video": "",
+            "images": [
+                "obras-teatrales-distendidas-1.jpg",
+                "obras-teatrales-distendidas-2.jpg"
+            ],
+            "ficha": "",
+            "sponsors": [],
+            "notes": ""
+        }
+    ]
+}

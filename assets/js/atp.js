@@ -57,6 +57,43 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Colorblind-mode toggle — off by default; applies the daltonization
+// SVG filter (see the <filter id="daltonize-deuteranopia"> near the top
+// of <body>) to the navbar and main content. Same on/off + localStorage
+// pattern as the high-contrast toggle above.
+document.addEventListener('DOMContentLoaded', function () {
+    var toggle = document.getElementById('colorblind-toggle');
+    if (!toggle) return;
+
+    var STORAGE_KEY = 'atp-colorblind';
+
+    function applyState(enabled) {
+        document.body.classList.toggle('a11y-colorblind', enabled);
+        toggle.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+        toggle.setAttribute('aria-label', enabled ? 'Desactivar modo daltónico' : 'Activar modo daltónico');
+        toggle.setAttribute('title', enabled ? 'Desactivar modo daltónico' : 'Activar modo daltónico');
+    }
+
+    var saved;
+    try {
+        saved = localStorage.getItem(STORAGE_KEY);
+    } catch (e) {
+        saved = null;
+    }
+    applyState(saved === 'on');
+
+    toggle.addEventListener('click', function () {
+        var enabled = !document.body.classList.contains('a11y-colorblind');
+        applyState(enabled);
+        try {
+            localStorage.setItem(STORAGE_KEY, enabled ? 'on' : 'off');
+        } catch (e) {
+            // localStorage unavailable (private browsing, etc.) — the
+            // toggle still works for the current page view.
+        }
+    });
+});
+
 // Navbar logo animation loop
 document.addEventListener('DOMContentLoaded', function () {
     const logoSequence = [
@@ -88,9 +125,114 @@ document.addEventListener('DOMContentLoaded', function () {
     window.setInterval(swapLogo, 2000);
 });
 
+// Admin login: the lock icon opens a small form right under it instead
+// of sending you to admin/login.php first — that page still exists and
+// still works on its own (direct link, no-JS fallback via the <a href>
+// this progressively enhances), it's just not the only way in anymore.
+document.addEventListener('DOMContentLoaded', function () {
+    var trigger = document.getElementById('admin-login-trigger');
+    var dropdown = document.getElementById('admin-login-dropdown');
+    var form = document.getElementById('admin-login-form');
+    var csrfField = document.getElementById('admin-login-csrf');
+    var errorEl = document.getElementById('admin-login-error');
+    var usernameField = document.getElementById('admin-login-username');
+    if (!trigger || !dropdown || !form) return;
+
+    var tokenFetched = false;
+
+    function fetchCsrf() {
+        fetch('admin/csrf.php', { credentials: 'same-origin' })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                csrfField.value = data.csrf_token || '';
+                tokenFetched = true;
+                if (data.logged_in) {
+                    window.location.href = 'admin/index.php';
+                }
+            })
+            .catch(function () {
+                // Leave the form as-is — submitting without a token just
+                // fails with the normal "sesión expiró" message below.
+            });
+    }
+
+    function openDropdown() {
+        dropdown.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+        if (!tokenFetched) fetchCsrf();
+        usernameField.focus();
+    }
+
+    function closeDropdown() {
+        dropdown.hidden = true;
+        trigger.setAttribute('aria-expanded', 'false');
+        errorEl.textContent = '';
+    }
+
+    trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (dropdown.hidden) {
+            openDropdown();
+        } else {
+            closeDropdown();
+        }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!dropdown.hidden && !dropdown.contains(e.target) && e.target !== trigger) {
+            closeDropdown();
+        }
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !dropdown.hidden) {
+            closeDropdown();
+            trigger.focus();
+        }
+    });
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var submitBtn = form.querySelector('.admin-login-submit');
+        submitBtn.disabled = true;
+        errorEl.textContent = '';
+
+        fetch('admin/login.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            body: new FormData(form)
+        })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data.success) {
+                    window.location.href = 'admin/index.php';
+                } else {
+                    errorEl.textContent = data.error || 'Usuario o contraseña incorrectos.';
+                    submitBtn.disabled = false;
+                    // A stale/failed token isn't reusable — get a fresh
+                    // one so a second attempt doesn't also fail on that.
+                    tokenFetched = false;
+                    fetchCsrf();
+                }
+            })
+            .catch(function () {
+                errorEl.textContent = 'No se pudo conectar. Probá de nuevo.';
+                submitBtn.disabled = false;
+            });
+    });
+});
+
 
 //modal
 document.addEventListener('DOMContentLoaded', function () {
+    // Event delegation throughout (listening on document, not on the
+    // individual .openModalLink/.close elements) because the play
+    // modals are built after this runs — see renderObras() below, which
+    // fetches obras.json and injects the cards/modals into the page.
+    // Direct per-element listeners set up here would simply miss
+    // anything created afterward.
+
     // Tracks the currently open modal and whatever triggered it, so
     // Escape knows what to close and focus can return to the card that
     // opened it (a keyboard user's focus would otherwise be left
@@ -127,25 +269,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Get all buttons that open modals
-    var links = document.querySelectorAll('.openModalLink');
-    links.forEach(function (link) {
-        link.addEventListener('click', function (event) {
+    document.addEventListener('click', function (event) {
+        var link = event.target.closest('.openModalLink');
+        if (link) {
             event.preventDefault();
-            var modalId = this.getAttribute('data-modal');
-            var modal = document.getElementById(modalId);
-            if (modal) openModal(modal, this);
-        });
-    });
-
-    // Get all buttons that close modals
-    var closers = document.querySelectorAll('.close');
-    closers.forEach(function (closer) {
-        closer.addEventListener('click', function () {
-            var modalId = this.getAttribute('data-modal');
-            var modal = document.getElementById(modalId);
-            if (modal) closeModal(modal);
-        });
+            var modal = document.getElementById(link.getAttribute('data-modal'));
+            if (modal) openModal(modal, link);
+            return;
+        }
+        var closer = event.target.closest('.close');
+        if (closer) {
+            var modalToClose = document.getElementById(closer.getAttribute('data-modal'));
+            if (modalToClose) closeModal(modalToClose);
+        }
     });
 
     // Close the modal if user clicks outside of it
@@ -787,28 +923,140 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', setScrollDistance);
 })();
 
-// Obras teatrales modals: hero + thumbnails gallery. Clicking a thumb
-// swaps its media (video or image) into the big main slot.
+// Obras teatrales: cards + modals aren't hand-authored in index.html
+// (see #projects-grid / #project-modals there) — they're built here
+// from obras.json, so adding/removing/editing a play from the admin
+// panel (admin/obras.php) doesn't need any HTML changes to show up.
 (function () {
-    document.querySelectorAll('.play-modal-media').forEach(function (block) {
+    var grid = document.getElementById('projects-grid');
+    var modalsContainer = document.getElementById('project-modals');
+    if (!grid || !modalsContainer) return;
+
+    function escapeHtml(str) {
+        return String(str == null ? '' : str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    // "Rol: Nombre" per line -> <li><strong>Rol:</strong> Nombre</li>.
+    function fichaListHTML(text) {
+        return (text || '').split('\n').map(function (line) { return line.trim(); }).filter(Boolean).map(function (line) {
+            var i = line.indexOf(':');
+            if (i === -1) return '<li>' + escapeHtml(line) + '</li>';
+            var role = line.slice(0, i + 1);
+            var name = line.slice(i + 1).trim();
+            return '<li><strong>' + escapeHtml(role) + '</strong> ' + escapeHtml(name) + '</li>';
+        }).join('');
+    }
+
+    function cardHTML(play) {
+        var modalId = 'modal-obra-' + play.id;
+        var thumb = play.images && play.images[0] ? 'assets/imgs/' + play.images[0] : '';
+        return (
+            '<button type="button" class="project-card openModalLink" data-modal="' + modalId + '" aria-label="Ver ficha de ' + escapeHtml(play.title) + '">' +
+                '<span class="project-img project-img--hover">' +
+                    '<img class="project-img__default" src="' + escapeHtml(thumb) + '" alt="" loading="lazy">' +
+                    '<img class="project-img__hover" src="' + escapeHtml(thumb) + '" alt="" loading="lazy">' +
+                '</span>' +
+            '</button>'
+        );
+    }
+
+    function modalHTML(play) {
+        var modalId = 'modal-obra-' + play.id;
+        var titleId = modalId + '-title';
+        var hasVideo = !!play.video;
+        var images = play.images || [];
+
+        var paragraphsHtml = (play.paragraphs || []).map(function (p) {
+            return '<p class="play-modal-text">' + escapeHtml(p) + '</p>';
+        }).join('');
+
+        var mainHtml = hasVideo
+            ? '<video src="assets/imgs/' + escapeHtml(play.video) + '" controls preload="metadata" playsinline></video>'
+            : (images[0] ? '<img src="assets/imgs/' + escapeHtml(images[0]) + '" alt="' + escapeHtml(play.title) + '">' : '');
+
+        var thumbsHtml = '';
+        if (hasVideo) {
+            thumbsHtml += '<button type="button" class="play-modal-thumb play-modal-thumb--video is-active" data-video="assets/imgs/' + escapeHtml(play.video) + '" aria-label="Ver video">' +
+                '<video src="assets/imgs/' + escapeHtml(play.video) + '" muted preload="metadata" playsinline></video></button>';
+        }
+        thumbsHtml += images.map(function (img, i) {
+            var active = (!hasVideo && i === 0) ? ' is-active' : '';
+            return '<button type="button" class="play-modal-thumb' + active + '" data-img="assets/imgs/' + escapeHtml(img) + '" data-alt="' + escapeHtml(play.title) + '" aria-label="Ver foto">' +
+                '<img src="assets/imgs/' + escapeHtml(img) + '" alt="" loading="lazy"></button>';
+        }).join('');
+
+        var notesHtml = play.notes ? '<p class="play-modal-notes">' + escapeHtml(play.notes) + '</p>' : '';
+
+        var fichaHtml = play.ficha ? (
+            '<h4 class="play-modal-subtitle">Ficha técnico-artística</h4>' +
+            '<ul class="play-modal-ficha">' + fichaListHTML(play.ficha) + '</ul>'
+        ) : '';
+
+        var sponsors = play.sponsors || [];
+        var sponsorsHtml = sponsors.length ? (
+            '<p class="play-modal-notes">Realizada con el apoyo de:</p>' +
+            '<div class="play-modal-sponsors">' + sponsors.map(function (s) {
+                return '<img src="assets/imgs/' + escapeHtml(s.src) + '" alt="' + escapeHtml(s.alt || '') + '">';
+            }).join('') + '</div>'
+        ) : '';
+
+        return (
+            '<div id="' + modalId + '" class="modal" role="dialog" aria-modal="true" aria-labelledby="' + titleId + '">' +
+                '<div class="modal-content play-modal">' +
+                    '<button type="button" class="close" data-modal="' + modalId + '" aria-label="Cerrar">&times;</button>' +
+                    '<h3 class="play-modal-title" id="' + titleId + '">' + escapeHtml(play.title) + '</h3>' +
+                    paragraphsHtml +
+                    '<div class="play-modal-media">' +
+                        '<div class="play-modal-media-main">' + mainHtml + '</div>' +
+                        '<div class="play-modal-thumbs">' + thumbsHtml + '</div>' +
+                    '</div>' +
+                    notesHtml +
+                    fichaHtml +
+                    sponsorsHtml +
+                '</div>' +
+            '</div>'
+        );
+    }
+
+    fetch('obras.json')
+        .then(function (response) {
+            if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+            return response.json();
+        })
+        .then(function (data) {
+            var plays = data.plays || [];
+            grid.innerHTML = plays.map(cardHTML).join('');
+            modalsContainer.innerHTML = plays.map(modalHTML).join('');
+        })
+        .catch(function (error) {
+            console.error('There has been a problem fetching obras.json:', error);
+        });
+
+    // Hero + thumbnails gallery inside a play modal — clicking a thumb
+    // swaps its media (video or image) into the big main slot. Delegated
+    // on the container since the modals above are injected after this
+    // runs, not present at DOMContentLoaded time.
+    modalsContainer.addEventListener('click', function (event) {
+        var thumb = event.target.closest('.play-modal-thumb');
+        if (!thumb) return;
+        var block = thumb.closest('.play-modal-media');
         var main = block.querySelector('.play-modal-media-main');
         var thumbs = block.querySelectorAll('.play-modal-thumb');
+        var videoSrc = thumb.getAttribute('data-video');
+        var imgSrc = thumb.getAttribute('data-img');
+        var alt = thumb.getAttribute('data-alt') || '';
 
-        thumbs.forEach(function (thumb) {
-            thumb.addEventListener('click', function () {
-                var videoSrc = thumb.getAttribute('data-video');
-                var imgSrc = thumb.getAttribute('data-img');
-                var alt = thumb.getAttribute('data-alt') || '';
+        thumbs.forEach(function (t) { t.classList.remove('is-active'); });
+        thumb.classList.add('is-active');
 
-                thumbs.forEach(function (t) { t.classList.remove('is-active'); });
-                thumb.classList.add('is-active');
-
-                if (videoSrc) {
-                    main.innerHTML = '<video src="' + videoSrc + '" controls preload="metadata" playsinline></video>';
-                } else if (imgSrc) {
-                    main.innerHTML = '<img src="' + imgSrc + '" alt="' + alt + '">';
-                }
-            });
-        });
+        if (videoSrc) {
+            main.innerHTML = '<video src="' + videoSrc + '" controls preload="metadata" playsinline></video>';
+        } else if (imgSrc) {
+            main.innerHTML = '<img src="' + imgSrc + '" alt="' + alt + '">';
+        }
     });
 })();

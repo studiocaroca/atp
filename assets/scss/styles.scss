@@ -29,6 +29,15 @@ html {
   -webkit-tap-highlight-color: rgba(52, 62, 74, 0);
 }
 
+// Most of the site's type is sized in rem, so scaling the root here
+// scales all of it together — a broad, one-place "shrink the text a
+// bit" instead of hunting down every individual font-size on mobile.
+@media (max-width: 700px) {
+  html {
+    font-size: 93%;
+  }
+}
+
 article,
 aside,
 figcaption,
@@ -471,6 +480,14 @@ nav.page-navbar .container {
     white-space: nowrap;
     text-decoration: none;
   }
+
+  .navbar-brand-text-accent {
+    color: $primary;
+  }
+
+  .navbar-brand-text-dot {
+    color: $ocre;
+  }
 }
 
 nav.page-navbar .navbar-nav {
@@ -567,8 +584,8 @@ nav.page-navbar .nav-item {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: $dark-blue;
-  color: $white;
+  background-color: $celeste;
+  color: $dark-blue;
   border: none;
   border-radius: 50%;
   width: 60px;
@@ -582,7 +599,7 @@ nav.page-navbar .nav-item {
   transition: background-color 0.15s ease-in-out;
 
   &:hover {
-    background-color: $black;
+    background-color: darken($celeste, 15%);
   }
 }
 
@@ -3280,6 +3297,87 @@ nav.page-navbar .nav-link-admin {
   }
 }
 
+// Login form that drops down right from the lock icon instead of
+// sending you to a whole separate page — same "click icon, small panel
+// opens under it" pattern as the (currently hidden) language selector.
+.admin-login-nav-item {
+  position: relative;
+}
+
+.admin-login-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 240px;
+  background: $white;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba($dark-blue, 0.25);
+  padding: 16px;
+  z-index: 1100;
+  text-align: left;
+
+  &[hidden] { display: none; }
+}
+
+.admin-login-field {
+  margin-bottom: 10px;
+
+  label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+    color: $dark-blue;
+    margin-bottom: 4px;
+  }
+
+  input {
+    width: 100%;
+    padding: 7px 9px;
+    border: 1px solid rgba($dark-blue, 0.25);
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: $dark-blue;
+  }
+}
+
+.admin-login-error {
+  font-size: 0.75rem;
+  color: $primary;
+  margin: 0 0 10px;
+
+  &:empty { display: none; }
+}
+
+.admin-login-submit {
+  width: 100%;
+  background: $primary;
+  color: $white;
+  border: 0;
+  padding: 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+
+  &:hover { opacity: 0.9; }
+  &:disabled { opacity: 0.6; cursor: default; }
+}
+
+@media (max-width: 799px) {
+  .admin-login-dropdown {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    border: 1px solid rgba($black, 0.15);
+    margin-top: 10px;
+  }
+}
+
 nav.page-navbar .nav-item .btn {
   color: $white !important;
   margin-right: 20px;
@@ -3504,6 +3602,18 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   height: 100dvh;
   min-height: 500px;
   overflow: visible;
+
+  // header-intersection.js reads this to pick the fill color for the
+  // box/circle collision patch it paints on <canvas class="header-intersection">
+  // — celeste on desktop, brand ocre on mobile per request. A custom
+  // property (not a hardcoded JS constant) so the breakpoint stays a
+  // plain CSS media query like everywhere else, instead of JS carrying
+  // its own copy of the 700px cutoff.
+  --header-collision-color: #{$celeste};
+
+  @media (max-width: 700px) {
+    --header-collision-color: #{$ocre};
+  }
 }
 
 .header-corner-dot {
@@ -3698,35 +3808,16 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   }
 }
 
+// One flat color for the whole string, no per-character split — this
+// text is editable from the admin panel (see the "header.eyebrow"
+// field), and the old effect split it white/dark-blue at a hardcoded
+// 18th character (tuned for "diversidad de posibilidades" specifically)
+// with a second dark-blue copy clipped to track the header circle live
+// (see header-intersection.js's now-removed updateEyebrowFill). Any
+// edited text broke both — wrong split point, stale clip. Brand
+// dark-blue, at any length — this text sits over the ocre/coral
+// shapes, not the header's own dark-blue background.
 .header-eyebrow--base {
-  // "bilidades" — everything after the white "diversidad de posi"
-  color: $dark-blue;
-
-  // "diversidad de posi" — first 18 characters
-  span:nth-child(-n+18) {
-    color: $white;
-  }
-}
-
-// The fill copy is the exact same text, rendered in the brand dark blue and clipped
-// (polygon + circle wrapper, matching .header-brand-box::before and .header-corner-dot
-// pixel-for-pixel — see header-intersection.js) so it only shows where the celeste
-// background actually is. It sits on top of the base copy, replacing it there.
-.header-eyebrow-fill-clip {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.header-eyebrow-fill-circle {
-  position: absolute;
-  overflow: hidden;
-  border-radius: 50%;
-}
-
-.header-eyebrow--fill {
-  position: absolute;
   color: $dark-blue;
 }
 
@@ -3878,24 +3969,6 @@ nav.page-navbar.affix .navbar-brand .text-dark {
     text-align: center;
   }
 
-  // Normally the second half of this text ("bilidades") is dark-blue,
-  // invisible until the live collision with the circle paints a celeste
-  // copy through it (see header-intersection.js) — the box's mobile
-  // position/size doesn't reliably overlap this text, so it's solid
-  // white throughout here instead of relying on that effect.
-  .header-eyebrow--base,
-  .header-eyebrow--base span:nth-child(-n+18) {
-    color: $white;
-  }
-
-  // header-intersection.js positions this duplicate (dark, clipped to
-  // the live collision shape) assuming a single line of text — once the
-  // base copy wraps to 2 lines above, its offsets go stale and the two
-  // copies render misaligned/overlapping. Hidden here since the base
-  // copy is already solid white on its own.
-  .header-eyebrow-fill-clip {
-    display: none;
-  }
 }
 
 .header-title {
@@ -4436,6 +4509,14 @@ section.height-auto {
   .about-wrapper {
     margin-left: 0;
   }
+
+  // The desktop "- 140px" left these cards narrow and tall (a lot of
+  // text wrapping down a thin column) on a phone-width screen — a
+  // smaller, fixed side margin instead so the card actually uses most
+  // of the available width.
+  .about-wrapper .content {
+    max-width: calc(100vw - 48px);
+  }
 }
 
 .img-wrapper {
@@ -4513,7 +4594,8 @@ section.height-auto {
 
 .op-intro {
   text-align: center;
-  margin-bottom: 50px;
+  max-width: 800px;
+  margin: 0 auto 50px;
 }
 
 // AcceDER I / AcceDER II / Podcast as click-to-expand cards, side by
@@ -4875,21 +4957,51 @@ section.height-auto {
   margin-bottom: 0;
 }
 
+@media (max-width: 700px) {
+  // The 560px flex-basis (tuned to fit two cards side by side on
+  // desktop) forced each card to shrink hard to fit a phone screen,
+  // and the flyer's fixed 140px column squeezed next to it fought that
+  // shrink — together, cards were overflowing/pushed right instead of
+  // filling the width. Full width, and the flyer moves below the copy
+  // instead of beside it, matching the order things are already in.
+  .services-wrapper {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .services-wrapper-text-flyer {
+    flex-direction: column;
+  }
+
+  .services-wrapper-flyer-col {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
 /* Projects Section */
 #obras-teatrales {
   padding: 80px 0 100px;
-  // contain (not cover) so the whole image shows uncropped; its own
-  // white background fills the rest of the section evenly since it
+  // A fixed pixel size — not "contain" (rescales with height, which
+  // grows every time enough obras cards wrap to another row) and not a
+  // %-of-width size either (that made it grow on wide desktop windows
+  // faster than the section's content-driven height could keep up,
+  // clipping the top of the shape). A flat px number depends on
+  // neither, so it can't blow past the box in either direction; its
+  // own white background fills the rest of the section evenly since it
   // matches $white.
   background-color: $white;
   background-image: url(../imgs/portada-obras.jpg);
-  background-size: contain;
-  background-position: left center;
+  background-size: 925px auto;
+  background-position: left bottom;
   background-repeat: no-repeat;
 
-  // On mobile, pin the image to the bottom-right corner of the section.
+  // On mobile, pin the image to the bottom-right corner and shrink the
+  // fixed size down — 925px would mostly be cropped off-screen on a
+  // phone-width viewport.
   @media (max-width: 700px) {
     background-position: right bottom;
+    background-size: 420px auto;
   }
 
   // No dark overlay anymore, so the title/intro (white by default,
@@ -4947,18 +5059,29 @@ h1[data-section="contact"][data-translate="title"] {
   margin: 0 auto 50px;
 }
 
-// 5 square cards side by side, always one row — the fluid 1fr columns
-// (not a fixed px width) are what make them shrink to fit instead of
-// wrapping when the container's too narrow for 5 full-size squares.
+// Self-adjusting for however many plays there are, not hardcoded to 5 —
+// flexbox (not grid) is what lets a short last row center itself
+// instead of a leftover card stranding alone on the left. Cards grow to
+// fill full rows (capped at max-width so they don't get huge when
+// there's only one on a line) and wrap once they hit their min-width.
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
 
-  // 2 columns on mobile instead of 5 squeezed-down squares — 3 rows,
-  // the 5th card left alone on the last row.
-  @media (max-width: 700px) {
-    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 700px) {
+  // 2 per row on mobile — the desktop 200px min-basis wouldn't fit two
+  // side by side under ~410px, so it'd collapse to a single column.
+  .projects-grid {
+    gap: 10px;
+  }
+
+  .project-card {
+    flex-basis: calc(50% - 5px);
+    max-width: calc(50% - 5px);
   }
 }
 
@@ -4967,7 +5090,12 @@ h1[data-section="contact"][data-translate="title"] {
   // keyboard — resets the browser's default button chrome (border,
   // padding, font) that would otherwise show through.
   display: block;
-  width: 100%;
+  // Grows to help fill a full row, shrinks down to 200px before
+  // wrapping, and is capped at 260px so a lone card left on a short
+  // last row (see .projects-grid) doesn't blow up huge just because
+  // it has the whole row's width to itself.
+  flex: 1 1 200px;
+  max-width: 260px;
   border: 0;
   padding: 0;
   font: inherit;
@@ -5099,6 +5227,13 @@ h1[data-section="contact"][data-translate="title"] {
   padding: 60px;
   width: 100%;
   max-width: 700px;
+
+  // The full 60px side padding left little room for the form on a
+  // phone-width screen — trimmed down just left/right, top/bottom stay.
+  @media (max-width: 700px) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 
   // The global "p, .simil-p { color: rgba(255,255,255,.85) }" rule
   // targets <p> directly, which always beats a color merely inherited
@@ -5750,11 +5885,11 @@ body.modal-open .project-card {
   z-index: 0;
 }
 
-// The arch's copy: brand blue instead of red, nudged up-left instead
-// of down-right, and further out than the shared default above.
+// The arch's copy: nudged up-left instead of down-right, and further
+// out than the shared default above (still $primary red, like it).
 .alianza-slideshow--arch .alianza-slideshow-shadow {
   transform: translate(-22px, -22px);
-  background: $dark-blue;
+  background: $primary;
 }
 
 .alianza-slideshow-frame {
@@ -6014,14 +6149,18 @@ body.modal-open .project-card {
     }
   }
 
+  // Stacked instead of side-by-side — a fixed 90px-wide photo squeezed
+  // next to the text left it cramped on a phone screen. Photo on top,
+  // copy below, same for every card regardless of odd/even.
   .timeline-card,
   .timeline-item:nth-child(even) .timeline-card {
-    flex-direction: row;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .timeline-photo {
-    flex-basis: 90px;
-    width: 90px;
+    flex-basis: auto;
+    width: 100%;
   }
 }
 
@@ -6444,8 +6583,8 @@ body.modal-open .project-card {
   position: fixed;
   bottom: 170px;
   right: 20px;
-  background-color: $dark-blue;
-  color: $white;
+  background-color: $celeste;
+  color: $dark-blue;
   border: none;
   border-radius: 50%;
   width: 60px;
@@ -6457,9 +6596,52 @@ body.modal-open .project-card {
   cursor: pointer;
   z-index: 1000;
 
-  // Marks the toggle itself as currently on.
+  // Marks the toggle itself as currently on. Icon flips to white here —
+  // dark-blue (the resting-state icon color) doesn't have enough
+  // contrast against this red.
   &[aria-pressed="true"] {
     background-color: $primary;
+    color: $white;
+  }
+}
+
+// Same button stack as .contrast-toggle-button, one slot further up
+// (170px + the same 75px gap used between every button below it).
+.colorblind-toggle-button {
+  position: fixed;
+  bottom: 245px;
+  right: 20px;
+  background-color: $celeste;
+  color: $dark-blue;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 22px;
+  text-align: center;
+  line-height: 60px;
+  box-shadow: 0 2px 5px rgba(52, 62, 74, 0.3);
+  cursor: pointer;
+  z-index: 1000;
+
+  // Icon flips to white here — dark-blue (the resting-state icon
+  // color) doesn't have enough contrast against this red.
+  &[aria-pressed="true"] {
+    background-color: $primary;
+    color: $white;
+  }
+}
+
+// Applied to the navbar and <main> separately (not body) — filter on a
+// shared ancestor would turn it into the containing block for every
+// position:fixed descendant, which would drag the WhatsApp/scroll/these
+// two toggle buttons out of their normal viewport-fixed spot. Between
+// the two of them, #scrollspy + #contenido-principal already cover
+// every bit of visible page content.
+body.a11y-colorblind {
+  #scrollspy,
+  #contenido-principal {
+    filter: url(#daltonize-deuteranopia);
   }
 }
 

@@ -27,7 +27,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="body">
+<!-- data-offset needs to be at least as big as the largest
+     scroll-margin-top used on any section (105px, #quienes-somos — see
+     styles.scss) so ScrollSpy's own "which section is active" threshold
+     lines up with where a clicked nav link's smooth-scroll actually
+     lands. It was 40 before: lower than every section's
+     scroll-margin-top, so landing on a section (stopped early by its
+     own scroll-margin) still read as "still in the previous section"
+     to ScrollSpy — the nav highlighted the item above the one you'd
+     just clicked. Padded a bit past the exact 105px match since
+     ScrollSpy's own offset math (element.offsetTop, walked up the
+     offsetParent chain) landed right on the boundary there and lost
+     the tie. -->
+<body data-spy="scroll" data-target=".navbar" data-offset="130" id="body">
+
+    <!-- Daltonization filter for the colorblind-mode toggle (see #colorblind-toggle
+    and body.a11y-colorblind in styles.scss) — not a simulation of colorblind
+    vision, but a correction: it shifts the reds/oranges that a red-green
+    colorblind viewer can't tell apart into the blue channel, where they can.
+    Present but invisible (0-size, clipped) since only its <filter> is used,
+    referenced from CSS via filter: url(#daltonize-deuteranopia). -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <filter id="daltonize-deuteranopia" color-interpolation-filters="sRGB">
+            <feColorMatrix type="matrix" values="
+                1       0       0       0  0
+                -0.4375 1.4375  0       0  0
+                0.2625  -0.5625 1.3     0  0
+                0       0       0       1  0
+            " />
+        </filter>
+    </svg>
 
     <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
 
@@ -39,7 +68,7 @@
                 <img src="assets/imgs/formas/circulo-espiral.svg" alt="Logo" id="logo-atp">
                 <img src="assets/imgs/formas/circulo-espiral.svg" alt="Logo" id="logo-insignia">
             </a>
-            <a class="navbar-brand-text" href="index.html">Apto para todo público.</a>
+            <a class="navbar-brand-text" href="index.html">Apto para <span class="navbar-brand-text-accent">todo</span> público<span class="navbar-brand-text-dot">.</span></a>
 
             <div id="lang-selector" class="lang-selector" style="display: none;">
                 <button class="lang-selector__current" id="lang-current">EN</button>
@@ -81,15 +110,37 @@
                     <li class="nav-item">
                         <a class="nav-link" data-section="menu" data-translate="contact" href="#contact">Contacto</a>
                     </li>
-                    <li class="nav-item nav-item-admin">
-                        <a class="nav-link nav-link-admin" href="admin/login.php" aria-label="Acceso administrador" title="Acceso administrador">
+                    <li class="nav-item nav-item-admin admin-login-nav-item">
+                        <a class="nav-link nav-link-admin" href="admin/login.php" id="admin-login-trigger" aria-label="Acceso administrador" aria-haspopup="true" aria-expanded="false" title="Acceso administrador">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </a>
+                        <div class="admin-login-dropdown" id="admin-login-dropdown" hidden>
+                            <form id="admin-login-form" novalidate>
+                                <input type="hidden" name="csrf_token" id="admin-login-csrf" value="">
+                                <div class="admin-login-field">
+                                    <label for="admin-login-username">Usuario</label>
+                                    <input type="text" id="admin-login-username" name="username" autocomplete="username" required>
+                                </div>
+                                <div class="admin-login-field">
+                                    <label for="admin-login-password">Contraseña</label>
+                                    <input type="password" id="admin-login-password" name="password" autocomplete="current-password" required>
+                                </div>
+                                <p class="admin-login-error" id="admin-login-error" role="alert" aria-live="assertive"></p>
+                                <button type="submit" class="admin-login-submit">Ingresar</button>
+                            </form>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
     </nav><!-- End of Page Navbar -->
+
+    <!-- Colorblind-mode toggle -->
+    <button type="button" id="colorblind-toggle" class="colorblind-toggle-button" aria-pressed="false"
+        aria-label="Activar modo daltónico" title="Modo daltónico">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+    </button>
+    <!-- End colorblind-mode toggle -->
 
     <!-- High-contrast toggle -->
     <button type="button" id="contrast-toggle" class="contrast-toggle-button" aria-pressed="false"
@@ -127,11 +178,6 @@
         <div class="header-content text-center">
             <div class="header-eyebrow-stack">
                 <p class="header-eyebrow header-eyebrow--base" data-section="header" data-translate="eyebrow">diversidad de posibilidades</p>
-                <div class="header-eyebrow-fill-clip" aria-hidden="true">
-                    <div class="header-eyebrow-fill-circle">
-                        <p class="header-eyebrow header-eyebrow--fill" data-section="header" data-translate="eyebrow">diversidad de posibilidades</p>
-                    </div>
-                </div>
             </div>
         </div>
     </header><!-- End of Page Header -->
@@ -167,8 +213,9 @@
                             <img src="assets/imgs/quienes-somos/sol.jpg" alt="Sol Grunschlager" class="about-photo">
                         </div>
                         <div class="flex-column">
-                            <h3 class="title">Sol Grunschlager</h3>
-                            <p>Es docente y gestora cultural. Trabajó en producción teatral, museos y medios de comunicación independientes. Fue asistente de Coordinación de Arte en Barrios, Ministerio de Cultura de la Ciudad, donde junto a Malena Sánchez Olmos creó Escuela de Proyectos, capacitación en desarrollo de proyectos culturales comunitarios. Desde 2017 trabaja como gestora cultural independiente y docente en nivel medio y superior. En Apto para Todo Público se ocupa del desarrollo de proyectos y coordinación institucional.</p>
+                            <h3 data-section="about-sol" data-translate="name" class="title">Sol Grunschlager</h3>
+                            <p data-section="about-sol" data-translate="paragraph1">Es docente y gestora cultural. Trabajó en producción teatral, museos y medios de comunicación independientes. Fue asistente de Coordinación de Arte en Barrios, Ministerio de Cultura de la Ciudad, donde junto a Malena Sánchez Olmos creó Escuela de Proyectos, capacitación en desarrollo de proyectos culturales comunitarios. Desde 2017 trabaja como gestora cultural independiente y docente en nivel medio y superior. En Apto para Todo Público se ocupa del desarrollo de proyectos y coordinación institucional.</p>
+                            <p data-section="about-sol" data-translate="paragraph2"></p>
                         </div>
                     </div>
                 </div>
@@ -178,8 +225,9 @@
                             <img src="assets/imgs/quienes-somos/pau.jpg" alt="Paula Ciruzzi" class="about-photo">
                         </div>
                         <div class="flex-column">
-                            <h3 class="title">Paula Ciruzzi</h3>
-                            <p>Es bailarina de Tango, Tap y Contemporáneo. Se formó en la Universidad Nacional de las Artes, en la escuela de Julio Bocca y en El Método Kairós. Fue parte de las compañías Proyecto Primavera, UBN y Elementum. Actualmente dirige e interpreta el proyecto "La Parte y los Todos", produce la obra de teatro "IMPRO AL 2020" y es docente y presidenta de la Asociación Argentina de Tap. Trabaja en el área de Comunicación de Apto para Todo Público.</p>
+                            <h3 data-section="about-pau" data-translate="name" class="title">Paula Ciruzzi</h3>
+                            <p data-section="about-pau" data-translate="paragraph1">Es bailarina de Tango, Tap y Contemporáneo. Se formó en la Universidad Nacional de las Artes, en la escuela de Julio Bocca y en El Método Kairós. Fue parte de las compañías Proyecto Primavera, UBN y Elementum. Actualmente dirige e interpreta el proyecto "La Parte y los Todos", produce la obra de teatro "IMPRO AL 2020" y es docente y presidenta de la Asociación Argentina de Tap. Trabaja en el área de Comunicación de Apto para Todo Público.</p>
+                            <p data-section="about-pau" data-translate="paragraph2"></p>
                         </div>
                     </div>
                 </div>
@@ -189,8 +237,9 @@
                             <img src="assets/imgs/quienes-somos/tatiana.jpg" alt="Tatiana Marconi" class="about-photo">
                         </div>
                         <div class="flex-column">
-                            <h3 class="title">Tatiana Marconi</h3>
-                            <p>Es Licenciada en Psicología por la Universidad de Buenos Aires. Realizó sus prácticas en las áreas de atención comunitaria y abordajes infanto-juveniles. Actualmente continúa su formación en una Especialización en adultos y en TCC infanto-juvenil. Su experiencia laboral incluye atención clínica, dictado de talleres y trabajo como acompañante terapéutica. Desde 2024 acompaña funciones distendidas y actividades de formación de Apto para Todo Público.</p>
+                            <h3 data-section="about-tatiana" data-translate="name" class="title">Tatiana Marconi</h3>
+                            <p data-section="about-tatiana" data-translate="paragraph1">Es Licenciada en Psicología por la Universidad de Buenos Aires. Realizó sus prácticas en las áreas de atención comunitaria y abordajes infanto-juveniles. Actualmente continúa su formación en una Especialización en adultos y en TCC infanto-juvenil. Su experiencia laboral incluye atención clínica, dictado de talleres y trabajo como acompañante terapéutica. Desde 2024 acompaña funciones distendidas y actividades de formación de Apto para Todo Público.</p>
+                            <p data-section="about-tatiana" data-translate="paragraph2"></p>
                         </div>
                     </div>
                 </div>
@@ -200,8 +249,9 @@
                             <img src="assets/imgs/quienes-somos/florencea.jpg" alt="Florencea Fernández" class="about-photo">
                         </div>
                         <div class="flex-column">
-                            <h3 class="title">Florencea Fernández</h3>
-                            <p>Es directora y productora escénica, con trayectoria en artes escénicas y políticas culturales públicas. Coordina el Área de Visitas Guiadas del Teatro San Martín, se desempeña como docente en la Escuela de Oficios Teatrales del Complejo Teatral de Buenos Aires y participa en la dirección artística de proyectos para Apto para Todo Público. Su práctica articula dirección, territorio, accesibilidad y trabajo comunitario.</p>
+                            <h3 data-section="about-florencea" data-translate="name" class="title">Florencea Fernández</h3>
+                            <p data-section="about-florencea" data-translate="paragraph1">Es directora y productora escénica, con trayectoria en artes escénicas y políticas culturales públicas. Coordina el Área de Visitas Guiadas del Teatro San Martín, se desempeña como docente en la Escuela de Oficios Teatrales del Complejo Teatral de Buenos Aires y participa en la dirección artística de proyectos para Apto para Todo Público. Su práctica articula dirección, territorio, accesibilidad y trabajo comunitario.</p>
+                            <p data-section="about-florencea" data-translate="paragraph2"></p>
                         </div>
                     </div>
                 </div>
@@ -459,38 +509,8 @@
             <h2 class="projects-title" id="obras-teatrales-heading" data-section="portfolio" data-translate="title">Obras teatrales</h2>
             <p class="projects-subtitle">Catálogo</p>
             <p class="projects-intro">Obras producidas especialmente o adaptadas<br>para realizar funciones distendidas.</p>
-            <div class="projects-grid">
-                <button type="button" class="project-card openModalLink" data-modal="modal-project1" aria-label="Ver ficha de El Salpicón">
-                    <span class="project-img project-img--hover">
-                        <img class="project-img__default" src="assets/imgs/obras-teatrales-salpicon-1.jpg" alt="" loading="lazy">
-                        <img class="project-img__hover" src="assets/imgs/obras-teatrales-salpicon-1.jpg" alt="" loading="lazy">
-                    </span>
-                </button>
-                <button type="button" class="project-card openModalLink" data-modal="modal-project8" aria-label="Ver ficha de Sirena Encubierta">
-                    <span class="project-img project-img--hover">
-                        <img class="project-img__default" src="assets/imgs/obras-teatrales-sirena-1.jpg" alt="" loading="lazy">
-                        <img class="project-img__hover" src="assets/imgs/obras-teatrales-sirena-1.jpg" alt="" loading="lazy">
-                    </span>
-                </button>
-                <button type="button" class="project-card openModalLink" data-modal="modal-project3" aria-label="Ver ficha de Estéticas de lo Cotidiano">
-                    <span class="project-img project-img--hover">
-                        <img class="project-img__default" src="assets/imgs/obras-teatrales-esteticas-1.jpg" alt="" loading="lazy">
-                        <img class="project-img__hover" src="assets/imgs/obras-teatrales-esteticas-1.jpg" alt="" loading="lazy">
-                    </span>
-                </button>
-                <button type="button" class="project-card openModalLink" data-modal="modal-project4" aria-label="Ver ficha de Todo lo que se mueve">
-                    <span class="project-img project-img--hover">
-                        <img class="project-img__default" src="assets/imgs/obras-teatrales-mueve-1.jpg" alt="" loading="lazy">
-                        <img class="project-img__hover" src="assets/imgs/obras-teatrales-mueve-1.jpg" alt="" loading="lazy">
-                    </span>
-                </button>
-                <button type="button" class="project-card openModalLink" data-modal="modal-project5" aria-label="Ver ficha de Funciones Distendidas">
-                    <span class="project-img project-img--hover">
-                        <img class="project-img__default" src="assets/imgs/obras-teatrales-distendidas-1.jpg" alt="" loading="lazy">
-                        <img class="project-img__hover" src="assets/imgs/obras-teatrales-distendidas-1.jpg" alt="" loading="lazy">
-                    </span>
-                </button>
-            </div>
+            <!-- Populated at load from obras.json — see renderObras() in atp.js -->
+            <div class="projects-grid" id="projects-grid"></div>
         </div>
     </section><!-- End of Projects Section -->
 
@@ -593,22 +613,22 @@
             <!-- Cards -->
             <div class="services-row">
                 <div class="services-wrapper">
-                    <h3 class="title mb-3">Formación en introducción a la accesibilidad cultural</h3>
+                    <h3 class="title mb-3" data-section="servicios-formacion" data-translate="title">Formación en introducción a la accesibilidad cultural</h3>
                     <img class="services-wrapper-photo" src="assets/imgs/servicios-1.jpg" alt="Formación en introducción a la accesibilidad cultural">
-                    <p>La capacitación ofrece una introducción a la accesibilidad cultural desde un enfoque de derechos. Se propone abrir un espacio de reflexión sobre las creencias y conceptos en torno a la discapacidad que nos atraviesan en nuestras prácticas cotidianas. La propuesta invita a un acercamiento al material teórico disponible y el intercambio de experiencias en el campo para construir herramientas que permitan pensar nuevas formas y propuestas accesibles.</p>
+                    <p data-section="servicios-formacion" data-translate="paragraph1">La capacitación ofrece una introducción a la accesibilidad cultural desde un enfoque de derechos. Se propone abrir un espacio de reflexión sobre las creencias y conceptos en torno a la discapacidad que nos atraviesan en nuestras prácticas cotidianas. La propuesta invita a un acercamiento al material teórico disponible y el intercambio de experiencias en el campo para construir herramientas que permitan pensar nuevas formas y propuestas accesibles.</p>
                 </div>
 
                 <div class="services-wrapper">
-                    <h3 class="title mb-3">Asesorías - Accesibilizá tu proyecto</h3>
+                    <h3 class="title mb-3" data-section="servicios-asesorias" data-translate="title">Asesorías - Accesibilizá tu proyecto</h3>
                     <video class="services-wrapper-photo" src="assets/imgs/videos/distendida-gdz-web.mp4" controls preload="metadata" playsinline></video>
                     <div class="services-wrapper-text-flyer">
                         <div class="services-wrapper-text">
-                            <p>Espacio de acompañamiento para que los proyectos culturales nazcan o se vuelvan accesibles para todos los públicos. A través de herramientas de gestión cultural y poniendo el foco en la accesibilidad cultural, buscamos aportar en el desarrollo de proyectos culturales aptos para todo público.</p>
-                            <p>Este servicio integral incluye: adaptación técnica del contenido, armado de material anticipatorio, diseño de señalética con pictogramas, capacitación al equipo de producción y personal de sala y acompañamiento por parte de un equipo de salud mental previo y durante las funciones.</p>
+                            <p data-section="servicios-asesorias" data-translate="paragraph1">Espacio de acompañamiento para que los proyectos culturales nazcan o se vuelvan accesibles para todos los públicos. A través de herramientas de gestión cultural y poniendo el foco en la accesibilidad cultural, buscamos aportar en el desarrollo de proyectos culturales aptos para todo público.</p>
+                            <p data-section="servicios-asesorias" data-translate="paragraph2">Este servicio integral incluye: adaptación técnica del contenido, armado de material anticipatorio, diseño de señalética con pictogramas, capacitación al equipo de producción y personal de sala y acompañamiento por parte de un equipo de salud mental previo y durante las funciones.</p>
                         </div>
                         <div class="services-wrapper-flyer-col">
                             <img class="services-wrapper-flyer" src="assets/imgs/servicios-2.jpg" alt="Función distendida en La Granja de Zenón">
-                            <p class="services-wrapper-credit">La Granja de Zenón</p>
+                            <p class="services-wrapper-credit" data-section="servicios-asesorias" data-translate="credit">La Granja de Zenón</p>
                         </div>
                     </div>
                 </div>
@@ -618,203 +638,8 @@
 
 
 
-    <!-- Project Modals -->
-    <div id="modal-project1" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-project1-title">
-        <div class="modal-content play-modal">
-            <button type="button" class="close" data-modal="modal-project1" aria-label="Cerrar">&times;</button>
-            <h3 class="play-modal-title" id="modal-project1-title">El Salpicón</h3>
-            <p class="play-modal-text">El Salpicón (1995) es un musical infantil, de la famosa dupla Gianni-Midón. Cuatro intérpretes, dos actores y dos actrices, encarnan diferentes papeles, en un paseo por diversas escenas que nos invitan a sumergirnos en el universo imaginario de Hugo Midón, traduciendo la realidad en escenas que nos conmueven, divierten y hacen reflexionar. Recuperando el valor del juego, los intérpretes cambian de personaje a la vista del público, generando espacios y situaciones con lo que tienen a mano, transformando lo cotidiano en fantástico y jugando con la libertad tan propia de los chicxs cuando juegan sin ser vistos.</p>
-
-            <div class="play-modal-media">
-                <div class="play-modal-media-main">
-                    <video src="assets/imgs/videos/salpicon-web.mp4" controls preload="metadata" playsinline></video>
-                </div>
-                <div class="play-modal-thumbs">
-                    <button type="button" class="play-modal-thumb play-modal-thumb--video is-active" data-video="assets/imgs/videos/salpicon-web.mp4" aria-label="Ver video">
-                        <video src="assets/imgs/videos/salpicon-web.mp4" muted preload="metadata" playsinline></video>
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-salpicon-1.jpg" data-alt="El Salpicón" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-salpicon-1.jpg" alt="" loading="lazy">
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-salpicon-2.jpg" data-alt="El Salpicón" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-salpicon-2.jpg" alt="" loading="lazy">
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-salpicon-3.jpg" data-alt="El Salpicón" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-salpicon-3.jpg" alt="" loading="lazy">
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-salpicon-4.jpg" data-alt="El Salpicón" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-salpicon-4.jpg" alt="" loading="lazy">
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-salpicon-5.jpg" data-alt="El Salpicón" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-salpicon-5.jpg" alt="" loading="lazy">
-                    </button>
-                </div>
-            </div>
-
-            <h4 class="play-modal-subtitle">Ficha técnico-artística</h4>
-            <ul class="play-modal-ficha">
-                <li><strong>Autoría:</strong> Hugo Midón y Carlos Gianni</li>
-                <li><strong>Intérpretes:</strong> Lucía Braude, Gustavo Monje, Nicolás Serraiti y Carla Tarantino</li>
-                <li><strong>Diseño de vestuario y escenografía:</strong> Bruno Mesa</li>
-                <li><strong>Diseño de luces:</strong> Lucía Feijoó</li>
-                <li><strong>Coreografía:</strong> Mariela Kantor</li>
-                <li><strong>Dirección musical:</strong> Carlos Gianni</li>
-                <li><strong>Producción artística:</strong> Florencea Fernández</li>
-                <li><strong>Producción general:</strong> Apto Para Todo Público</li>
-                <li><strong>Producción ejecutiva:</strong> Malena Sánchez Olmos</li>
-                <li><strong>Dirección:</strong> Marcelo Albamonte</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Project Modal 3 -->
-    <div id="modal-project3" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-project3-title">
-        <div class="modal-content play-modal">
-            <button type="button" class="close" data-modal="modal-project3" aria-label="Cerrar">&times;</button>
-            <h3 class="play-modal-title" id="modal-project3-title">Estéticas de lo Cotidiano</h3>
-            <p class="play-modal-text">Cuatro intérpretes hacen una obra para explorar lo cotidiano. A través de diálogos sinceros sobre sus rutinas, deseos y hábitos, los personajes se enfrentan a preguntas profundas sobre la diversidad y cómo nos relacionamos con los demás en nuestras vidas diarias. Entre risas, silencios y confesiones, la obra invita al público a reflexionar sobre lo común y lo extraordinario en nuestras rutinas, y cómo esas experiencias nos conectan o nos separan como seres humanos.</p>
-
-            <div class="play-modal-media">
-                <div class="play-modal-media-main">
-                    <img src="assets/imgs/obras-teatrales-esteticas-2.jpg" alt="Estéticas de lo Cotidiano — NüN 2026">
-                </div>
-                <div class="play-modal-thumbs">
-                    <button type="button" class="play-modal-thumb is-active" data-img="assets/imgs/obras-teatrales-esteticas-2.jpg" data-alt="Estéticas de lo Cotidiano — NüN 2026" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-esteticas-2.jpg" alt="" loading="lazy">
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-esteticas-3.jpg" data-alt="Estéticas de lo Cotidiano — TNC 2025" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-esteticas-3.jpg" alt="" loading="lazy">
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-esteticas-1.jpg" data-alt="Estéticas de lo Cotidiano" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-esteticas-1.jpg" alt="" loading="lazy">
-                    </button>
-                </div>
-            </div>
-            <p class="play-modal-notes">Falta subir el teaser (Male).</p>
-
-            <h4 class="play-modal-subtitle">Ficha técnico-artística</h4>
-            <ul class="play-modal-ficha">
-                <li><strong>Dramaturgia:</strong> Florencea Fernández</li>
-                <li><strong>Intérpretes:</strong> Analía Verónica Masciangioli, Eva Candela Morales, Guido Napolitano y Marco Chirino</li>
-                <li><strong>Dirección:</strong> Florencea Fernández</li>
-                <li><strong>Diseño:</strong> Facundo Nievas</li>
-                <li><strong>Diseño de iluminación:</strong> Lucía Feijoó</li>
-                <li><strong>Asistencia coreográfica:</strong> Rosario Ruete</li>
-                <li><strong>Producción ejecutiva:</strong> Malena Sánchez Olmos</li>
-                <li><strong>Producción general:</strong> Apto para Todo Público</li>
-            </ul>
-
-            <p class="play-modal-notes">Realizada con el apoyo de:</p>
-            <div class="play-modal-sponsors">
-                <img src="assets/imgs/logos/logo-proteatro.png" alt="Proteatro">
-                <img src="assets/imgs/logos/logo-fiba.png" alt="FIBA - Festival Internacional de Buenos Aires">
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal 4 -->
-    <div id="modal-project4" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-project4-title">
-        <div class="modal-content play-modal">
-            <button type="button" class="close" data-modal="modal-project4" aria-label="Cerrar">&times;</button>
-            <h3 class="play-modal-title" id="modal-project4-title">Todo lo que se mueve</h3>
-            <p class="play-modal-text">Una criatura encuentra un objeto misterioso que da inicio a una travesía emocional: la alegría de lo nuevo, la frustración de lo perdido, la tristeza del vacío y la calma que llega cuando el vínculo aparece. A lo largo del recorrido, los colores emergen en escena como expresión de las emociones que se despiertan. El cuerpo se transforma, el espacio se modifica y los objetos cobran nuevos sentidos. En este viaje poético y sensorial, nada permanece igual. El cuerpo, el espacio y el encuentro con otros, todo se mueve.</p>
-
-            <div class="play-modal-media">
-                <div class="play-modal-media-main">
-                    <img src="assets/imgs/obras-teatrales-mueve-1.jpg" alt="Todo lo que se mueve">
-                </div>
-                <div class="play-modal-thumbs">
-                    <button type="button" class="play-modal-thumb is-active" data-img="assets/imgs/obras-teatrales-mueve-1.jpg" data-alt="Todo lo que se mueve" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-mueve-1.jpg" alt="" loading="lazy">
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-mueve-2.jpg" data-alt="Todo lo que se mueve" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-mueve-2.jpg" alt="" loading="lazy">
-                    </button>
-                </div>
-            </div>
-
-            <h4 class="play-modal-subtitle">Ficha técnico-artística</h4>
-            <ul class="play-modal-ficha">
-                <li><strong>Idea y guión:</strong> Malena Sánchez Olmos</li>
-                <li><strong>Coreografía:</strong> Creación colectiva</li>
-                <li><strong>Diseño sonoro:</strong> Santiago Ruiz Armendia</li>
-                <li><strong>Intérpretes:</strong> Martina Archain y Francisco Gómez Nicolau</li>
-                <li><strong>Vestuario y escenografía:</strong> Dennis Godetti</li>
-                <li><strong>Producción:</strong> Apto para Todo Público</li>
-            </ul>
-
-            <p class="play-modal-notes">Realizada con el apoyo de:</p>
-            <div class="play-modal-sponsors">
-                <img src="assets/imgs/logos/logo-proteatro.png" alt="Proteatro">
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal 5 -->
-    <div id="modal-project5" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-project5-title">
-        <div class="modal-content play-modal">
-            <button type="button" class="close" data-modal="modal-project5" aria-label="Cerrar">&times;</button>
-            <h3 class="play-modal-title" id="modal-project5-title">Funciones Distendidas</h3>
-            <p class="play-modal-text">Las obras que realiza Apto para Todo Público pueden realizarse en formato común o distendido. Las funciones distendidas son funciones de artes escénicas sutilmente modificadas para propiciar un espacio más relajado, más tranquilo y menos formal, beneficiando e integrando a los públicos con discapacidades, pero especialmente a personas con dificultades sensoriales, espectro autista, y otras necesidades especiales.</p>
-
-            <div class="play-modal-media">
-                <div class="play-modal-media-main">
-                    <img src="assets/imgs/obras-teatrales-distendidas-1.jpg" alt="Funciones Distendidas">
-                </div>
-                <div class="play-modal-thumbs">
-                    <button type="button" class="play-modal-thumb is-active" data-img="assets/imgs/obras-teatrales-distendidas-1.jpg" data-alt="Funciones Distendidas" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-distendidas-1.jpg" alt="" loading="lazy">
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-distendidas-2.jpg" data-alt="Funciones Distendidas" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-distendidas-2.jpg" alt="" loading="lazy">
-                    </button>
-                </div>
-            </div>
-
-            <p class="play-modal-text">En cada función se arma un espacio de bajos estímulos a cargo de un equipo de salud mental, que puede contener cualquier situación o necesidad del público, en cualquier momento de la función.</p>
-        </div>
-    </div>
-
-    <!-- Project Modal 8 -->
-    <div id="modal-project8" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-project8-title">
-        <div class="modal-content play-modal">
-            <button type="button" class="close" data-modal="modal-project8" aria-label="Cerrar">&times;</button>
-            <h3 class="play-modal-title" id="modal-project8-title">Sirena Encubierta</h3>
-            <p class="play-modal-text">Sirena EnCubierta es un cuento musical narrado y cantado en tercera persona con ocho canciones que, al estar tan próximas entre sí, lo convierte en un cuento dinámico y original. Narra sucesos reales en la vida de una niña que desde su temprana edad adora el océano y toda la fauna marina. En la tierra la sirena choca con la niña (protagonista de la historia) y en ese choque mágico descubren el poder de la unión. Emprenden, desde la sirena encubierta, un camino de concientización, amor y contemplación del mundo como una unidad, fusionando así la fuerza de la tierra y del mar.</p>
-
-            <div class="play-modal-media">
-                <div class="play-modal-media-main">
-                    <img src="assets/imgs/obras-teatrales-sirena-2.jpg" alt="Sirena Encubierta">
-                </div>
-                <div class="play-modal-thumbs">
-                    <button type="button" class="play-modal-thumb is-active" data-img="assets/imgs/obras-teatrales-sirena-2.jpg" data-alt="Sirena Encubierta" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-sirena-2.jpg" alt="" loading="lazy">
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-sirena-3.jpg" data-alt="Sirena Encubierta" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-sirena-3.jpg" alt="" loading="lazy">
-                    </button>
-                    <button type="button" class="play-modal-thumb" data-img="assets/imgs/obras-teatrales-sirena-1.jpg" data-alt="Sirena Encubierta" aria-label="Ver foto">
-                        <img src="assets/imgs/obras-teatrales-sirena-1.jpg" alt="" loading="lazy">
-                    </button>
-                </div>
-            </div>
-
-            <h4 class="play-modal-subtitle">Ficha técnico-artística</h4>
-            <ul class="play-modal-ficha">
-                <li><strong>Autoría:</strong> Carla Tarantino</li>
-                <li><strong>Música:</strong> Carlos Gianni</li>
-                <li><strong>Dirección:</strong> Florencea Fernández</li>
-                <li><strong>Coreografía:</strong> Rosario Ruete</li>
-                <li><strong>Intérpretes:</strong> Carla Tarantino y Guido Napolitano</li>
-                <li><strong>Vestuario:</strong> Cintia Ledesma</li>
-                <li><strong>Escenografía:</strong> Emiliano</li>
-                <li><strong>Iluminación:</strong> Jorge Thefs</li>
-                <li><strong>Arreglos musicales:</strong> Diego Lozano</li>
-                <li><strong>Producción general:</strong> Apto para Todo Público</li>
-                <li><strong>Producción ejecutiva:</strong> Malena Sánchez Olmos</li>
-            </ul>
-        </div>
-    </div>
+    <!-- Play modals, populated at load from obras.json — see renderObras() in atp.js -->
+    <div id="project-modals"></div>
 
 
     <!-- Contact Section -->
