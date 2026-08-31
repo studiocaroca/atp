@@ -69,7 +69,11 @@ html {
     font-size: 93%;
   }
   p {
-    font-size: 0.88em !important;
+    font-size: 18px !important;
+  }
+  .op-block-list li,
+  .play-modal-ficha li {
+    font-size: 18px !important;
   }
 }
 article,
@@ -3516,7 +3520,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 .footer-sitemap a {
   color: #FFFFFF;
   font-size: 0.85rem;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .footer-sitemap a:hover, .footer-sitemap a:focus {
   color: #A9E3FB;
@@ -3532,7 +3536,11 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   }
   .footer-sitemap a {
     font-family: "Lato", sans-serif;
-    text-decoration: none;
+  }
+}
+@media (max-width: 700px) {
+  .footer-sitemap a {
+    color: #343E4A;
   }
 }
 
@@ -3790,12 +3798,12 @@ nav.page-navbar.affix .navbar-brand .text-dark {
     margin: 40px auto 0;
   }
   .header-eyebrow-stack {
-    transform: translateY(260px);
-    width: 85%;
-    max-width: 340px;
+    transform: translateY(300px);
+    width: 92%;
+    max-width: 400px;
   }
   .header .header-content .header-eyebrow {
-    font-size: 1.3rem;
+    font-size: 1.7rem !important;
     letter-spacing: 0.05em;
     white-space: normal;
     text-align: center;
@@ -4762,14 +4770,13 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 2px 10px rgba(52, 62, 74, 0.4);
-  color: #DE3A1A;
+  background: rgba(52, 62, 74, 0.68);
+  box-shadow: 0 2px 8px rgba(52, 62, 74, 0.35);
   opacity: 0;
   pointer-events: none;
   z-index: 3;
@@ -4777,17 +4784,13 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
-.project-card .project-tap-icon svg {
-  width: 22px;
-  height: 22px;
-}
-.project-card .project-tap-icon circle:first-child {
-  fill: currentColor;
-}
-.project-card .project-tap-icon circle:not(:first-child) {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
+.project-card .project-tap-icon-glyph {
+  display: inline-block;
+  font-size: 17px;
+  line-height: 1;
+  filter: brightness(0) invert(1);
+  transform: scaleY(1.35);
+  transform-origin: center bottom;
 }
 .project-card:hover {
   transform: scale(1.18);
@@ -4833,6 +4836,14 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
   padding-bottom: 20px;
   aspect-ratio: 4000/2250;
 }
+@media (max-width: 700px) {
+  #contact {
+    background-image: url(../imgs/portada-contactanos-vertical.jpg);
+    background-size: cover;
+    background-position: center top;
+    aspect-ratio: auto;
+  }
+}
 #contact .footer {
   margin: 20px 0 0 -15px;
   border-top: none;
@@ -4841,6 +4852,12 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
 #contact .footer p,
 #contact .footer a {
   color: #FFFFFF;
+}
+@media (max-width: 700px) {
+  #contact .footer p,
+  #contact .footer a {
+    color: #343E4A;
+  }
 }
 
 #contact .container {

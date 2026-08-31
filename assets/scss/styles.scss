@@ -38,14 +38,25 @@ html {
   }
 
   // Headings read fine at that scale on their own — it's specifically
-  // the body copy that's still a bit big. Every <p> across the site
-  // already carries its own component-scoped font-size (dozens of
-  // them), each with more specificity than a bare "p" selector would
-  // have — em (not px/rem) keeps each one's relative proportions intact
-  // while !important is what actually lets one rule reach all of them
-  // instead of adding a mobile override to every single component.
+  // the body copy that needs a consistent size. Unified to a flat 18px
+  // (the size the "Otros proyectos" AcceDER/Podcast card text already
+  // used) instead of each component's own relatively-scaled size, per
+  // explicit request — every <p> across the site already carries its
+  // own component-scoped font-size (dozens of them), each with more
+  // specificity than a bare "p" selector would have, so !important is
+  // what lets one rule reach all of them instead of adding a mobile
+  // override to every single component.
   p {
-    font-size: 0.88em !important;
+    font-size: 18px !important;
+  }
+
+  // Body copy that isn't a <p> — bullet lists reading as paragraph
+  // content (AcceDER II's resource list, a play's ficha técnica) —
+  // matched to the same 18px so it doesn't look mismatched sitting
+  // right next to now-18px paragraphs in the same card/modal.
+  .op-block-list li,
+  .play-modal-ficha li {
+    font-size: 18px !important;
   }
 }
 
@@ -3570,7 +3581,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   a {
     color: $white;
     font-size: 0.85rem;
-    text-decoration: underline;
+    text-decoration: none;
 
     &:hover,
     &:focus {
@@ -3598,7 +3609,13 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 
     a {
       font-family: $font-family-base;
-      text-decoration: none;
+    }
+  }
+
+  // Mobile only, per request — brand dark-blue instead of white.
+  @media (max-width: 700px) {
+    a {
+      color: $dark-blue;
     }
   }
 }
@@ -3984,12 +4001,14 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 
   .header-eyebrow-stack {
     // Below the (now much taller) box instead of overlapping the logo
-    // at its natural vertically-centered position — plus 40px more.
-    // Constrained + centered so the doubled-size text below wraps into
-    // a readable block instead of one unreadable giant line.
-    transform: translateY(260px);
-    width: 85%;
-    max-width: 340px;
+    // at its natural vertically-centered position — plus more room
+    // pushed further down (and wider) to clear the description text
+    // above now that the eyebrow itself reads bigger (see .header-eyebrow
+    // below) — a narrower box at the larger size wrapped into an
+    // awkward extra line.
+    transform: translateY(300px);
+    width: 92%;
+    max-width: 400px;
   }
 
   // Specificity bump (3 classes) needed to beat a pre-existing legacy
@@ -3997,7 +4016,10 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   // p { font-size: 1em; }" — which also matches this <p> and was
   // silently winning over a plain ".header-eyebrow" selector.
   .header .header-content .header-eyebrow {
-    font-size: 1.3rem;
+    // !important: this <p> would otherwise fall to the blanket mobile
+    // "p { font-size: 18px !important }" rule elsewhere in this file —
+    // that rule beats any non-important override regardless of specificity.
+    font-size: 1.7rem !important;
     letter-spacing: 0.05em;
     // Doesn't fit on one line on a phone screen — let it wrap.
     white-space: normal;
@@ -5194,35 +5216,37 @@ h1[data-section="contact"][data-translate="title"] {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba($white, 0.85);
-    box-shadow: 0 2px 10px rgba($black, 0.4);
-    color: $primary;
+    // Same translucent-badge treatment as .project-ribbon behind the
+    // title, instead of a solid opaque circle.
+    background: rgba($dark-blue, 0.68);
+    box-shadow: 0 2px 8px rgba($black, 0.35);
     opacity: 0;
     pointer-events: none;
     z-index: 3;
     animation-name: project-tap-blink;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
+  }
 
-    svg {
-      width: 22px;
-      height: 22px;
-    }
-
-    circle:first-child {
-      fill: currentColor;
-    }
-
-    circle:not(:first-child) {
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.6;
-    }
+  // The 👆 emoji glyph itself — instantly readable as "tap here" (unlike
+  // a hand-drawn icon at this size), forced to solid white since emoji
+  // otherwise ignore `color`/`fill`: brightness(0) flattens it to a
+  // black silhouette, invert(1) flips that to white.
+  .project-tap-icon-glyph {
+    display: inline-block;
+    font-size: 17px;
+    line-height: 1;
+    filter: brightness(0) invert(1);
+    // The emoji's own finger reads a bit stubby at this size — stretched
+    // taller (anchored to its base, not its center) so it elongates
+    // upward instead of just bloating in place.
+    transform: scaleY(1.35);
+    transform-origin: center bottom;
   }
 
   &:hover {
@@ -5291,6 +5315,19 @@ h1[data-section="contact"][data-translate="title"] {
   // the section (sized by its content) was ending before the image did.
   aspect-ratio: 4000 / 2250;
 
+  // The landscape image above only covers a thin 16:9 sliver on a tall
+  // narrow phone screen, leaving most of the section flat white behind
+  // the card. A 90°-rotated portrait crop of the same artwork instead
+  // covers the section's whole (content-driven) height, with
+  // background-size: cover — it sits behind the frosted .contact-card
+  // and mostly just peeks out faintly around its edges.
+  @media (max-width: 700px) {
+    background-image: url(../imgs/portada-contactanos-vertical.jpg);
+    background-size: cover;
+    background-position: center top;
+    aspect-ratio: auto;
+  }
+
   // The footer credit line, moved in here from its own #footer section.
   .footer {
     // Negative to cancel out .container's own 15px left padding, so
@@ -5302,6 +5339,15 @@ h1[data-section="contact"][data-translate="title"] {
     p,
     a {
       color: $white;
+    }
+
+    // Mobile only, per request — copyright line in brand dark-blue
+    // instead of white.
+    @media (max-width: 700px) {
+      p,
+      a {
+        color: $dark-blue;
+      }
     }
   }
 }

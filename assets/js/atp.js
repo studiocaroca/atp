@@ -997,9 +997,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     '<img class="project-img__default" src="' + escapeHtml(thumb) + '" alt="" loading="lazy">' +
                     '<img class="project-img__hover" src="' + escapeHtml(thumb) + '" alt="" loading="lazy">' +
                     '<span class="project-ribbon" aria-hidden="true"><span class="project-ribbon-text">' + escapeHtml(play.title) + '</span></span>' +
-                    '<span class="project-tap-icon" aria-hidden="true" style="animation-delay:' + tapDelay + 's;animation-duration:' + tapDuration + 's;">' +
-                        '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.6"></circle><circle cx="12" cy="12" r="7"></circle><circle cx="12" cy="12" r="10.5"></circle></svg>' +
-                    '</span>' +
+                    '<span class="project-tap-icon" aria-hidden="true" style="animation-delay:' + tapDelay + 's;animation-duration:' + tapDuration + 's;"><span class="project-tap-icon-glyph">👆</span></span>' +
                 '</span>' +
             '</button>'
         );
