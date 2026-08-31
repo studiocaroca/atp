@@ -38,7 +38,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    collapseEl.querySelectorAll('.nav-link').forEach(function (link) {
+    // #admin-login-trigger carries .nav-link too (for matching styling)
+    // but opens the login dropdown in place rather than navigating —
+    // closing the whole mobile menu out from under it here would hide
+    // that dropdown before anyone could use it.
+    collapseEl.querySelectorAll('.nav-link:not(#admin-login-trigger)').forEach(function (link) {
         link.addEventListener('click', closeMenu);
     });
 
@@ -983,11 +987,19 @@ document.addEventListener('DOMContentLoaded', function () {
     function cardHTML(play) {
         var modalId = 'modal-obra-' + play.id;
         var thumb = play.images && play.images[0] ? 'assets/imgs/' + play.images[0] : '';
+        // Randomized per card so the mobile "tap here" hint doesn't blink
+        // in lockstep across every photo in the grid.
+        var tapDelay = (Math.random() * 6).toFixed(2);
+        var tapDuration = (4 + Math.random() * 3).toFixed(2);
         return (
             '<button type="button" class="project-card openModalLink" data-modal="' + modalId + '" aria-label="Ver ficha de ' + escapeHtml(play.title) + '">' +
                 '<span class="project-img project-img--hover">' +
                     '<img class="project-img__default" src="' + escapeHtml(thumb) + '" alt="" loading="lazy">' +
                     '<img class="project-img__hover" src="' + escapeHtml(thumb) + '" alt="" loading="lazy">' +
+                    '<span class="project-ribbon" aria-hidden="true"><span class="project-ribbon-text">' + escapeHtml(play.title) + '</span></span>' +
+                    '<span class="project-tap-icon" aria-hidden="true" style="animation-delay:' + tapDelay + 's;animation-duration:' + tapDuration + 's;">' +
+                        '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.6"></circle><circle cx="12" cy="12" r="7"></circle><circle cx="12" cy="12" r="10.5"></circle></svg>' +
+                    '</span>' +
                 '</span>' +
             '</button>'
         );

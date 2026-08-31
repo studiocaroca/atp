@@ -4690,15 +4690,6 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
   gap: 8px;
 }
 
-@media (max-width: 700px) {
-  .projects-grid {
-    gap: 10px;
-  }
-  .project-card {
-    flex-basis: calc(50% - 5px);
-    max-width: calc(50% - 5px);
-  }
-}
 .project-card {
   display: block;
   flex: 1 1 200px;
@@ -4742,23 +4733,61 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
   opacity: 0;
   transition: opacity 0.4s ease;
 }
-.project-card .project-overlay {
+.project-card .project-ribbon {
   position: absolute;
-  bottom: 0;
   left: 0;
   right: 0;
-  padding: 18px 20px;
-  background: linear-gradient(transparent, rgba(52, 62, 74, 0.85));
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
+  bottom: 0;
+  padding: 8px 10px 7px;
+  background: rgba(52, 62, 74, 0.68);
+  text-align: center;
+  z-index: 2;
 }
-.project-card .project-overlay span {
+.project-card .project-ribbon-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   color: #FFFFFF;
   font-family: "Lato", sans-serif;
-  font-size: 0.8rem;
-  font-weight: 300;
-  letter-spacing: 0.05em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.project-card .project-tap-icon {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 10px rgba(52, 62, 74, 0.4);
+  color: #DE3A1A;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  animation-name: project-tap-blink;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.project-card .project-tap-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.project-card .project-tap-icon circle:first-child {
+  fill: currentColor;
+}
+.project-card .project-tap-icon circle:not(:first-child) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
 }
 .project-card:hover {
   transform: scale(1.18);
@@ -4768,10 +4797,33 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
 .project-card:hover .project-img__hover {
   opacity: 1;
 }
-.project-card:hover .project-overlay {
-  opacity: 1;
-}
 
+@keyframes project-tap-blink {
+  0%, 55% {
+    opacity: 0;
+  }
+  65%, 82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (max-width: 700px) {
+  .projects-grid {
+    gap: 10px;
+  }
+  .project-card {
+    flex-basis: calc(50% - 5px);
+    max-width: calc(50% - 5px);
+  }
+  .project-card .project-ribbon-text {
+    font-size: 0.62rem;
+  }
+  .project-card .project-tap-icon {
+    display: flex;
+  }
+}
 #contact {
   background-color: transparent !important;
   background-image: url(../imgs/portada-contactanos.jpg);
