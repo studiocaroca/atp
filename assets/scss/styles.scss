@@ -3612,10 +3612,15 @@ nav.page-navbar.affix .navbar-brand .text-dark {
     }
   }
 
-  // Mobile only, per request — brand dark-blue instead of white.
+  // Mobile only, per request — brand red instead of white, and one
+  // section per row instead of a wrapped inline row.
   @media (max-width: 700px) {
+    ul {
+      flex-direction: column;
+    }
+
     a {
-      color: $dark-blue;
+      color: $primary;
     }
   }
 }
@@ -4006,7 +4011,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
     // above now that the eyebrow itself reads bigger (see .header-eyebrow
     // below) — a narrower box at the larger size wrapped into an
     // awkward extra line.
-    transform: translateY(300px);
+    transform: translateY(360px);
     width: 92%;
     max-width: 400px;
   }
@@ -4565,6 +4570,12 @@ section.height-auto {
 @media (max-width: 767.98px) {
   .about-wrapper {
     margin-left: 0;
+    // The desktop 640px was tuned for the wider (430px) card, which
+    // wraps its bio into fewer lines. At the narrower mobile card width
+    // the longest bio (Malena's) actually needs ~772px — short of that,
+    // #quienes-somos's own overflow: hidden was clipping the bottom of
+    // the tallest cards clean off, background included.
+    height: 800px;
   }
 
   // The desktop "- 140px" left these cards narrow and tall (a lot of
@@ -5341,12 +5352,18 @@ h1[data-section="contact"][data-translate="title"] {
       color: $white;
     }
 
-    // Mobile only, per request — copyright line in brand dark-blue
-    // instead of white.
+    // Mobile only, per request — copyright line in brand red instead of
+    // white, and back down to its original smaller size (fine-print
+    // size, not the blanket-body-copy 18px — needs !important for the
+    // same reason that blanket rule does: it otherwise beats this).
     @media (max-width: 700px) {
       p,
       a {
-        color: $dark-blue;
+        color: $primary;
+      }
+
+      p {
+        font-size: 13px !important;
       }
     }
   }
@@ -6343,6 +6360,20 @@ body.modal-open .project-card {
   opacity: 0.7;
 }
 
+// Mobile only, per request — the SVG's wordmark is drawn white (built
+// for the old flat-dark footer background); on the busy light/dark
+// mixed background now behind the mobile footer it goes invisible in
+// the light patches. It's an <img src="*.svg">, so CSS can't reach the
+// SVG's own internal fill — brightness(0) flattens the whole rendered
+// logo (mark + wordmark) to solid black instead, which reads on any of
+// the background's colors. Left alone on desktop, where the footer
+// still sits on the flat dark-blue background this logo was drawn for.
+@media (max-width: 700px) {
+  .logo-caroca {
+    filter: brightness(0);
+  }
+}
+
 @media (max-width: 1366px) {
 
   #servicios .container {
@@ -6682,7 +6713,12 @@ body.modal-open .project-card {
   }
 
   #quienes-somos {
-    padding: 50px 0;
+    // Real (flow-affecting) spacing, not transform — pushes the title
+    // AND the carousel below it down together as one block, for
+    // breathing room under the eyebrow text above (a transform on just
+    // the title moved it without moving its sibling .about-carousel,
+    // which then collided with it).
+    padding: 120px 0 50px;
   }
 
   #logo-atp {

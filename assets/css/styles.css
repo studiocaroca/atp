@@ -3539,8 +3539,11 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   }
 }
 @media (max-width: 700px) {
+  .footer-sitemap ul {
+    flex-direction: column;
+  }
   .footer-sitemap a {
-    color: #343E4A;
+    color: #DE3A1A;
   }
 }
 
@@ -3798,7 +3801,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
     margin: 40px auto 0;
   }
   .header-eyebrow-stack {
-    transform: translateY(300px);
+    transform: translateY(360px);
     width: 92%;
     max-width: 400px;
   }
@@ -4256,6 +4259,7 @@ section.height-auto {
 @media (max-width: 767.98px) {
   .about-wrapper {
     margin-left: 0;
+    height: 800px;
   }
   .about-wrapper .content {
     max-width: calc(100vw - 48px);
@@ -4856,7 +4860,10 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
 @media (max-width: 700px) {
   #contact .footer p,
   #contact .footer a {
-    color: #343E4A;
+    color: #DE3A1A;
+  }
+  #contact .footer p {
+    font-size: 13px !important;
   }
 }
 
@@ -5665,6 +5672,11 @@ body.modal-open .project-card {
   opacity: 0.7;
 }
 
+@media (max-width: 700px) {
+  .logo-caroca {
+    filter: brightness(0);
+  }
+}
 @media (max-width: 1366px) {
   #servicios .container {
     width: 90%;
@@ -5922,7 +5934,7 @@ body.modal-open .project-card {
     margin-left: 0px;
   }
   #quienes-somos {
-    padding: 50px 0;
+    padding: 120px 0 50px;
   }
   #logo-atp {
     width: 100%;
