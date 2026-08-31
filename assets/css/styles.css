@@ -3523,8 +3523,12 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 }
 @media (min-width: 701px) {
   .footer-sitemap ul {
-    flex-direction: column;
-    gap: 8px;
+    gap: 6px 8px;
+  }
+  .footer-sitemap li:not(:last-child)::after {
+    content: "-";
+    margin-left: 8px;
+    color: rgba(255, 255, 255, 0.5);
   }
   .footer-sitemap a {
     font-family: "Lato", sans-serif;

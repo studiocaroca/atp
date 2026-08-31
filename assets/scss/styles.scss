@@ -3578,13 +3578,22 @@ nav.page-navbar.affix .navbar-brand .text-dark {
     }
   }
 
-  // Desktop only, per request — one link per line, in the site's own
-  // Lato (this inherits it from body already, but explicit here so it
-  // doesn't depend on that not changing), no underline.
+  // Desktop only, per request — side by side again (was briefly a
+  // column), each pair separated by a dash, in the site's own Lato
+  // (this inherits it from body already, but explicit here so it
+  // doesn't depend on that not changing), no underline. Tighter gap
+  // than the shared 24px above (that was sized for the dash-less
+  // mobile row) — the dash's own margin already reads as a separator,
+  // so the base gap on top of it was double-spacing things.
   @media (min-width: 701px) {
     ul {
-      flex-direction: column;
-      gap: 8px;
+      gap: 6px 8px;
+    }
+
+    li:not(:last-child)::after {
+      content: "-";
+      margin-left: 8px;
+      color: rgba($white, 0.5);
     }
 
     a {
