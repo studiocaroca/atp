@@ -5355,17 +5355,27 @@ h1[data-section="contact"][data-translate="title"] {
     // Mobile only, per request. `a` here also reaches the .footer-sitemap
     // links nested inside (higher specificity than .footer-sitemap a's
     // own color rule) — stays brand red, as requested for those. The
-    // copyright <p> itself goes black instead, back down to its
-    // original smaller size (fine-print size, not the blanket-body-copy
-    // 18px — needs !important for the same reason that blanket rule
-    // does: it otherwise beats this).
+    // copyright <p> itself is bold brand ocre/yellow, at its original
+    // smaller size (fine-print size, not the blanket-body-copy 18px —
+    // needs !important for the same reason that blanket rule does: it
+    // otherwise beats this).
     @media (max-width: 700px) {
+      // Was 20px (set on the unconditional .footer rule above). Zeroing
+      // that out barely moved anything though — most of the real gap
+      // above is .contact-card's own 60px bottom padding plus the
+      // .container's 20px flex gap between the card and this footer, not
+      // this margin. A negative value eats into that instead, so the
+      // sitemap links (and the copyright line right below them) actually
+      // sit closer to the social icons above, per request.
+      margin-top: -30px;
+
       a {
         color: $primary;
       }
 
       p {
-        color: $black;
+        color: $ocre;
+        font-weight: 700;
         font-size: 13px !important;
       }
     }
@@ -6371,11 +6381,12 @@ body.modal-open .project-card {
 // colors — instead <picture> (see index.html) swaps in
 // logo-caroca-black.svg here, a copy with just the wordmark's fill
 // changed from white to black; the mark itself is untouched in both
-// files. Shrunk down too, and the row kept on one line — at the
-// original 70px it forced the logo onto its own line below the text.
+// files. Shrunk down (from the original 70px, which forced the logo
+// onto its own line below the text) so the row fits on one line, then
+// bumped back up a bit per request — still comfortably under 70px.
 @media (max-width: 700px) {
   .logo-caroca {
-    height: 20px;
+    height: 26px;
   }
 }
 

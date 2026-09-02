@@ -4858,11 +4858,15 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
   color: #FFFFFF;
 }
 @media (max-width: 700px) {
+  #contact .footer {
+    margin-top: -30px;
+  }
   #contact .footer a {
     color: #DE3A1A;
   }
   #contact .footer p {
-    color: #343E4A;
+    color: #E8A529;
+    font-weight: 700;
     font-size: 13px !important;
   }
 }
@@ -5674,7 +5678,7 @@ body.modal-open .project-card {
 
 @media (max-width: 700px) {
   .logo-caroca {
-    height: 20px;
+    height: 26px;
   }
 }
 @media (max-width: 1366px) {
