@@ -12,14 +12,17 @@ $allowedExt = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg', 'ico'];
 
 // Not real editable content: flags/ backs the hidden (unused) language
 // selector, formas/ is the decorative shape set used programmatically by
-// the animated navbar logo, logo-caroca.svg is the web studio's own
-// credit mark in the footer, and the unused ATP logo color variants are
-// leftover files nothing on the site links to — none of these are meant
-// to be swapped out from here. logo-blanco-azul-home.svg stays: it's the
-// one actually shown in the header/home.
+// the animated navbar logo, logo-caroca.svg (plus logo-caroca-black.svg,
+// the mobile black-wordmark variant swapped in via <picture> — same mark,
+// just recolored) is the web studio's own credit mark in the footer, and
+// the unused ATP logo color variants are leftover files nothing on the
+// site links to — none of these are meant to be swapped out from here.
+// logo-blanco-azul-home.svg stays: it's the one actually shown in the
+// header/home.
 $excludedFolders = ['flags', 'formas'];
 $excludedFiles = [
     'logo-caroca.svg',
+    'logo-caroca-black.svg',
     'logo-azul-rojo.svg',
     'logo-blanco-amarillo.svg',
     'logo-blanco-azul.svg',

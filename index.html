@@ -651,7 +651,7 @@
                 <p class="mb-5" data-section="contact" data-translate="subtitle">Si ten&eacute;s alguna pregunta, o necesitas ayuda, por favor contactanos!</p>
 
                 <!-- Contact form -->
-                <form action="https://formspree.io/f/xnjynnqj" method="post" class="contact-form">
+                <form action="contact.php" method="post" class="contact-form">
                     <div class="form-row">
                         <div class="col form-group">
                             <label for="nombre" class="visually-hidden" data-section="contact" data-translate="name">Nombre</label>
@@ -667,6 +667,13 @@
                         <label for="message" class="visually-hidden" data-section="contact" data-translate="message">Mensaje</label>
                         <textarea id="message" name="message" cols="30" rows="5" class="form-control" placeholder="Mensaje"
                             required data-section="contact" data-translate="message" data-translate-placeholder></textarea>
+                    </div>
+                    <!-- Honeypot — invisible to real visitors (see .hp-field), left
+                         blank by them. A bot that fills every field blind trips it;
+                         contact.php silently drops the submission when it's set. -->
+                    <div class="hp-field" aria-hidden="true">
+                        <label for="empresa">No completar este campo</label>
+                        <input type="text" id="empresa" name="empresa" tabindex="-1" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <input type="submit" name="submit" class="btn btn-primary btn-block" value="Enviar"
