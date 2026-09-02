@@ -4858,11 +4858,11 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
   color: #FFFFFF;
 }
 @media (max-width: 700px) {
-  #contact .footer p,
   #contact .footer a {
     color: #DE3A1A;
   }
   #contact .footer p {
+    color: #343E4A;
     font-size: 13px !important;
   }
 }
@@ -5674,7 +5674,7 @@ body.modal-open .project-card {
 
 @media (max-width: 700px) {
   .logo-caroca {
-    filter: brightness(0);
+    height: 20px;
   }
 }
 @media (max-width: 1366px) {
@@ -5934,7 +5934,7 @@ body.modal-open .project-card {
     margin-left: 0px;
   }
   #quienes-somos {
-    padding: 120px 0 50px;
+    padding: 170px 0 50px;
   }
   #logo-atp {
     width: 100%;

@@ -5352,17 +5352,20 @@ h1[data-section="contact"][data-translate="title"] {
       color: $white;
     }
 
-    // Mobile only, per request — copyright line in brand red instead of
-    // white, and back down to its original smaller size (fine-print
-    // size, not the blanket-body-copy 18px — needs !important for the
-    // same reason that blanket rule does: it otherwise beats this).
+    // Mobile only, per request. `a` here also reaches the .footer-sitemap
+    // links nested inside (higher specificity than .footer-sitemap a's
+    // own color rule) — stays brand red, as requested for those. The
+    // copyright <p> itself goes black instead, back down to its
+    // original smaller size (fine-print size, not the blanket-body-copy
+    // 18px — needs !important for the same reason that blanket rule
+    // does: it otherwise beats this).
     @media (max-width: 700px) {
-      p,
       a {
         color: $primary;
       }
 
       p {
+        color: $black;
         font-size: 13px !important;
       }
     }
@@ -6363,14 +6366,16 @@ body.modal-open .project-card {
 // Mobile only, per request — the SVG's wordmark is drawn white (built
 // for the old flat-dark footer background); on the busy light/dark
 // mixed background now behind the mobile footer it goes invisible in
-// the light patches. It's an <img src="*.svg">, so CSS can't reach the
-// SVG's own internal fill — brightness(0) flattens the whole rendered
-// logo (mark + wordmark) to solid black instead, which reads on any of
-// the background's colors. Left alone on desktop, where the footer
-// still sits on the flat dark-blue background this logo was drawn for.
+// the light patches. A CSS filter would've had to flatten the whole
+// logo (mark included) to one flat color, losing the mark's own brand
+// colors — instead <picture> (see index.html) swaps in
+// logo-caroca-black.svg here, a copy with just the wordmark's fill
+// changed from white to black; the mark itself is untouched in both
+// files. Shrunk down too, and the row kept on one line — at the
+// original 70px it forced the logo onto its own line below the text.
 @media (max-width: 700px) {
   .logo-caroca {
-    filter: brightness(0);
+    height: 20px;
   }
 }
 
@@ -6718,7 +6723,7 @@ body.modal-open .project-card {
     // breathing room under the eyebrow text above (a transform on just
     // the title moved it without moving its sibling .about-carousel,
     // which then collided with it).
-    padding: 120px 0 50px;
+    padding: 170px 0 50px;
   }
 
   #logo-atp {
