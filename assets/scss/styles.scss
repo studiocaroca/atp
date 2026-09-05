@@ -3625,8 +3625,8 @@ nav.page-navbar.affix .navbar-brand .text-dark {
     }
   }
 
-  // Mobile only, per request — brand red instead of white, and one
-  // section per row instead of a wrapped inline row.
+  // Mobile only, per request — brand red instead of white, bold, and
+  // one section per row instead of a wrapped inline row.
   @media (max-width: 700px) {
     ul {
       flex-direction: column;
@@ -3634,6 +3634,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
 
     a {
       color: $primary;
+      font-weight: 700;
     }
   }
 }
@@ -4012,9 +4013,13 @@ nav.page-navbar.affix .navbar-brand .text-dark {
     width: 70%;
     max-width: none;
     font-size: 15px;
-    text-align: center;
+    // Was "center" with "margin: 40px auto 0" (auto-centering the
+    // narrower 70%-wide block itself) — per request, left-aligned
+    // instead: text starts at the container's own left edge rather than
+    // sitting centered in a floating column.
+    text-align: left;
     transform: none;
-    margin: 40px auto 0;
+    margin: 40px 0 0;
   }
 
   .header-eyebrow-stack {
@@ -4723,9 +4728,9 @@ section.height-auto {
   // matches tab-focus, not mouse clicks).
   outline: none;
 
-  // AcceDER I/II show a tall program logo instead of plain text — less
-  // vertical padding so the collapsed row doesn't grow so much (Podcast,
-  // with a plain-text title, keeps the default padding above).
+  // All three (AcceDER I/II, Podcast) show a program logo/cover instead
+  // of plain text — less vertical padding so the collapsed row doesn't
+  // grow so much.
   &:has(.op-block-title img) {
     padding-top: 2px;
   }
@@ -4756,8 +4761,8 @@ section.height-auto {
   align-self: stretch;
   text-align: center;
 
-  // AcceDER I/II show their own program logo here instead of text
-  // (Podcast has no logo, so it stays plain text).
+  // AcceDER I/II/Podcast each show their own program logo/cover here
+  // instead of plain text.
   img {
     display: block;
     margin: 0 auto;
@@ -4767,6 +4772,15 @@ section.height-auto {
 
   img[src*="logo-acceder-II"] {
     max-height: 155px;
+  }
+
+  // A bit bigger than the others (it's a square cover, so it reads
+  // smaller at the same height), plus its own bottom margin to clear
+  // the preview text below it — the base rule's "margin: 0 auto" has no
+  // bottom space, so it was sitting right up against that text.
+  img[src*="logo-podcast"] {
+    max-height: 150px;
+    margin-bottom: 14px;
   }
 }
 
@@ -4827,12 +4841,6 @@ section.height-auto {
       margin-bottom: 0;
     }
   }
-}
-
-.link-pending {
-  color: rgba($white, 0.5);
-  font-style: italic;
-  font-size: 0.85em;
 }
 
 .op-block-media {
@@ -4983,7 +4991,12 @@ section.height-auto {
 // The illustrative photo/media sit below the title, as regular content.
 .services-wrapper-photo {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  // Both photos that land in this slot are portrait (servicios-1.jpg is
+  // 1200x1600, servicios-2.jpg's flyer is 900x1126) — the old 4/3
+  // (landscape) ratio combined with object-fit: cover cropped away
+  // roughly the top/bottom half of each, cutting flyer text/logos off
+  // entirely. 3/4 matches their own shape instead.
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: 0.2rem;
   margin-bottom: 15px;
@@ -5065,14 +5078,22 @@ section.height-auto {
   background-color: $white;
   background-image: url(../imgs/portada-obras.jpg);
   background-size: 925px auto;
-  background-position: left bottom;
+  // Was "left" (0) — per request, pulled further left (off-canvas) on
+  // desktop so the shape's own right edge clears the centered
+  // title/subtitle/intro text instead of creeping under it. Mobile below
+  // overrides this back to its own position, so only desktop moves.
+  background-position: -120px bottom;
   background-repeat: no-repeat;
 
-  // On mobile, pin the image to the bottom-right corner and shrink the
-  // fixed size down — 925px would mostly be cropped off-screen on a
-  // phone-width viewport.
-  @media (max-width: 700px) {
-    background-position: right bottom;
+  // Below 1253px the desktop -120px-left position runs out of room and
+  // starts looking wrong (per request) — shrink the fixed size down
+  // instead, same as mobile below that point. Stays pinned to the LEFT
+  // (per request — not "right", which it had wrongly ended up as here),
+  // matching the desktop version's own left-ish placement. This
+  // threshold is specific to this image/layout, not the site's usual
+  // 700px mobile breakpoint.
+  @media (max-width: 1253px) {
+    background-position: left bottom;
     background-size: 420px auto;
   }
 
@@ -6096,6 +6117,17 @@ body.modal-open .project-card {
     &:nth-child(2) { animation-delay: 6s; }
     &:nth-child(3) { animation-delay: 12s; }
   }
+}
+
+// .alianza-slideshow--arch (Centro Cultural de la Cooperación) only has
+// 2 photos, not the 3 the base rule above is timed for — at 18s/3-way
+// dwell, each photo would sit idle (fully faded out) for a dead ~6s
+// stretch of every cycle waiting for a 3rd photo that doesn't exist.
+// The keyframe's own stops are percentages, so they rescale for free —
+// only the duration needs shortening to close that gap (18s / 3 turns
+// -> 12s / 2 turns, same 6s-per-turn pace as the 3-photo version).
+.alianza-slideshow--arch .alianza-slideshow-frame img {
+  animation-duration: 12s;
 }
 
 // A little playful bounce/tilt on top of the crossfade instead of a
