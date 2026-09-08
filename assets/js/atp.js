@@ -53,47 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// High-contrast toggle — off by default (page looks exactly as
-// designed); switches a handful of white-on-coral/ocre titles and
-// cards to dark-blue text for better contrast. Remembered across
-// visits via localStorage.
-document.addEventListener('DOMContentLoaded', function () {
-    var toggle = document.getElementById('contrast-toggle');
-    if (!toggle) return;
-
-    var STORAGE_KEY = 'atp-high-contrast';
-
-    function applyState(enabled) {
-        document.body.classList.toggle('a11y-contrast', enabled);
-        toggle.setAttribute('aria-pressed', enabled ? 'true' : 'false');
-        toggle.setAttribute('aria-label', enabled ? 'Desactivar alto contraste' : 'Activar alto contraste');
-        toggle.setAttribute('title', enabled ? 'Desactivar alto contraste' : 'Activar alto contraste');
-    }
-
-    var saved;
-    try {
-        saved = localStorage.getItem(STORAGE_KEY);
-    } catch (e) {
-        saved = null;
-    }
-    applyState(saved === 'on');
-
-    toggle.addEventListener('click', function () {
-        var enabled = !document.body.classList.contains('a11y-contrast');
-        applyState(enabled);
-        try {
-            localStorage.setItem(STORAGE_KEY, enabled ? 'on' : 'off');
-        } catch (e) {
-            // localStorage unavailable (private browsing, etc.) — the
-            // toggle still works for the current page view.
-        }
-    });
-});
-
 // Colorblind-mode toggle — off by default; applies the daltonization
 // SVG filter (see the <filter id="daltonize-deuteranopia"> near the top
-// of <body>) to the navbar and main content. Same on/off + localStorage
-// pattern as the high-contrast toggle above.
+// of <body>) to the navbar and main content. On/off state is
+// remembered across visits via localStorage.
 document.addEventListener('DOMContentLoaded', function () {
     var toggle = document.getElementById('colorblind-toggle');
     if (!toggle) return;

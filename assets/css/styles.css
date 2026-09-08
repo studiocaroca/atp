@@ -3692,7 +3692,7 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   line-height: 1.5;
   text-align: left;
   margin: 16px 0 0;
-  transform: translate(35px, 10px);
+  transform: translate(125px, 10px);
 }
 
 .header-eyebrow-stack {
@@ -4006,6 +4006,10 @@ section:nth-child(odd) {
   z-index: 3;
 }
 
+#servicios h2[data-section=our-services][data-translate=title] {
+  color: #343E4A !important;
+}
+
 #seguridadehigiene {
   color: #FFFFFF;
 }
@@ -4160,6 +4164,10 @@ section.height-auto {
   }
 }
 
+#quienes-somos .about-title {
+  color: #343E4A !important;
+}
+
 .about-carousel {
   position: relative;
   max-width: 1300px;
@@ -4213,14 +4221,14 @@ section.height-auto {
   border: 1px solid rgba(222, 58, 26, 0.2);
   border-radius: 0.2rem;
   padding: 34px;
-  color: #FFFFFF;
+  color: #343E4A;
   pointer-events: auto;
   --hover-scale: 1;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, filter 0.35s ease;
 }
 .about-wrapper .content .title,
 .about-wrapper .content p {
-  color: #FFFFFF;
+  color: #343E4A;
   opacity: 1;
 }
 .about-wrapper .content .title {
@@ -4558,6 +4566,7 @@ section.height-auto {
   box-shadow: 0 3px 10px rgba(255, 255, 255, 0.9) !important;
 }
 .services-wrapper p:not(.services-wrapper-credit) {
+  color: #343E4A;
   font-size: 1rem;
   margin-bottom: 12px;
 }
@@ -4571,7 +4580,7 @@ section.height-auto {
 }
 
 .services-wrapper .title {
-  color: #FFFFFF;
+  color: #343E4A;
   font-size: 1rem;
   white-space: nowrap;
   margin-bottom: 24px;
@@ -4616,7 +4625,7 @@ section.height-auto {
 }
 
 .services-wrapper-credit {
-  color: #FFFFFF;
+  color: #343E4A;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.65rem;
@@ -4659,7 +4668,7 @@ section.height-auto {
   color: #343E4A !important;
 }
 #obras-teatrales .projects-intro {
-  color: rgba(52, 62, 74, 0.8);
+  color: #343E4A;
 }
 
 .projects-wrapper {
@@ -4749,6 +4758,9 @@ h1[data-section=contact][data-translate=title], .about-title, .op-title {
 .project-card .project-img__hover {
   opacity: 0;
   transition: opacity 0.4s ease;
+}
+.project-card .project-img img[src*=obras-teatrales-sirena-2] {
+  object-position: center top;
 }
 .project-card .project-ribbon {
   position: absolute;
@@ -5690,7 +5702,7 @@ body.modal-open .project-card {
     height: 34px;
   }
 }
-@media (max-width: 1366px) {
+@media (max-width: 1550px) {
   #servicios .container {
     width: 90%;
   }
@@ -5980,31 +5992,9 @@ body.modal-open .project-card {
     font-size: 2.8em;
   }
 }
-.contrast-toggle-button {
-  position: fixed;
-  bottom: 170px;
-  right: 20px;
-  background-color: #A9E3FB;
-  color: #343E4A;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 22px;
-  text-align: center;
-  line-height: 60px;
-  box-shadow: 0 2px 5px rgba(52, 62, 74, 0.3);
-  cursor: pointer;
-  z-index: 1000;
-}
-.contrast-toggle-button[aria-pressed=true] {
-  background-color: #DE3A1A;
-  color: #FFFFFF;
-}
-
 .colorblind-toggle-button {
   position: fixed;
-  bottom: 245px;
+  bottom: 170px;
   right: 20px;
   background-color: #A9E3FB;
   color: #343E4A;
@@ -6028,53 +6018,31 @@ body.a11y-colorblind #scrollspy,
 body.a11y-colorblind #contenido-principal {
   filter: url(#daltonize-deuteranopia);
 }
-
-body.a11y-contrast .about-title,
-body.a11y-contrast .choose-subtitle,
-body.a11y-contrast h2[data-section=our-services][data-translate=title] {
+body.a11y-colorblind .header-brand-description,
+body.a11y-colorblind .op-intro,
+body.a11y-colorblind .op-block-preview,
+body.a11y-colorblind .op-block-sponsors,
+body.a11y-colorblind .op-block-panel-inner p,
+body.a11y-colorblind .timeline-card p,
+body.a11y-colorblind .op-block-list li,
+body.a11y-colorblind .play-modal-text,
+body.a11y-colorblind .play-modal-ficha li,
+body.a11y-colorblind .play-modal-notes {
+  color: #FFFFFF;
+  opacity: 1;
+}
+body.a11y-colorblind .choose-subtitle {
   color: #343E4A !important;
 }
-body.a11y-contrast .institucional-tab {
+body.a11y-colorblind .institucional-tab {
   border-color: #343E4A;
   color: #343E4A;
 }
-body.a11y-contrast .institucional-tab:hover {
+body.a11y-colorblind .institucional-tab:hover {
   background-color: rgba(52, 62, 74, 0.1);
 }
-body.a11y-contrast .institucional-tab.active {
+body.a11y-colorblind .institucional-tab.active {
   background-color: #343E4A;
   border-color: #343E4A;
   color: #FFFFFF;
-}
-body.a11y-contrast .timeline-card {
-  background: rgba(52, 62, 74, 0.85);
-}
-body.a11y-contrast .about-wrapper .content {
-  color: #343E4A;
-}
-body.a11y-contrast .about-wrapper .content .title,
-body.a11y-contrast .about-wrapper .content p {
-  color: #343E4A;
-}
-body.a11y-contrast .services-wrapper p:not(.services-wrapper-credit) {
-  color: #343E4A;
-}
-body.a11y-contrast .services-wrapper .title,
-body.a11y-contrast .services-wrapper-credit {
-  color: #343E4A;
-}
-body.a11y-contrast .apoyos-title {
-  color: #343E4A;
-}
-body.a11y-contrast .projects-intro {
-  opacity: 1;
-}
-body.a11y-contrast .header-brand-description,
-body.a11y-contrast .op-intro,
-body.a11y-contrast .op-block-preview,
-body.a11y-contrast .op-block-sponsors,
-body.a11y-contrast .op-block-panel-inner p,
-body.a11y-contrast .timeline-card p {
-  color: #FFFFFF;
-  opacity: 1;
 }

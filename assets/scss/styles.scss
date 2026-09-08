@@ -3846,7 +3846,13 @@ nav.page-navbar.affix .navbar-brand .text-dark {
   line-height: 1.5;
   text-align: left;
   margin: 16px 0 0;
-  transform: translate(35px, 10px);
+  // translateX bumped from 35px to 125px, per request — the logo image
+  // includes its own decorative mark to the left of the "Apto para todo
+  // público" wordmark, so its bounding box's left edge (what 35px was
+  // measured against) sits well left of where the wordmark text itself
+  // starts. Measured empirically (canvas pixel-sampling the rendered
+  // logo) at a 1920px-wide desktop viewport.
+  transform: translate(125px, 10px);
 }
 
 .header-eyebrow-stack {
@@ -4306,6 +4312,15 @@ $animationSpeed: 40s;
   z-index: 3;
 }
 
+// Was white (via %section-title-style, plus Bootstrap's own .text-light
+// on this heading) — brand dark-blue instead, per request, now that
+// #servicios has the light coral background rather than dark. The
+// #servicios prefix's extra specificity is what lets this beat both of
+// those without needing to touch either one directly.
+#servicios h2[data-section="our-services"][data-translate="title"] {
+  color: $dark-blue !important;
+}
+
 #seguridadehigiene {
   color: $white;
 
@@ -4467,6 +4482,15 @@ section.height-auto {
   }
 }
 
+// %section-title-style's own color: $white !important (via @extend,
+// above) is physically defined later in this file than this block, so a
+// same-specificity !important override placed here would lose to it on
+// source order — the extra #quienes-somos beats that on specificity
+// instead, regardless of where either rule sits in the file.
+#quienes-somos .about-title {
+  color: $dark-blue !important;
+}
+
 // Coverflow-style carousel: one active card centered up front, the
 // others stacked behind it left/right (scaled down + blurred), auto
 // advancing and pausing on hover — arrows for manual control.
@@ -4524,7 +4548,8 @@ section.height-auto {
   border: 1px solid rgba(222, 58, 26, 0.2);
   border-radius: 0.2rem;
   padding: 34px;
-  color: $white;
+  // Was $white — per request, brand dark-blue instead.
+  color: $dark-blue;
   pointer-events: auto;
   // Multiplied into the active card's scale() below — only it grows on
   // hover, the side cards stay put (see .about-card--active:hover).
@@ -4535,7 +4560,7 @@ section.height-auto {
 
   .title,
   p {
-    color: $white;
+    color: $dark-blue;
     opacity: 1;
   }
   .title {
@@ -4959,6 +4984,9 @@ section.height-auto {
   }
 
   p:not(.services-wrapper-credit) {
+    // Was inheriting the global rgba(white, 0.85) — explicit dark-blue
+    // instead, per request, since this card sits on the coral background.
+    color: $dark-blue;
     font-size: 1rem;
     margin-bottom: 12px;
 
@@ -4973,7 +5001,7 @@ section.height-auto {
 }
 
 .services-wrapper .title {
-  color: $white;
+  color: $dark-blue;
   // Small enough that "Formación en introducción a la accesibilidad
   // cultural" (the longest of the two) still fits on one line inside
   // the card's narrower content area (more side padding now).
@@ -5031,7 +5059,7 @@ section.height-auto {
 // Caption directly under the flyer, like a photo credit line — small
 // enough (and non-wrapping) to fit on one line within the 140px column.
 .services-wrapper-credit {
-  color: $white;
+  color: $dark-blue;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.65rem;
@@ -5104,8 +5132,11 @@ section.height-auto {
     color: $dark-blue !important;
   }
 
+  // Was rgba($dark-blue, 0.8) (faded) — per request, permanently as
+  // solid/dark as the old high-contrast-mode override made it, not just
+  // when that toggle is on.
   .projects-intro {
-    color: rgba($dark-blue, 0.8);
+    color: $dark-blue;
   }
 }
 
@@ -5219,6 +5250,15 @@ h1[data-section="contact"][data-translate="title"] {
     &__hover {
       opacity: 0;
       transition: opacity 0.4s ease;
+    }
+
+    // Sirena Encubierta's thumbnail is a full-length group shot (tall
+    // portrait source cropped down to this card's square frame) —
+    // default center cropping cut the tops of everyone's heads off.
+    // Anchored toward the top instead so faces stay in frame (crops
+    // more off the bottom/feet, which matter less here).
+    img[src*="obras-teatrales-sirena-2"] {
+      object-position: center top;
     }
   }
 
@@ -6435,7 +6475,13 @@ body.modal-open .project-card {
   }
 }
 
-@media (max-width: 1366px) {
+// Was max-width: 1366px — the two .services-wrapper cards need ~1160px
+// of row width to sit side by side (their combined flex-basis + gap),
+// and the generic ".container { width: 80% }" only clears that on its
+// own past ~1520px. Between 1366px and there, neither this rule nor
+// that default gave enough room, so the second card wrapped onto its
+// own line. Widened to close that gap.
+@media (max-width: 1550px) {
 
   #servicios .container {
     width: 90%;
@@ -6825,48 +6871,19 @@ body.modal-open .project-card {
 }
 
 // ===========================================================
-// Accessibility: high-contrast toggle
+// Accessibility: colorblind-mode toggle
 // ===========================================================
-// Several titles/cards use white text over the site's coral/ocre
-// accent backgrounds, which only reaches ~2:1 contrast (WCAG needs
-// 4.5:1) — but switching them to dark-blue by default changes the
-// site's look, so instead it's opt-in: a floating button (above the
-// WhatsApp button) toggles a `.a11y-contrast` class on <body> via
-// assets/js/atp.js, which is what every rule below is scoped to. The
-// preference is remembered (localStorage) so it stays on next visit.
-// Off by default, the page renders exactly as it did before.
+// A floating button (above the WhatsApp button) toggles a
+// `.a11y-colorblind` class on <body> via assets/js/atp.js, which is
+// what every rule below is scoped to. The preference is remembered
+// (localStorage) so it stays on next visit. Off by default, the page
+// renders exactly as it did before.
 
-.contrast-toggle-button {
-  position: fixed;
-  bottom: 170px;
-  right: 20px;
-  background-color: $celeste;
-  color: $dark-blue;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 22px;
-  text-align: center;
-  line-height: 60px;
-  box-shadow: 0 2px 5px rgba(52, 62, 74, 0.3);
-  cursor: pointer;
-  z-index: 1000;
-
-  // Marks the toggle itself as currently on. Icon flips to white here —
-  // dark-blue (the resting-state icon color) doesn't have enough
-  // contrast against this red.
-  &[aria-pressed="true"] {
-    background-color: $primary;
-    color: $white;
-  }
-}
-
-// Same button stack as .contrast-toggle-button, one slot further up
-// (170px + the same 75px gap used between every button below it).
+// Same button stack as .whatsapp-button/.scroll-button below (each
+// 75px further up, right column).
 .colorblind-toggle-button {
   position: fixed;
-  bottom: 245px;
+  bottom: 170px;
   right: 20px;
   background-color: $celeste;
   color: $dark-blue;
@@ -6900,15 +6917,35 @@ body.a11y-colorblind {
   #contenido-principal {
     filter: url(#daltonize-deuteranopia);
   }
-}
 
-body.a11y-contrast {
-  .about-title,
-  .choose-subtitle,
-  h2[data-section="our-services"][data-translate="title"] {
+  // Faded/gray body text sitting on dark-blue backgrounds — bumped to
+  // solid white here (not dark-blue, which would be invisible against
+  // a dark-blue background). Covers the header intro paragraph, the
+  // "Otros proyectos" intro and its accordion cards (including the
+  // AcceDER II resource list), the timeline cards in Participaciones
+  // institucionales, and the obra detail modal's description/ficha
+  // técnica/notes text.
+  .header-brand-description,
+  .op-intro,
+  .op-block-preview,
+  .op-block-sponsors,
+  .op-block-panel-inner p,
+  .timeline-card p,
+  .op-block-list li,
+  .play-modal-text,
+  .play-modal-ficha li,
+  .play-modal-notes {
+    color: $white;
+    opacity: 1;
+  }
+
+  // "Institucional" section title — ocre by default there, per request
+  // switched to brand dark-blue.
+  .choose-subtitle {
     color: $dark-blue !important;
   }
 
+  // Alianzas / Participaciones institucionales tab buttons.
   .institucional-tab {
     border-color: $dark-blue;
     color: $dark-blue;
@@ -6923,56 +6960,5 @@ body.a11y-contrast {
       color: $white;
     }
   }
-
-  .timeline-card {
-    background: rgba($dark-blue, 0.85);
-  }
-
-  .about-wrapper .content {
-    color: $dark-blue;
-
-    .title,
-    p {
-      color: $dark-blue;
-    }
-  }
-
-  .services-wrapper {
-    p:not(.services-wrapper-credit) {
-      color: $dark-blue;
-    }
-  }
-
-  .services-wrapper .title,
-  .services-wrapper-credit {
-    color: $dark-blue;
-  }
-
-  // "Nos acompañan" — ocre text on the Apoyos band's white background
-  // only reaches ~2.1:1 contrast (needs 4.5:1).
-  .apoyos-title {
-    color: $dark-blue;
-  }
-
-  // Already dark-blue on #obras-teatrales's white background, just
-  // faded to 80% opacity — solidifying it here for full contrast
-  // headroom, not because it currently fails.
-  .projects-intro {
-    opacity: 1;
-  }
-
-  // Faded/gray body text sitting on dark-blue backgrounds — bumped to
-  // solid white here (not dark-blue, which would be invisible against
-  // a dark-blue background). Covers the header intro paragraph, the
-  // "Otros proyectos" intro and its accordion cards, and the timeline
-  // cards in Participaciones institucionales.
-  .header-brand-description,
-  .op-intro,
-  .op-block-preview,
-  .op-block-sponsors,
-  .op-block-panel-inner p,
-  .timeline-card p {
-    color: $white;
-    opacity: 1;
-  }
 }
+
