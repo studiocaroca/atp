@@ -243,6 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $json = json_encode($translations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             if ($json !== false && file_put_contents(TRANSLATIONS_FILE, $json, LOCK_EX) !== false) {
                 $sectionTitle = $translations['es']['portfolio']['title'];
+                admin_log_change('Obras teatrales', 'Cambió el título de la sección a "' . $sectionTitle . '"');
                 $message = 'Título guardado.';
                 $messageType = 'success';
             } else {
@@ -346,6 +347,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                     $data['plays'][$index] = $play;
                     if (admin_save_obras($data)) {
+                        admin_log_change('Obras teatrales', 'Editó la obra "' . $play['title'] . '"');
                         $message = '"' . $play['title'] . '" actualizada. Ya se ve en la página.';
                         $messageType = 'success';
                     } else {
@@ -378,6 +380,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $path = IMAGES_DIR . '/' . $removed['video'];
                         if (is_file($path)) @unlink($path);
                     }
+                    admin_log_change('Obras teatrales', 'Borró la obra "' . $removed['title'] . '"');
                     $message = '"' . $removed['title'] . '" borrada.';
                     $messageType = 'success';
                 } else {
@@ -462,6 +465,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'notes' => '',
                     ];
                     if (admin_save_obras($data)) {
+                        admin_log_change('Obras teatrales', 'Agregó la obra "' . $title . '"');
                         $message = '"' . $title . '" agregada. Ya se ve en la página.';
                         $messageType = 'success';
                     } else {
@@ -505,6 +509,7 @@ $cacheBust = time();
             <a href="obras.php">Obras teatrales</a>
             <a href="images.php">Imágenes</a>
             <a href="videos.php">Videos</a>
+            <a href="log.php">Historial</a>
             <a href="../index.html" target="_blank">Ver sitio ↗</a>
             <a href="logout.php">Salir</a>
         </nav>

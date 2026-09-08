@@ -17,9 +17,19 @@ $allowedExt = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg', 'ico'];
 // credit mark in the footer, and the unused ATP logo color variants are
 // leftover files nothing on the site links to — none of these are
 // meant to be swapped out from here. logo-blanco-azul-home.svg stays:
-// it's the one actually shown in the header/home.
+// it's the one actually shown in the header/home. favicon.ico isn't
+// content either — it's the browser-tab icon, referenced by exact
+// filename in index.html's <link rel="icon">, and swapping it for an
+// arbitrary photo here would silently break that. portada-obras.jpg and
+// portada-contactanos.jpg (plus portada-contactanos-vertical.jpg, its
+// mobile-only rotated companion swapped in via a media query — same
+// image, just rotated) are excluded too: both are CSS background-images
+// with a hand-tuned background-size/background-position in styles.scss,
+// not simple <img> tags, so a differently-shaped replacement dropped in
+// here would come out cropped or mispositioned instead of just working.
 $excludedFolders = ['formas'];
 $excludedFiles = [
+    'favicon.ico',
     'logo-caroca.svg',
     'logo-caroca-black.svg',
     'logo-azul-rojo.svg',
@@ -28,6 +38,7 @@ $excludedFiles = [
     'logo-blanco-azul2.svg',
     'logo-blanco-celeste.svg',
     'portada-contactanos.jpg',
+    'portada-contactanos-vertical.jpg',
     'portada-obras.jpg',
 ];
 
@@ -119,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $message = 'No se pudo reemplazar la imagen: el servidor no tiene permiso de escritura sobre assets/imgs.';
                     $messageType = 'error';
                 } elseif (move_uploaded_file($tmpPath, $targetPath)) {
+                    admin_log_change('Imágenes', 'Reemplazó la imagen "' . $target . '"');
                     $message = '"' . basename($target) . '" reemplazada. Ya se ve en la página.';
                     $messageType = 'success';
                 } else {
@@ -153,6 +165,7 @@ $cacheBust = time();
             <a href="obras.php">Obras teatrales</a>
             <a href="images.php">Imágenes</a>
             <a href="videos.php">Videos</a>
+            <a href="log.php">Historial</a>
             <a href="../index.html" target="_blank">Ver sitio ↗</a>
             <a href="logout.php">Salir</a>
         </nav>

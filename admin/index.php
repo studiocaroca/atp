@@ -28,6 +28,13 @@ $fieldMap = [
             'description' => ['label' => 'Texto de presentación de la ONG', 'type' => 'textarea'],
         ],
     ],
+    'about-intro' => [
+        'label' => 'Texto introductorio',
+        'fields' => [
+            'paragraph1' => ['label' => 'Párrafo 1', 'type' => 'textarea'],
+            'paragraph2' => ['label' => 'Párrafo 2', 'type' => 'textarea'],
+        ],
+    ],
     'about' => [
         'label' => 'Malena Sánchez Olmos',
         'fields' => [
@@ -90,12 +97,19 @@ $fieldMap = [
             'credit' => ['label' => 'Crédito de la foto del flyer', 'type' => 'text'],
         ],
     ],
+    'portfolio' => [
+        'label' => 'Título de la sección',
+        'fields' => [
+            'title' => ['label' => 'Título de la sección', 'type' => 'text'],
+        ],
+    ],
     'contact' => [
         'label' => 'Contacto',
         'fields' => [
             'title' => ['label' => 'Título', 'type' => 'text'],
             'subtitle' => ['label' => 'Subtítulo', 'type' => 'text'],
             'name' => ['label' => 'Placeholder del campo "Nombre"', 'type' => 'text'],
+            'email' => ['label' => 'Placeholder del campo "Email"', 'type' => 'text'],
             'message' => ['label' => 'Placeholder del campo "Mensaje"', 'type' => 'text'],
             'button' => ['label' => 'Texto del botón de envío', 'type' => 'text'],
         ],
@@ -111,7 +125,8 @@ $fieldMap = [
 $renderGroups = [
     ['label' => 'Menú de navegación', 'sections' => ['menu'], 'nested' => []],
     ['label' => 'Portada (Home)', 'sections' => ['header'], 'nested' => []],
-    ['label' => 'Quienes somos', 'sections' => [], 'nested' => ['about', 'about-sol', 'about-pau', 'about-tatiana', 'about-florencea']],
+    ['label' => 'Quienes somos', 'sections' => ['about-intro'], 'nested' => ['about', 'about-sol', 'about-pau', 'about-tatiana', 'about-florencea']],
+    ['label' => 'Obras teatrales', 'sections' => ['portfolio'], 'nested' => []],
     ['label' => 'Servicios', 'sections' => ['our-services'], 'nested' => ['servicios-formacion', 'servicios-asesorias']],
     ['label' => 'Contacto', 'sections' => ['contact'], 'nested' => []],
 ];
@@ -134,6 +149,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $messageType = 'error';
     } else {
         $posted = $_POST['field'] ?? [];
+        // Collected as we go so the change log (see admin_log_change()
+        // below) can name exactly which fields actually changed, not
+        // just "algo se guardó" — compared against the value already on
+        // disk, so re-submitting the form unchanged logs nothing.
+        $changedFieldLabels = [];
 
         foreach ($fieldMap as $section => $sectionDef) {
             if (!isset($translations['es'][$section]) || !is_array($translations['es'][$section])) {
@@ -146,6 +166,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $value = trim(str_replace(["\r\n", "\r"], "\n", $posted[$section][$key]));
                     if ($fieldDef['type'] !== 'textarea') {
                         $value = preg_replace('/\s+/', ' ', $value);
+                    }
+                    $previous = $translations['es'][$section][$key] ?? '';
+                    if ($value !== $previous) {
+                        $changedFieldLabels[] = $sectionDef['label'] . ' → ' . $fieldDef['label'];
                     }
                     $translations['es'][$section][$key] = $value;
                 }
@@ -166,6 +190,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $message = 'No se pudieron guardar los cambios (falló la escritura del archivo).';
                 $messageType = 'error';
             } else {
+                if ($changedFieldLabels) {
+                    admin_log_change('Textos', 'Editó: ' . implode('; ', $changedFieldLabels));
+                }
                 $message = 'Cambios guardados. Ya se ven en la página.';
                 $messageType = 'success';
             }
@@ -192,6 +219,7 @@ $csrf = admin_csrf_token();
             <a href="obras.php">Obras teatrales</a>
             <a href="images.php">Imágenes</a>
             <a href="videos.php">Videos</a>
+            <a href="log.php">Historial</a>
             <a href="../index.html" target="_blank">Ver sitio ↗</a>
             <a href="logout.php">Salir</a>
         </nav>

@@ -4480,8 +4480,36 @@ section.height-auto {
 // same-specificity !important override placed here would lose to it on
 // source order — the extra #quienes-somos beats that on specificity
 // instead, regardless of where either rule sits in the file.
-#quienes-somos .about-title {
-  color: $dark-blue !important;
+// Desktop only, per request — mobile reverts to the original white
+// (nothing to override there, so it just falls back to
+// %section-title-style's own color).
+@media (min-width: 701px) {
+  #quienes-somos .about-title {
+    color: $dark-blue !important;
+  }
+}
+
+// General intro copy below the team-member carousel — dark-blue like
+// the carousel cards' own text (not the title above it, which stays
+// white on mobile), since this reads as regular body copy on the
+// section's coral background either way.
+.about-intro {
+  position: relative;
+  z-index: 5;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0 0 60px;
+  text-align: center;
+
+  p {
+    color: $dark-blue;
+    font-weight: bold;
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 // Coverflow-style carousel: one active card centered up front, the
@@ -4490,7 +4518,7 @@ section.height-auto {
 .about-carousel {
   position: relative;
   max-width: 1300px;
-  margin: 0 auto 40px;
+  margin: 0 auto 10px;
   padding: 0 60px;
 }
 

@@ -1,0 +1,24 @@
+# Blocks direct browser/URL access to data files that live in this folder
+# but are only meant to be read by the PHP pages themselves — right now
+# just change-log.json (admin_log_change() in config.php), but written
+# to cover any .json dropped in here later too.
+#
+# Two directive styles are included so this works whether the server's
+# Apache is old (2.2, "Order/Deny") or current (2.4, "Require"); an
+# unrecognized block is simply ignored by the other version instead of
+# causing a 500, so both can safely stay in the same file.
+
+<IfModule mod_authz_core.c>
+    # Apache 2.4+
+    <FilesMatch "\.json$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+<IfModule !mod_authz_core.c>
+    # Apache 2.2 and earlier
+    <FilesMatch "\.json$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>

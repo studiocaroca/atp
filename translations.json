@@ -13,6 +13,10 @@
             "eyebrow": "diversidad de posiblidades",
             "description": "Es una ONG argentina que promueve contenidos escénicos accesibles pensados para todos los públicos. Su objetivo primario es garantizar los derechos culturales de las personas con discapacidad, buscando ampliar la oferta cultural argentina."
         },
+        "about-intro": {
+            "paragraph1": "Apto para Todo Público es una asociación civil argentina dedicada a la accesibilidad cultural, para que las artes escénicas sean un espacio genuinamente compartido por personas con y sin discapacidad.",
+            "paragraph2": "Somos un equipo interdisciplinario que combina distintos lenguajes artísticos y formaciones (actuación, dirección, producción, diseño, entre otras) con expertise específico en discapacidad y accesibilidad. Esa combinación es lo que nos permite pensar cada proyecto (desde la dramaturgia hasta la gestión de sala) con la accesibilidad como parte constitutiva, y no como un agregado de último momento."
+        },
         "about": {
             "title": "Sobre",
             "name": "Malena Sánchez Olmos",

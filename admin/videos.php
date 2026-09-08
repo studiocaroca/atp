@@ -43,6 +43,15 @@ function admin_list_videos() {
     return $files;
 }
 
+// Same labels used in index.html's alt text / surrounding copy, so
+// it's clear which video is which without having to play each one.
+// Defined up here (not just before the HTML) so the POST handler below
+// can use it too, for a readable change-log entry.
+$videoLabels = [
+    'after-movie-web.mp4' => 'Aftermovie — Festival Distendido (AcceDER I)',
+    'distendida-gdz-web.mp4' => 'Función distendida en La Granja de Zenón (Servicios)',
+];
+
 $message = '';
 $messageType = '';
 $videos = admin_list_videos();
@@ -72,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $message = 'No se pudo reemplazar el video: el servidor no tiene permiso de escritura sobre assets/imgs/videos.';
                 $messageType = 'error';
             } elseif (move_uploaded_file($_FILES['new_video']['tmp_name'], $targetPath)) {
+                admin_log_change('Videos', 'Reemplazó el video "' . ($videoLabels[$target] ?? $target) . '"');
                 $message = '"' . $target . '" reemplazado. Ya se ve en la página.';
                 $messageType = 'success';
             } else {
@@ -85,13 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $csrf = admin_csrf_token();
 $cacheBust = time();
-
-// Same labels used in index.html's alt text / surrounding copy, so
-// it's clear which video is which without having to play each one.
-$videoLabels = [
-    'after-movie-web.mp4' => 'Aftermovie — Festival Distendido (AcceDER I)',
-    'distendida-gdz-web.mp4' => 'Función distendida en La Granja de Zenón (Servicios)',
-];
 ?>
 <!doctype html>
 <html lang="es">
@@ -110,6 +113,7 @@ $videoLabels = [
             <a href="obras.php">Obras teatrales</a>
             <a href="images.php">Imágenes</a>
             <a href="videos.php">Videos</a>
+            <a href="log.php">Historial</a>
             <a href="../index.html" target="_blank">Ver sitio ↗</a>
             <a href="logout.php">Salir</a>
         </nav>
