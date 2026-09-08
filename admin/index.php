@@ -4,9 +4,10 @@ admin_require_login();
 
 // Every field here maps 1:1 to a [data-section][data-translate] element
 // in ../index.html that atp.js actually populates from translations.json
-// at page load — see fetchTranslations()/updateTranslations() there.
-// Only the "es" locale is edited here: it's the language the site shows
-// by default, and en/pt are left untouched in the file.
+// at page load. The site is Spanish-only — translations.json only has
+// an "es" object (there used to be en/pt too, for a language switcher
+// that's since been removed) — so that's the only key ever read/written
+// here.
 $fieldMap = [
     'menu' => [
         'label' => 'Menú de navegación',

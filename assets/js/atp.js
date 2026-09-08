@@ -321,106 +321,64 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-//translation
+// Site text — Spanish-only. Every [data-section][data-translate]
+// element in the page gets its content from translations.json (which
+// now only has an "es" object) — that's what admin/index.php actually
+// edits, so a change made there shows up here without touching the
+// HTML. This used to also drive an EN/PT language switcher; that's
+// gone now (site is Spanish-only per request), but the fetch-and-fill
+// mechanism itself stays, since the admin panel depends on it.
 document.addEventListener('DOMContentLoaded', function () {
-    const langCurrent = document.getElementById('lang-current');
-    const langDropdown = document.getElementById('lang-dropdown');
-
     function wrapLetters(element) {
         const text = element.textContent;
         element.innerHTML = '';
         Array.from(text).forEach((char, i) => {
             const span = document.createElement('span');
-            span.textContent = char === ' ' ? ' ' : char;
+            span.textContent = char === ' ' ? ' ' : char; // non-breaking space (not a plain space, which collapses to ~0 width inside display:inline-block)
             span.style.setProperty('--i', i);
             element.appendChild(span);
         });
     }
 
-    function updateTranslations(translations, language) {
-        const translation = translations[language];
-        if (translation) {
-            document.querySelectorAll('[data-section][data-translate]').forEach(element => {
-                const section = element.getAttribute('data-section');
-                const key = element.getAttribute('data-translate');
-                if (translation[section] && translation[section][key]) {
-                    const value = translation[section][key];
-                    if (element.hasAttribute('data-translate-placeholder')) {
-                        element.setAttribute('placeholder', value);
-                    } else if (element.hasAttribute('data-translate-value')) {
-                        element.setAttribute('value', value);
-                    } else {
-                        element.textContent = value;
-                        if (element.classList.contains('header-eyebrow')) {
-                            wrapLetters(element);
-                        }
+    function applyTranslations(translation) {
+        document.querySelectorAll('[data-section][data-translate]').forEach(element => {
+            const section = element.getAttribute('data-section');
+            const key = element.getAttribute('data-translate');
+            if (translation[section] && translation[section][key]) {
+                const value = translation[section][key];
+                if (element.hasAttribute('data-translate-placeholder')) {
+                    element.setAttribute('placeholder', value);
+                } else if (element.hasAttribute('data-translate-value')) {
+                    element.setAttribute('value', value);
+                } else {
+                    element.textContent = value;
+                    if (element.classList.contains('header-eyebrow')) {
+                        wrapLetters(element);
                     }
                 }
-            });
-        }
+            }
+        });
     }
 
-    async function fetchTranslations() {
-        try {
-            const response = await fetch('translations.json');
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const translations = await response.json();
-
-            const allLanguages = ['en', 'es', 'pt'];
-            let currentLanguage = 'es';
-
-            function setLanguage(lang) {
-                currentLanguage = lang;
-                updateTranslations(translations, lang);
-                langCurrent.textContent = lang.toUpperCase();
-                langDropdown.innerHTML = allLanguages
-                    .filter(l => l !== lang)
-                    .map(l => `<div class="lang-selector__option" data-language="${l}">${l.toUpperCase()}</div>`)
-                    .join('');
-            }
-
-            setLanguage('es');
-
-            langCurrent.addEventListener('click', function (e) {
-                e.stopPropagation();
-                langDropdown.classList.toggle('open');
-            });
-
-            langDropdown.addEventListener('click', function (e) {
-                const option = e.target.closest('.lang-selector__option');
-                if (option) {
-                    setLanguage(option.getAttribute('data-language'));
-                    langDropdown.classList.remove('open');
-                }
-            });
-
-            document.addEventListener('click', function () {
-                langDropdown.classList.remove('open');
-            });
-
-        } catch (error) {
+    fetch('translations.json')
+        .then(function (response) {
+            if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+            return response.json();
+        })
+        .then(function (translations) {
+            applyTranslations(translations.es || {});
+        })
+        .catch(function (error) {
             console.error('There has been a problem with your fetch operation:', error);
-        }
-    }
-
-    fetchTranslations();
+        });
 });
 
-// Contact form — AJAX submit via Formspree
+// Contact form — AJAX submit to contact.php (see that file)
 (function () {
-    const successMessages = {
-        en: 'Your message has been sent',
-        es: 'Su mensaje ha sido enviado',
-        pt: 'Sua mensagem foi enviada'
-    };
-
-    const errorMessages = {
-        en: 'There was a problem sending your message. Please try again in a moment.',
-        es: 'Hubo un problema al enviar tu mensaje. Por favor, intentá de nuevo en un momento.',
-        pt: 'Houve um problema ao enviar sua mensagem. Por favor, tente novamente em instantes.'
-    };
+    // Spanish-only (see the translation block above), so these don't
+    // need to vary by language anymore.
+    const SUCCESS_MESSAGE = 'Su mensaje ha sido enviado';
+    const ERROR_MESSAGE = 'Hubo un problema al enviar tu mensaje. Por favor, intentá de nuevo en un momento.';
 
     const form = document.querySelector('.contact-form');
     const successEl = document.getElementById('form-success');
@@ -450,7 +408,6 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
 
         const data = new FormData(form);
-        const lang = (document.getElementById('lang-current')?.textContent || 'en').toLowerCase();
 
         try {
             const response = await fetch(form.action, {
@@ -460,14 +417,14 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (response.ok) {
-                showSuccess(successMessages[lang] || successMessages.en);
+                showSuccess(SUCCESS_MESSAGE);
                 form.reset();
             } else {
-                showError(errorMessages[lang] || errorMessages.en);
+                showError(ERROR_MESSAGE);
             }
         } catch (err) {
             console.error('Form submission error:', err);
-            showError(errorMessages[lang] || errorMessages.en);
+            showError(ERROR_MESSAGE);
         }
     });
 

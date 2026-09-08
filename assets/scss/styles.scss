@@ -532,7 +532,6 @@ nav.page-navbar .nav-item {
     padding-right: 0.15rem;
     padding-left: 0.15rem;
   }
-  .flags { display: none; }
 }
 
 @media (min-width: 880px) and (max-width: 999px) {
@@ -541,7 +540,6 @@ nav.page-navbar .nav-item {
     font-size: 0.58rem;
     letter-spacing: 0.02em;
   }
-  .flags { display: none; }
 }
 
 @media (min-width: 1000px) and (max-width: 1150px) {
@@ -3245,11 +3243,6 @@ nav.page-navbar .navbar-brand {
   font-size: 20px;
   -webkit-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
-}
-
-.lang-selector__current,
-.lang-selector__option {
-  color: $black;
 }
 
 nav.page-navbar .navbar-brand .text-dark {
@@ -6422,32 +6415,6 @@ body.modal-open .project-card {
 
 #contact .footer a:hover {
   color: $secondary;
-}
-
-/*flags*/
-.flags {
-  width: 75px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 5px;
-}
-
-.flags__item {
-  width: 30px;
-}
-
-.flags__item:hover {
-  width: 40px;
-}
-
-.flags__item.active {
-  width: 40px;
-}
-
-.flags__img {
-  cursor: pointer;
-  display: block;
 }
 
 .logo-caroca {
