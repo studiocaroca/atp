@@ -1,9 +1,6 @@
 User-agent: *
-Disallow: /node_modules/
-Disallow: /package-lock.json
-Disallow: /package.json
-Disallow: /readme.md
-Disallow: /translations.json
 Disallow: /admin/
+Disallow: /translations.json
+Disallow: /obras.json
 
 Sitemap: https://www.aptoparatodopublico.org/sitemap.xml
